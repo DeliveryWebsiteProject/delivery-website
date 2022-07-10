@@ -8,8 +8,6 @@ module.exports = {
     'eslint:recommended',
     '@vue/typescript/recommended',
     'plugin:prettier/recommended',
-    'vue',
-    'standard',
     'plugin:vue/recommended',
   ],
   plugins: ['import', 'vue'],
