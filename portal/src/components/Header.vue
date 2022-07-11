@@ -1,3 +1,4 @@
+<!-- eslint-disable prettier/prettier -->
 <template>
   <header>
     <div class="container">
@@ -16,7 +17,7 @@
         </ul>
       </nav>
       <div class="__login">
-        <button>Login</button>
+        <v-btn>Login</v-btn>
       </div>
     </div>
   </header>

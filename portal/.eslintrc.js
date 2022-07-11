@@ -4,11 +4,11 @@ module.exports = {
     node: true,
   },
   extends: [
+    'plugin:vue/recommended',
     'plugin:vue/vue3-essential',
     'eslint:recommended',
     '@vue/typescript/recommended',
     'plugin:prettier/recommended',
-    'plugin:vue/recommended',
   ],
   plugins: ['import', 'vue'],
   parserOptions: {
