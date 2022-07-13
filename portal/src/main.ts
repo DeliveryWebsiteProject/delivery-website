@@ -1,12 +1,11 @@
-import { createApp } from "vue";
+import Vue from "vue";
+import Vuetify from "vuetify";
 import "vuetify/dist/vuetify.min.css";
 import App from "./App.vue";
-import router from "./router/index";
-import "vuetify/dist/vuetify.min.css";
+import router from "./router";
 
-const app = createApp(App);
+Vue.use(Vuetify);
 
-app.use(router);
-// app.use(vuetify);
-
-app.mount("#app");
+new Vue({
+  render: (h) => h(App),
+}).$mount("#app");

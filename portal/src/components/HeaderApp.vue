@@ -17,7 +17,11 @@
         </ul>
       </nav>
       <div class="__login">
-        <v-btn>Login</v-btn>
+        <v-btn
+          color="green"
+        >
+          Login
+        </v-btn>
       </div>
     </div>
   </header>
