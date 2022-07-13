@@ -44,7 +44,7 @@ header {
 }
 
 header::after {
-  content: '';
+  content: "";
   display: table;
   clear: both;
 }

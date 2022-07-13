@@ -1,9 +1,12 @@
-import { createApp } from 'vue';
-import Vuetify from 'vuetify';
-import 'vuetify/dist/vuetify.min.css';
+import { createApp } from "vue";
+import "vuetify/dist/vuetify.min.css";
+import App from "./App.vue";
+import router from "./router/index";
+import "vuetify/dist/vuetify.min.css";
 
-import App from './App.vue';
-import './registerServiceWorker';
-import router from './router';
+const app = createApp(App);
 
-createApp(App).use(router).use(Vuetify).mount('#app');
+app.use(router);
+// app.use(vuetify);
+
+app.mount("#app");

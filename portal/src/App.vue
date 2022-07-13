@@ -1,11 +1,10 @@
-<!-- eslint-disable prettier/prettier -->
 <template>
-  <Header></Header>
+  <Header />
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import Header from './components/Header.vue';
+import { defineComponent } from "vue";
+import Header from "./components/HeaderApp.vue";
 
 export default defineComponent({
   components: {
