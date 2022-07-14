@@ -1,4 +1,11 @@
-import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
+import Vue from "vue";
+import Router, {
+  createRouter,
+  createWebHashHistory,
+  RouteRecordRaw,
+} from "vue-router";
+
+Vue.extend(Router);
 
 const routes: Array<RouteRecordRaw> = [
   // {
@@ -6,11 +13,11 @@ const routes: Array<RouteRecordRaw> = [
   //   name: "home",
   //   component: HomeView,
   // },
-  // {
-  //   path: "/about",
-  //   name: "about",
-  //   component: () => import("../views/AboutView.vue"),
-  // },
+  {
+    path: "/about",
+    name: "about",
+    component: () => import("../views/AboutView.vue"),
+  },
 ];
 
 const router = createRouter({

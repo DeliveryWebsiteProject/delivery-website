@@ -2,24 +2,25 @@
 <template>
   <header>
     <div class="container">
-      <div class="container__logo">LOGO</div>
+      <div class="container__logo">
+        <router-link to="/">LOGO</router-link>
+      </div>
       <nav class="container__nav">
         <ul>
           <li>
-            <a href="#">Menu</a>
+            <router-link to="/">Menu</router-link>
           </li>
           <li>
-            <a href="#">Sobre</a>
+            <router-link to="/about">Sobre</router-link>
           </li>
           <li>
-            <a href="#">Carrinho</a>
+            <router-link to="/">Carrinho</router-link>
           </li>
         </ul>
       </nav>
+      <router-view />
       <div class="__login">
-        <v-btn
-          color="green"
-        >
+        <v-btn color="green">
           Login
         </v-btn>
       </div>
@@ -32,13 +33,6 @@ export default {};
 </script>
 
 <style lang="scss">
-// @import url("https://fonts.googleapis.com/css?family=Roboto+Condensed");
-
-// html,
-// body {
-//   font-family: "Times New Roman", Times, serif;
-// }
-
 body {
   margin: 0;
 }
@@ -85,7 +79,7 @@ header::after {
     margin: 0 35px;
   }
 
-  a {
+  router-link {
     text-decoration: none;
     color: #378c3b;
   }
