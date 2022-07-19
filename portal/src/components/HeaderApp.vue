@@ -19,11 +19,11 @@
         </ul>
       </nav>
       <router-view />
-      <div class="__login">
-        <v-btn color="green">
-          Login
-        </v-btn>
-      </div>
+    </div>
+    <div class="login">
+      <v-btn class="login__btn" color="green" absolute="true">
+        Login
+      </v-btn>
     </div>
   </header>
 </template>
@@ -41,27 +41,17 @@ header {
   background: #0c0000;
 }
 
-header::after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
 .container {
   width: 100%;
   height: 60px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 0 auto;
+  margin: 0;
 
   &__logo {
     float: left;
     color: red;
-  }
-
-  &__login {
-    width: 100px;
   }
 
   &__nav {
@@ -82,6 +72,24 @@ header::after {
   router-link {
     text-decoration: none;
     color: #378c3b;
+    font-weight: bold;
+  }
+}
+
+.login {
+  &__btn {
+    top: 0;
+    right: 0;
+    height: 60px;
+    width: 130px;
+
+    border-radius: 0;
+    box-shadow: none !important;
+    color: white !important;
+
+    font-weight: bold;
+    font-size: 20px;
+    font-family: "Montserrat", sans-serif;
   }
 }
 </style>
