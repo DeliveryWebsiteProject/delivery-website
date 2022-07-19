@@ -38,20 +38,20 @@ body {
 }
 
 header {
-  background: #0c0000;
+  background: #1c1c1c;
 }
 
 .container {
   width: 100%;
   height: 60px;
+  margin: 0;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 0;
 
   &__logo {
     float: left;
-    color: red;
   }
 
   &__nav {
@@ -65,13 +65,13 @@ header {
   }
 
   &__nav li {
-    display: inline-block;
     margin: 0 35px;
+    display: inline-block;
   }
 
   router-link {
-    text-decoration: none;
     color: #378c3b;
+    text-decoration: none;
     font-weight: bold;
   }
 }
@@ -85,8 +85,8 @@ header {
 
     border-radius: 0;
     box-shadow: none !important;
-    color: white !important;
 
+    color: #ffffff !important;
     font-weight: bold;
     font-size: 20px;
     font-family: "Montserrat", sans-serif;
