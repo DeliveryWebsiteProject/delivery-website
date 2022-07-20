@@ -9,6 +9,8 @@ class App {
   public express: express.Application
 
   constructor() {
+    dotenv.config()
+
     this.express = express()
     this.middlewares()
     this.database()
