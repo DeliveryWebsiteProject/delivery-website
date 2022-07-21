@@ -1,4 +1,3 @@
-<!-- eslint-disable prettier/prettier -->
 <template>
   <header>
     <div class="container">
@@ -21,9 +20,7 @@
       <router-view />
     </div>
     <div class="login">
-      <v-btn class="login__btn" color="green" absolute="true">
-        Login
-      </v-btn>
+      <v-btn class="login__btn" color="green" absolute="true">Login</v-btn>
     </div>
   </header>
 </template>

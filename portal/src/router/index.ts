@@ -1,13 +1,9 @@
 import Vue from "vue";
-import Router, {
-  createRouter,
-  createWebHashHistory,
-  RouteRecordRaw,
-} from "vue-router";
+import VueRouter, { RouteConfig } from "vue-router";
 
-Vue.extend(Router);
+Vue.extend(VueRouter);
 
-const routes: Array<RouteRecordRaw> = [
+const routes: Array<RouteConfig> = [
   // {
   //   path: "/",
   //   name: "home",
@@ -16,12 +12,12 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/about",
     name: "about",
-    component: () => import("../views/AboutView.vue"),
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
   },
 ];
 
-const router = createRouter({
-  history: createWebHashHistory(),
+const router = new VueRouter({
   routes,
 });
 
