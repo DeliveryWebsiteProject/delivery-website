@@ -43,9 +43,11 @@ header {
   height: 60px;
   margin: 0;
 
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 50px 100%;
   align-items: center;
+  align-content: center;
+  justify-items: center;
 
   &__logo {
     float: left;
@@ -66,7 +68,7 @@ header {
     display: inline-block;
   }
 
-  router-link {
+  a {
     color: #378c3b;
     text-decoration: none;
     font-weight: bold;
