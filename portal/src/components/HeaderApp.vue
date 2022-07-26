@@ -2,7 +2,7 @@
   <header>
     <div class="container">
       <div class="container__logo">
-        <router-link to="/">LOGO</router-link>
+        <router-link to="/"><img src="../assets/logo.png" /></router-link>
       </div>
       <nav class="container__nav">
         <ul>
@@ -44,8 +44,9 @@ header {
 
 .container {
   width: 100%;
-  height: 60px;
+  height: 81px;
   margin: 0;
+  padding-left: 10px;
 
   display: flex;
   justify-content: space-between;
@@ -82,7 +83,7 @@ header {
   &__btn {
     top: 0;
     right: 0;
-    height: 60px;
+    height: 81px;
     width: 130px;
 
     border-radius: 0;
