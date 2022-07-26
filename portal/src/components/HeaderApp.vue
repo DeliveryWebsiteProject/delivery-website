@@ -18,9 +18,9 @@
         </ul>
       </nav>
       <router-view />
-    </div>
-    <div class="login">
-      <v-btn class="login__btn" color="green" absolute="true">Login</v-btn>
+      <div class="login">
+        <v-btn class="login__btn" color="green" absolute="true">Login</v-btn>
+      </div>
     </div>
   </header>
 </template>
@@ -30,6 +30,10 @@ export default {};
 </script>
 
 <style lang="scss">
+html {
+  overflow: auto;
+}
+
 body {
   margin: 0;
 }
@@ -43,11 +47,10 @@ header {
   height: 60px;
   margin: 0;
 
-  display: grid;
-  grid-template-columns: 50px 100%;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
   align-content: center;
-  justify-items: center;
 
   &__logo {
     float: left;
