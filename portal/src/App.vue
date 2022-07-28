@@ -5,18 +5,18 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import Header from "./components/HeaderApp.vue";
+import { defineComponent } from 'vue'
+import Header from './components/HeaderApp.vue'
 
 export default defineComponent({
   components: {
-    Header,
-  },
-});
+    Header
+  }
+})
 </script>
 
 <style>
 html {
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Montserrat', sans-serif;
 }
 </style>

@@ -26,7 +26,7 @@
 </template>
 
 <script lang="ts">
-export default {};
+export default {}
 </script>
 
 <style lang="scss">
@@ -92,7 +92,7 @@ header {
     color: #ffffff !important;
     font-weight: bold;
     font-size: 20px;
-    font-family: "Montserrat", sans-serif;
+    font-family: 'Montserrat', sans-serif;
   }
 }
 </style>
