@@ -7,19 +7,19 @@
       <nav class="container__nav">
         <ul>
           <li>
-            <router-link to="/">Menu</router-link>
+            <router-link class="link" to="/">Menu</router-link>
           </li>
           <li>
-            <router-link to="/about">Sobre</router-link>
+            <router-link class="link" to="/about">Sobre</router-link>
           </li>
           <li>
-            <router-link to="/">Carrinho</router-link>
+            <router-link class="link" to="/">Carrinho</router-link>
           </li>
         </ul>
       </nav>
       <router-view />
       <div class="login">
-        <v-btn class="login__btn" color="green" absolute="true">Login</v-btn>
+        <v-btn class="login__btn">Login</v-btn>
       </div>
     </div>
   </header>
@@ -72,10 +72,34 @@ header {
     display: inline-block;
   }
 
-  a {
+  .link {
     color: #378c3b;
     text-decoration: none;
     font-weight: bold;
+    position: relative;
+  }
+
+  .link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(
+      90deg,
+      rgba(50, 50, 50, 1) 30%,
+      rgba(55, 140, 59, 1) 50%
+    );
+
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 200ms ease-in;
+  }
+
+  .link:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
   }
 }
 
@@ -83,8 +107,10 @@ header {
   &__btn {
     top: 0;
     right: 0;
-    height: 81px;
-    width: 130px;
+    height: 81px !important;
+    width: 130px !important;
+    position: absolute;
+    background-color: green !important;
 
     border-radius: 0;
     box-shadow: none !important;
