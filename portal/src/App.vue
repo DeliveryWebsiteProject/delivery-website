@@ -9,28 +9,23 @@
       rel="stylesheet"
     />
     <HeaderApp />
-    <Carrousel />
+    <router-view />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
 import HeaderApp from './components/Header.vue'
-import Carrousel from './components/Carrousel.vue'
 
 export default defineComponent({
   components: {
     HeaderApp,
-    Carrousel
   }
 })
 </script>
 
 <style>
-html,
 body {
-  margin: 0;
-  padding: 0;
   background-color: #202124;
   font-family: 'Montserrat', sans-serif;
 }

@@ -17,9 +17,8 @@
           </li>
         </ul>
       </nav>
-      <router-view />
       <div class="login">
-        <v-btn class="login__btn">Login</v-btn>
+        <v-btn class="login__btn" to="/login">Login</v-btn>
       </div>
     </div>
   </header>
@@ -32,10 +31,6 @@ export default {}
 <style lang="scss">
 html {
   overflow: auto;
-}
-
-body {
-  margin: 0;
 }
 
 header {
