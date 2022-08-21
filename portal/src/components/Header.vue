@@ -54,6 +54,7 @@ header {
 
   &__nav {
     float: right;
+    font-size: 18px;
   }
 
   &__nav ul {
@@ -81,11 +82,7 @@ header {
     bottom: 0;
     width: 100%;
     height: 2px;
-    background: linear-gradient(
-      90deg,
-      rgba(50, 50, 50, 1) 30%,
-      rgba(55, 140, 59, 1) 50%
-    );
+    background: rgba(55, 140, 59, 1);
 
     transform: scaleX(0);
     transform-origin: right;
@@ -112,7 +109,7 @@ header {
 
     color: #ffffff !important;
     font-weight: bold;
-    font-size: 20px;
+    font-size: 20px !important;
     font-family: 'Montserrat', sans-serif;
   }
 }
