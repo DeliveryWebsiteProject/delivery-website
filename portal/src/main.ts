@@ -7,13 +7,14 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import {
   faChevronRight,
-  faChevronLeft
+  faChevronLeft,
+  faUsers
 } from '@fortawesome/free-solid-svg-icons'
 
 Vue.use(Vuetify)
 
 /* add icons to the library */
-library.add(faChevronRight, faChevronLeft)
+library.add(faChevronRight, faChevronLeft, faUsers)
 
 /* add font awesome icon component */
 Vue.component('font-awesome-icon', FontAwesomeIcon)
