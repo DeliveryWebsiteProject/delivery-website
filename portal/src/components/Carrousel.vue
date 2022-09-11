@@ -36,6 +36,10 @@ export default {
   margin: 0 5px;
 }
 
+.v-application--wrap {
+  min-height: 0;
+}
+
 .v-item--active {
   background-color: #FFF;
   height: 20px !important;
