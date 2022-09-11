@@ -14,9 +14,9 @@ export default class Sizes {
 
     const selectedIndex = values.indexOf(selected)
 
-    if (selectedIndex == values.length - 1 && increasing) {
+    if (selectedIndex === values.length - 1 && increasing) {
       selected = values[0]
-    } else if (selectedIndex == 0) {
+    } else if (selectedIndex === 0 && !increasing) {
       selected = values[values.length - 1]
     } else if (increasing) {
       selected = values[selectedIndex + 1]
