@@ -15,11 +15,11 @@
       @click="change(true)"
       />
     </div>
-    <div class="peoples">
-      <div class="peoples_icon">
+    <div class="people">
+      <div class="people_icon">
         <font-awesome-icon icon="fa-solid fa-users" size="xs"/>
       </div>
-      <span class="peoples_number" >{{ selected.peoples }}</span>
+      <span class="people_number" >{{ selected.peoples }}</span>
     </div>
   </div>
 </template>
@@ -82,7 +82,7 @@ export default defineComponent({
   }
 }
 
-.peoples {
+.people {
   width: 65px;
   height: 35px;
   background-color: #fff;

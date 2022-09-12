@@ -27,6 +27,7 @@ export default {
   border-radius: 30px;
   width: 300px;
   height: 400px;
+  padding-bottom: 15px;
 
   background-color: #242424;
   box-shadow: 0px 4px 11px rgba(0, 0, 0, 0.3);
@@ -38,7 +39,7 @@ export default {
 
   &_image {
     width: 100%;
-    height: 50%;
+    height: 55%;
     border-radius: 30px 30px 0 0;
   }
 
