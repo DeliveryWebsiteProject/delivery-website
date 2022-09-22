@@ -1,8 +1,15 @@
 <template>
   <div>
     <Carrousel />
-    <div>
-      <Card class="card" />
+    <div class="principal">
+      <img
+        class="principal_title"
+        src="../assets/principalTitle.svg"
+        alt="title"
+      />
+      <div class="principal_cards">
+        <Card v-for="card in cards" :key="card" />
+      </div>
     </div>
     <div class="map">
       <iframe
@@ -26,17 +33,37 @@ export default {
   components: {
     Carrousel,
     Card
+  },
+  data() {
+    return {
+      cards: [1, 2, 3, 4]
+    }
   }
 }
 </script>
 
 <style lang="scss">
-.card {
-  margin: 50px;
+.principal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  &_title {
+    margin: 50px 50% 20px 0;
+    width: 15%;
+  }
+
+  &_cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 2rem;
+  }
 }
 
 .map {
   display: flex;
   justify-content: center;
+  margin: 50px 0;
 }
 </style>
