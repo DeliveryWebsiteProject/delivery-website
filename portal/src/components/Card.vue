@@ -1,19 +1,17 @@
 <template>
   <div class="card">
-    <img class="card_image" src="../assets/margherita.jpg" alt="pizza">
+    <img class="card_image" src="../assets/margherita.jpg" alt="pizza" />
     <div class="card_content">
       <p class="card_content_title">Marguerita</p>
       <p class="card_content_price">R$ 00,00</p>
       <SizeSelector class="card_content_selector" />
-      <div>
-      </div>
     </div>
     <v-btn class="card_btn" color="#378C3B">Carrinho</v-btn>
   </div>
 </template>
 
 <script lang="ts">
-import SizeSelector from './SizeSelector.vue';
+import SizeSelector from './SizeSelector.vue'
 
 export default {
   components: {
@@ -57,7 +55,7 @@ export default {
     }
 
     &_price {
-      color: #378C3B;
+      color: #378c3b;
     }
 
     &_selector {
@@ -66,7 +64,7 @@ export default {
   }
 
   &_btn {
-    width: 90%;
+    width: 75%;
     color: #fff !important;
     font-weight: bold;
     font-size: 17px;

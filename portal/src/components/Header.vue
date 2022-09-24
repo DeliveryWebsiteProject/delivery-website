@@ -44,15 +44,15 @@ header {
   padding-left: 10px;
 
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  align-content: center;
 
   &__logo {
     float: left;
   }
 
   &__nav {
+    position: absolute;
+    right: 130px;
     float: right;
     font-size: 18px;
   }
@@ -69,7 +69,7 @@ header {
   }
 
   .link {
-    color: #378c3b;
+    color: #fff;
     text-decoration: none;
     font-weight: bold;
     position: relative;
@@ -102,7 +102,7 @@ header {
     height: 81px !important;
     width: 130px !important;
     position: absolute;
-    background-color: green !important;
+    background-color: #378c3b !important;
 
     border-radius: 0;
     box-shadow: none !important;
