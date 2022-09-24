@@ -7,8 +7,13 @@
         src="../assets/principalTitle.svg"
         alt="title"
       />
-      <div class="principal_cards">
-        <Card v-for="card in cards" :key="card" />
+      <div class="principal">
+        <div class="principal_cards">
+          <Card v-for="card in cards" :key="card" />
+        </div>
+        <v-btn class="principal_btn" color="#378C3B"
+          >VER CARDÁPIO COMPLETO</v-btn
+        >
       </div>
     </div>
     <div class="map">
@@ -59,11 +64,24 @@ export default {
     grid-template-columns: repeat(4, 1fr);
     grid-gap: 2rem;
   }
+
+  &_btn {
+    width: 30%;
+    height: 50px !important;
+    border-radius: 30px;
+    box-shadow: 0px 4px 11px rgba(0, 0, 0, 0.76);
+
+    margin: 35px;
+
+    color: #fff !important;
+    font-weight: bold;
+    font-size: 16pt !important;
+  }
 }
 
 .map {
   display: flex;
   justify-content: center;
-  margin: 50px 0;
+  margin-bottom: 50px;
 }
 </style>
