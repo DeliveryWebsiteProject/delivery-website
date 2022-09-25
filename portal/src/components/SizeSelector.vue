@@ -2,24 +2,24 @@
   <div class="container">
     <div class="selector">
       <font-awesome-icon
-      class="selector_arrow left"
-      icon="fa-solid fa-chevron-left"
-      @click="change(false)"
+        class="selector_arrow left"
+        icon="fa-solid fa-chevron-left"
+        @click="change(false)"
       />
-      
+
       <span class="selector_size">{{ selected }}</span>
-      
-    <font-awesome-icon
-    class="selector_arrow right"
-      icon="fa-solid fa-chevron-right"
-      @click="change(true)"
+
+      <font-awesome-icon
+        class="selector_arrow right"
+        icon="fa-solid fa-chevron-right"
+        @click="change(true)"
       />
     </div>
     <div class="people">
       <div class="people_icon">
-        <font-awesome-icon icon="fa-solid fa-users" size="xs"/>
+        <font-awesome-icon icon="fa-solid fa-users" size="xs" />
       </div>
-      <span class="people_number" >{{ selected.peoples }}</span>
+      <span class="people_number">{{ selected.peoples }}</span>
     </div>
   </div>
 </template>
@@ -92,7 +92,7 @@ export default defineComponent({
   align-items: center;
 
   &_icon {
-    background: #D9D9D9;
+    background: #d9d9d9;
     border-radius: 100%;
     width: 33px;
     height: 33px;

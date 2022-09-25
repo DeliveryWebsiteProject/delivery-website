@@ -6,7 +6,13 @@
       <p class="card_content_price">R$ 00,00</p>
       <SizeSelector class="card_content_selector" />
     </div>
-    <v-btn class="card_btn" color="#378C3B">Carrinho</v-btn>
+    <v-btn class="card_btn" color="#378C3B">
+      <font-awesome-icon
+        class="card_btn_icon"
+        icon="fa-solid fa-cart-shopping"
+      />
+      Carrinho
+    </v-btn>
   </div>
 </template>
 
@@ -46,6 +52,7 @@ export default {
     align-items: center;
     flex-direction: column;
     font-size: 24px;
+    height: 35%;
 
     &_title {
       color: #fff;
@@ -57,10 +64,6 @@ export default {
     &_price {
       color: #378c3b;
     }
-
-    &_selector {
-      padding: 15px;
-    }
   }
 
   &_btn {
@@ -69,6 +72,10 @@ export default {
     font-weight: bold;
     font-size: 17px;
     border-radius: 30px;
+
+    &_icon {
+      margin-right: 10px;
+    }
   }
 }
 </style>

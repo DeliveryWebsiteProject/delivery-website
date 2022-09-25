@@ -27,17 +27,20 @@
         referrerpolicy="no-referrer-when-downgrade"
       ></iframe>
     </div>
+    <Footer />
   </div>
 </template>
 
 <script lang="ts">
 import Carrousel from '../components/Carrousel.vue'
 import Card from '../components/Card.vue'
+import Footer from '../components/Footer.vue'
 
 export default {
   components: {
     Carrousel,
-    Card
+    Card,
+    Footer
   },
   data() {
     return {
