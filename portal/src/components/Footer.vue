@@ -22,29 +22,56 @@
     </div>
     <div class="footer">
       <img class="footer_logo" src="../assets/footer_logo.svg" alt="logo" />
-      <!-- Criar componente -->
-      <div class="links">
-        <div>
-          <p class="links_title">Sobre</p>
-          <div class="links_content">
-            <div class="links_content_line" />
-            <ul>
-              <li class="links_content_item">A Basileus</li>
-              <li class="links_content_item">Nossa história</li>
-              <li class="links_content_item">Quem somos</li>
-              <li class="links_content_item">Faça parte</li>
-            </ul>
-          </div>
-        </div>
+      <div class="footer_topics">
+        <FooterTopic
+          class="footer_topics_items"
+          v-for="topic in topics"
+          :key="topic"
+          :title="topic.title"
+          :items="topic.items"
+        ></FooterTopic>
       </div>
     </div>
   </div>
 </template>
 
+<script lang="ts">
+import FooterTopic from './FooterTopic.vue'
+
+export default {
+  components: {
+    FooterTopic
+  },
+  data() {
+    return {
+      topics: [
+        {
+          title: 'Menu',
+          items: [
+            'Pizzas Salgadas',
+            'Pizzas Doces',
+            'Especial do mês',
+            'Bebidas'
+          ]
+        },
+        {
+          title: 'Sobre',
+          items: ['A Basileus', 'Nossa história', 'Quem somos', 'Faça parte']
+        },
+        {
+          title: 'Contato',
+          items: ['+55 51 3751-9999', '+55 51 99365-3061', 'email@basileus.com']
+        }
+      ]
+    }
+  }
+}
+</script>
+
 <style lang="scss">
 .connect {
   background-color: #378c3b;
-  box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.6);
+  box-shadow: 0px 0px 5px 2px #00000099;
   width: 100%;
   height: 75px;
 
@@ -71,6 +98,8 @@
   width: 100%;
   height: 300px;
 
+  position: relative;
+
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -82,34 +111,15 @@
   }
 }
 
-.links {
-  &_title {
-    color: #378c3b;
-    font-weight: 900;
-    font-size: 18pt;
-  }
+.footer_topics {
+  display: flex;
+  flex-direction: row;
 
-  &_content {
-    display: flex;
-    flex-direction: row;
+  position: absolute;
+  left: 20%;
 
-    &_line {
-      width: 2px;
-      height: 100px;
-      margin: 5px 10px 0 0;
-      background-color: #378c3b;
-    }
-
-    &_item {
-      color: #fff;
-      margin: 5px;
-      list-style: none;
-    }
-
-    &_item:hover {
-      cursor: pointer;
-      text-decoration: underline;
-    }
+  &_items {
+    margin-right: 50px;
   }
 }
 </style>
