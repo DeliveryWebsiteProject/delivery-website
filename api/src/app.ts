@@ -23,7 +23,10 @@ class App {
   }
 
   private database(): void {
-    mongoose.connect('mongodb://localhost:27017/api')
+    mongoose.set('strictQuery', false);
+    mongoose.connect('mongodb://127.0.0.1:27017/api').then(() => {
+      console.log('Connected');
+    })
   }
 
   private routes(): void {
