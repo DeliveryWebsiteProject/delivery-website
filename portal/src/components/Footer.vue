@@ -26,7 +26,7 @@
         <FooterTopic
           class="footer_topics_items"
           v-for="topic in topics"
-          :key="topic"
+          :key="topic.id"
           :title="topic.title"
           :items="topic.items"
         ></FooterTopic>
@@ -46,6 +46,7 @@ export default {
     return {
       topics: [
         {
+          id: 0,
           title: 'Menu',
           items: [
             'Pizzas Salgadas',
@@ -55,10 +56,12 @@ export default {
           ]
         },
         {
+          id: 1,
           title: 'Sobre',
           items: ['A Basileus', 'Nossa história', 'Quem somos', 'Faça parte']
         },
         {
+          id: 2,
           title: 'Contato',
           items: ['+55 51 3751-9999', '+55 51 99365-3061', 'email@basileus.com']
         }

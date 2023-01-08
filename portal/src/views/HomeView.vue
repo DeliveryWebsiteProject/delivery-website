@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Carrousel />
+    <img src="../assets/banner.png" class="banner" />
     <div class="principal">
       <img
         class="principal_title"
@@ -32,25 +32,27 @@
 </template>
 
 <script lang="ts">
-import Carrousel from '../components/Carrousel.vue'
 import Card from '../components/Card.vue'
 import Footer from '../components/Footer.vue'
 
 export default {
   components: {
-    Carrousel,
     Card,
     Footer
   },
   data() {
     return {
-      cards: [1, 2, 3, 4]
+      cards: [1, 2, 3]
     }
   }
 }
 </script>
 
 <style lang="scss">
+.banner {
+  margin-bottom: 15px;
+}
+
 .principal {
   display: flex;
   justify-content: center;
@@ -58,18 +60,18 @@ export default {
   flex-direction: column;
 
   &_title {
-    margin: 50px 50% 20px 0;
-    width: 15%;
+    margin: 50px 38% 20px 0;
+    width: 290px;
   }
 
   &_cards {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-gap: 2rem;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 4rem;
   }
 
   &_btn {
-    width: 30%;
+    width: 400px;
     height: 50px !important;
     border-radius: 30px;
     box-shadow: 0px 4px 11px rgba(0, 0, 0, 0.76);

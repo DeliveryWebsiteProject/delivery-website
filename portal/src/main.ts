@@ -16,7 +16,8 @@ import {
   faChevronRight,
   faChevronLeft,
   faUsers,
-  faCartShopping
+  faCartShopping,
+  faCircleUser
 } from '@fortawesome/free-solid-svg-icons'
 
 Vue.use(Vuetify)
@@ -27,6 +28,7 @@ library.add(
   faChevronLeft,
   faUsers,
   faCartShopping,
+  faCircleUser,
   faInstagram,
   faWhatsapp,
   faTiktok,

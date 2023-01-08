@@ -15,17 +15,45 @@
           <li>
             <router-link class="link" to="/">Carrinho</router-link>
           </li>
+          <li>
+            <div class="login" data-app>
+              <!-- Login -->
+              <v-btn v-if="!isLogged" class="login__btn" to="/login"
+                >Login</v-btn
+              >
+              <!-- User -->
+              <div v-else class="login_user">
+                <v-menu offset-y transition="slide-y-transition">
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-btn icon v-bind="attrs" v-on="on">
+                      <font-awesome-icon
+                        class="login_user_icon fa-2x"
+                        icon="fa-solid fa-circle-user"
+                      />
+                    </v-btn>
+                  </template>
+                  <UserOptions></UserOptions>
+                </v-menu>
+              </div>
+            </div>
+          </li>
         </ul>
       </nav>
-      <div class="login">
-        <v-btn class="login__btn" to="/login">Login</v-btn>
-      </div>
     </div>
   </header>
 </template>
 
 <script lang="ts">
-export default {}
+import UserOptions from './UserOptions.vue'
+export default {
+  components: {
+    UserOptions
+  },
+  data: () => ({
+    showDialog: false,
+    isLogged: false
+  })
+}
 </script>
 
 <style lang="scss">
@@ -39,36 +67,37 @@ header {
 
 .container {
   width: 100%;
-  height: 81px;
-  margin: 0;
-  padding-left: 10px;
+  height: 80px;
+  padding: 0;
+
+  min-width: 100%;
 
   display: flex;
+  justify-content: space-between;
   align-items: center;
 
   &__logo {
+    padding-left: 10px;
     float: left;
   }
 
   &__nav {
-    position: absolute;
-    right: 130px;
-    float: right;
     font-size: 18px;
   }
 
   &__nav ul {
-    margin: 0;
-    padding: 0;
+    display: flex;
+    align-items: center;
+
     list-style: none;
   }
 
   &__nav li {
-    margin: 0 35px;
     display: inline-block;
   }
 
   .link {
+    margin: 0 20px;
     color: #fff;
     text-decoration: none;
     font-weight: bold;
@@ -97,20 +126,25 @@ header {
 
 .login {
   &__btn {
-    top: 0;
-    right: 0;
-    height: 81px !important;
+    height: 80px !important;
     width: 130px !important;
-    position: absolute;
     background-color: #378c3b !important;
 
     border-radius: 0;
-    box-shadow: none !important;
+    box-shadow: none;
 
     color: #ffffff !important;
     font-weight: bold;
     font-size: 20px !important;
     font-family: 'Montserrat', sans-serif;
+  }
+
+  &_user {
+    margin: 0 20px;
+
+    &_icon {
+      color: #fff !important;
+    }
   }
 }
 </style>
