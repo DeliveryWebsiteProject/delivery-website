@@ -18,19 +18,17 @@
           <li>
             <div class="login" data-app>
               <!-- Login -->
-              <v-btn v-if="!isLogged" class="login__btn" to="/login"
-                >Login</v-btn
-              >
+              <span v-if="!isLogged" class="login__btn" to="/login">LOGIN</span>
               <!-- User -->
               <div v-else class="login_user">
                 <v-menu offset-y transition="slide-y-transition">
                   <template v-slot:activator="{ on, attrs }">
-                    <v-btn icon v-bind="attrs" v-on="on">
+                    <span icon v-bind="attrs" v-on="on">
                       <font-awesome-icon
                         class="login_user_icon fa-2x"
                         icon="fa-solid fa-circle-user"
                       />
-                    </v-btn>
+                    </span>
                   </template>
                   <UserOptions></UserOptions>
                 </v-menu>
@@ -125,18 +123,19 @@ header {
 }
 
 .login {
+  cursor: pointer;
+  height: 80px;
+  width: 130px;
+  background-color: #378c3b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   &__btn {
-    height: 80px !important;
-    width: 130px !important;
-    background-color: #378c3b !important;
-
-    border-radius: 0;
-    box-shadow: none;
-
-    color: #ffffff !important;
+    color: #ffffff;
     font-weight: bold;
-    font-size: 20px !important;
-    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    font-family: 'Inter', sans-serif;
   }
 
   &_user {

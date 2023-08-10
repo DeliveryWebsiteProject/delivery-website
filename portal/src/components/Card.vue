@@ -6,27 +6,36 @@
       <p class="card_content_price">R$ 00,00</p>
       <SizeSelector class="card_content_selector" />
     </div>
-    <v-btn class="card_btn" color="#378C3B">
+    <Button text="Carrinho">
       <font-awesome-icon
         class="card_btn_icon"
         icon="fa-solid fa-cart-shopping"
       />
       Carrinho
-    </v-btn>
+    </Button>
   </div>
 </template>
 
 <script lang="ts">
 import SizeSelector from './SizeSelector.vue'
+import Button from './Button.vue'
 
 export default {
   components: {
-    SizeSelector
+    SizeSelector,
+    Button
   }
 }
 </script>
 
 <style lang="scss">
+.btn {
+  background-color: #378c3b;
+  width: 284px;
+  height: 44px;
+  border-radius: 30px;
+}
+
 .card {
   border-radius: 30px;
   width: 300px;

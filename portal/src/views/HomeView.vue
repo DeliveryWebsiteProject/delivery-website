@@ -11,9 +11,7 @@
         <div class="principal_cards">
           <Card v-for="card in cards" :key="card" />
         </div>
-        <v-btn class="principal_btn" color="#378C3B"
-          >VER CARDÁPIO COMPLETO</v-btn
-        >
+        <Button class="principal_btn" text="VER CARDÁPIO COMPLETO" />
       </div>
     </div>
     <div class="map">
@@ -34,11 +32,13 @@
 <script lang="ts">
 import Card from '../components/Card.vue'
 import Footer from '../components/Footer.vue'
+import Button from '../components/Button.vue'
 
 export default {
   components: {
     Card,
-    Footer
+    Footer,
+    Button
   },
   data() {
     return {
@@ -50,6 +50,7 @@ export default {
 
 <style lang="scss">
 .banner {
+  width: 100%;
   margin-bottom: 15px;
 }
 
