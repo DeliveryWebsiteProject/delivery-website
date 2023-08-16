@@ -1,10 +1,22 @@
-import { Document } from "mongoose"
 
-interface User extends Document {
-  email: string
-  firstName?: string
-  lastName?: string
+enum Role {
+  USER,
+  ADMIN
+}
+
+enum State {
+  ACTIVE,
+  INACTIVE
+}
+
+interface User {
+  id: Number
+  name: string
   password: string
+  phone: string
+  address?: string
+  role: Role
+  state: State
 }
 
 export default User

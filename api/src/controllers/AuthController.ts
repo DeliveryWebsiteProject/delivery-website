@@ -1,5 +1,4 @@
 import { Request, Response } from 'express'
-import UserSchema from '../schemas/UserSchema'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 
@@ -7,37 +6,37 @@ class AuthController {
   public async authenticate(req: Request, res: Response): Promise<Response> {
     const { email, password } = req.body;
 
-    const user = await UserSchema.findOne({ email: email })
+    // const user = await UserSchema.findOne({ email: email })
 
-    if (!user) {
-      return res.sendStatus(401)
-    }
+    // if (!user) {
+    //   return res.sendStatus(401)
+    // }
 
-    const isValidPassword = bcrypt.compare(password, user.password);
+    // const isValidPassword = bcrypt.compare(password, user.password);
 
-    if (!isValidPassword) {
-      return res.sendStatus(401)
-    }
+    // if (!isValidPassword) {
+    //   return res.sendStatus(401)
+    // }
 
-    // SecretKey tem q estar no arquivo .env
-    // TODO: Criar o arquivo e a variavel e trocar 
-    const token = jwt.sign({
-      id: user.id,
-      email: user.email,
-      password: user.password,
-      firstName: user.firstName,
-      lastName: user.lastName
-    }, 'secretKey', { expiresIn: '1d' })
+    // // SecretKey tem q estar no arquivo .env
+    // // TODO: Criar o arquivo e a variavel e trocar 
+    // const token = jwt.sign({
+    //   id: user.id,
+    //   email: user.email,
+    //   password: user.password,
+    //   firstName: user.firstName,
+    //   lastName: user.lastName
+    // }, 'secretKey', { expiresIn: '1d' })
 
-    const jsonUser = {
-      id: user.id,
-      email: user.email,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      token: token,
-    }
+    // const jsonUser = {
+    //   id: user.id,
+    //   email: user.email,
+    //   firstName: user.firstName,
+    //   lastName: user.lastName,
+    //   token: token,
+    // }
 
-    return res.json(jsonUser)
+    return res.json('jsonUser')
   }
 }
 

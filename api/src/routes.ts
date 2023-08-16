@@ -7,8 +7,8 @@ import AuthController from './controllers/AuthController'
 
 const routes = Router()
 
-routes.get('/users', authMiddleware, UserController.index)
-routes.post('/users', UserController.store)
+// routes.get('/users', authMiddleware, UserController.index)
+routes.post('/users/create', UserController.store)
 
 routes.post('/auth', AuthController.authenticate)
 
