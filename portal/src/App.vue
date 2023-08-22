@@ -24,20 +24,35 @@ export default defineComponent({
 })
 </script>
 
-<style>
+<style lang="scss">
+@font-face {
+  font-family: 'Open Sans';
+  src: local('Open Sans'), url('@/assets/fonts/OpenSans.ttf');
+}
+
+@font-face {
+  font-family: 'Display';
+  src: local('Sabatons'), url('@/assets/fonts/Sabatons.ttf');
+}
+
+@font-face {
+  font-family: 'Display Stamp';
+  src: local('Sabatons Stamp'), url('@/assets/fonts/SabatonsStamp.ttf');
+}
+
 * {
   margin: 0;
   padding: 0;
 }
 
 body {
-  background-color: #202124;
-  font-family: 'Montserrat', sans-serif;
+  background-color: $background-dark;
+  font-family: 'Open Sans';
 }
 
 ::-webkit-scrollbar {
   width: 1em;
-  background-color: #1c1c1c;
+  background-color: $background-dark;
 }
 
 ::-webkit-scrollbar-track {
@@ -49,7 +64,7 @@ body {
 
 ::-webkit-scrollbar-thumb {
   background: rgba(155 155 155 / 1);
-  border: 0.25em solid #1c1c1c;
+  border: 0.25em solid $background-dark;
   border-radius: 100vw;
 }
 

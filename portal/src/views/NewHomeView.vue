@@ -9,6 +9,8 @@
 export default {}
 </script>
 
-<style scoped>
-
+<style lang="scss">
+h1 {
+  color: $text-light;
+}
 </style>
