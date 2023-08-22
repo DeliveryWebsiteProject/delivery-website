@@ -2,7 +2,7 @@
   <header>
     <div class="container">
       <div class="container__logo">
-        <router-link to="/"><img src="../assets/logo.png" /></router-link>
+        <router-link to="/"><img src="../assets/img/logo.png" /></router-link>
       </div>
       <nav class="container__nav">
         <ul>
@@ -30,7 +30,7 @@
                       />
                     </span>
                   </template>
-                  <UserOptions></UserOptions>
+                  <!-- <UserOptions></UserOptions> -->
                 </v-menu>
               </div>
             </div>
@@ -42,10 +42,10 @@
 </template>
 
 <script lang="ts">
-import UserOptions from './UserOptions.vue'
+// import UserOptions from './UserOptions.vue'
 export default {
   components: {
-    UserOptions
+    // UserOptions
   },
   data: () => ({
     showDialog: false,

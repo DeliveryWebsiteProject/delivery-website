@@ -1,15 +1,15 @@
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
-import HomeView from '@/views/HomeView.vue'
+import NewHomeView from '@/views/NewHomeView.vue'
 import LoginView from '@/views/LoginView.vue'
 
 Vue.use(VueRouter)
 
 const routes: Array<RouteConfig> = [
   {
-    path: "/",
-    name: "home",
-    component: HomeView,
+    path: '/',
+    name: 'home',
+    component: NewHomeView
   },
   {
     path: '/about',
@@ -20,7 +20,7 @@ const routes: Array<RouteConfig> = [
   {
     path: '/login',
     name: 'login',
-    component: LoginView,
+    component: LoginView
   }
 ]
 
