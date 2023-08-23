@@ -1,5 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import jwt from 'jsonwebtoken'
+import ApiError from "../utils/ApiError";
+import { HttpStatus } from "../utils/HttpStatus";
 
 export default function authMiddleware(
   req: Request, res: Response, next: NextFunction
@@ -7,21 +9,20 @@ export default function authMiddleware(
   const { authorization } = req.headers
 
   if (!authorization) {
-    return res.sendStatus(401)
+    return next(new ApiError('Token inválido', HttpStatus.UNAUTHORIZED));
   }
 
-  const token = authorization.replace('Bearer', '').trim()
+  const token = authorization.replace('Bearer', '').trim();
 
   try {
-    // Trocar o secretKey para a variavel no .env
-    const data = jwt.verify(token, 'secretKey');
+    const data = jwt.verify(token, (process.env.JWT_SECRET_KEY ?? '').toString());
 
     if (data) {
-      next()
+      next();
     } else {
-      res.sendStatus(401)
+      return next(new ApiError('Token inválido', HttpStatus.UNAUTHORIZED));
     }
   } catch {
-    return res.sendStatus(401)
+    next(new ApiError('Token inválido', HttpStatus.UNAUTHORIZED));
   }
 }
