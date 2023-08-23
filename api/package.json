@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "ts-node-dev --quiet --debug --inspect -- ./src/server.ts"
+    "dev": "tsnd --quiet --debug --inspect -- ./src/server.ts"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
