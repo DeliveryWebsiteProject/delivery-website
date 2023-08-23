@@ -1,12 +1,17 @@
 <template>
   <div>
-    <h1>New Home</h1>
+    <NewCard></NewCard>
   </div>
 </template>
 
 <script lang="ts">
+import NewCard from '../components/NewCard.vue'
 
-export default {}
+export default {
+  components: {
+    NewCard
+  }
+}
 </script>
 
 <style lang="scss">
