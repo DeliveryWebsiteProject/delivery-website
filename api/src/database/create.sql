@@ -3,14 +3,15 @@ CREATE DATABASE basileus;
 -- --------------------------------------------------------
 -- Table structure for table 'USERS'
 -- --------------------------------------------------------
-CREATE TABLE basileus.user (
-	id INT auto_increment NOT NULL,
+CREATE TABLE basileus.users (
+	id varchar(120) NOT NULL,
 	cpf varchar(11) NOT NULL,
+	name varchar(120) NOT NULL,
+	password varchar(120) NOT NULL,
 	phone varchar(11) NOT NULL,
-	password varchar(30) NOT NULL,
 	address varchar(120) NULL,
-	role ENUM('Admin', 'Cliente') NOT NULL,
-	state BIT DEFAULT 0 NOT NULL,
+	role BIT NOT NULL,
+	state BIT NOT NULL,
 	CONSTRAINT user_pk PRIMARY KEY (id)
 );
 
@@ -18,7 +19,7 @@ CREATE TABLE basileus.user (
 -- Table structure for table 'PIZZA'
 -- --------------------------------------------------------
 CREATE TABLE basileus.pizza (
-	id INT auto_increment NOT NULL,
+	id varchar(50) NOT NULL,
 	name varchar(20) NOT NULL,
 	price DOUBLE NOT NULL,
 	category ENUM('Salgada', 'Doce') NOT NULL,
@@ -39,7 +40,7 @@ CREATE TABLE basileus.pizza_mapping (
 -- Table structure for table 'INGREDIENT'
 -- --------------------------------------------------------
 CREATE TABLE basileus.ingredient (
-	id INT auto_increment NOT NULL,
+	id varchar(50) NOT NULL,
 	name varchar(30) NOT NULL,
 	CONSTRAINT ingredient_pk PRIMARY KEY (id)
 );
