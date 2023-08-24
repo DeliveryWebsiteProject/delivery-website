@@ -22,9 +22,9 @@ CREATE TABLE basileus.pizza (
 	id varchar(50) NOT NULL,
 	name varchar(20) NOT NULL,
 	price DOUBLE NOT NULL,
-	category ENUM('Salgada', 'Doce') NOT NULL,
+	category BIT NOT NULL,
 	photo varchar(200) NOT NULL,
-	state BIT DEFAULT 0 NOT NULL,
+	state BIT NOT NULL,
   CONSTRAINT pizz_pk PRIMARY KEY (id)
 );
 

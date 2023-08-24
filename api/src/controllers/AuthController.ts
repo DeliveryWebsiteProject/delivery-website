@@ -19,9 +19,7 @@ class AuthController {
       return res.sendStatus(401)
     }
 
-    // SecretKey tem q estar no arquivo .env
-    // TODO: Criar o arquivo e a variavel e trocar 
-    const token = jwt.sign(Object.assign(user, { password: null }), 'secretKey', { expiresIn: '1d' });
+    const token = jwt.sign(Object.assign(user, { password: null }), (process.env.JWT_SECRET_KEY ?? '').toString(), { expiresIn: '1d' });
 
     const jsonUser = Object.assign(user, { password: null, token: token });
 

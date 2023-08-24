@@ -1,13 +1,13 @@
 import { Router } from 'express'
 
-import authMiddleware from "./middlewares/authMiddlewares"
-
-import AuthController from './controllers/AuthController'
 import userRoutes from "./routes/UserRouter"
+import authenticationRoute from "./routes/AuthenticationRoutes"
+import erroMiddlewares from "./middlewares/errorMiddleware";
 
-const routes = Router()
+const routes = Router();
 
-routes.use(userRoutes)
-routes.post('/auth', AuthController.authenticate)
+routes.use(userRoutes);
+routes.use(authenticationRoute);
+routes.use(erroMiddlewares);
 
-export default routes
+export default routes;

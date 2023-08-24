@@ -1,14 +1,16 @@
-enum Category {
+import { RowDataPacket } from "mysql2"
+
+export enum Category {
   SALTY,
   SWEET
 }
 
-enum State {
+export enum State {
   ACTIVE,
   INACTIVE
 }
 
-interface Pizza {
+interface Pizza extends RowDataPacket {
   id: Number
   name: string
   price: Number
