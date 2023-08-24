@@ -1,15 +1,15 @@
 <template>
   <div>
-    <NewCard></NewCard>
+    <Card></Card>
   </div>
 </template>
 
 <script lang="ts">
-import NewCard from '../components/NewCard.vue'
+import Card from '../components/Card.vue'
 
 export default {
   components: {
-    NewCard
+    Card
   }
 }
 </script>

@@ -41,6 +41,24 @@ body {
   font-family: 'Open Sans';
 }
 
+button {
+  font-family: 'Open Sans';
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  border: none;
+  border-radius: 10px;
+
+  cursor: pointer;
+}
+
+img {
+  pointer-events: none;
+}
+
 ::-webkit-scrollbar {
   width: 1em;
   background-color: $background-dark;
