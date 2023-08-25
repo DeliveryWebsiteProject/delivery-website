@@ -1,16 +1,18 @@
+import { RowDataPacket } from "mysql2"
 
-enum Role {
+export enum Role {
   USER,
   ADMIN
 }
 
-enum State {
+export enum State {
   ACTIVE,
   INACTIVE
 }
 
-interface User {
-  id: Number
+interface User extends RowDataPacket {
+  id: string
+  cpf: string
   name: string
   password: string
   phone: string

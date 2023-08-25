@@ -2,7 +2,7 @@
   <header>
     <div class="container">
       <div class="container__logo">
-        <router-link to="/"><img src="../assets/img/logo.png" /></router-link>
+        <router-link to="/"><img src="../assets/images/logo.png" /></router-link>
       </div>
       <div class="centered-menu">
         <nav class="container__nav">
@@ -23,11 +23,6 @@
         <div class="login" data-app>
           <!-- Login -->
           <span v-if="!isLogged" class="login__btn" to="/login">Login</span>
-          <!-- User -->
-        </div>
-        <div class="cart" data-app>
-          <!-- Login -->
-          <span v-if="!isLogged" class="cart__btn" to="/login"></span>
           <!-- User -->
         </div>
       </div>

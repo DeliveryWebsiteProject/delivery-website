@@ -1,16 +1,27 @@
 <template>
   <div>
     <div>
-      <img src="../assets/img/home_background.png" class="banner" />
+      <img src="../assets/images/home_background.png" class="banner" />
     </div>
+    <Card></Card>
   </div>
 </template>
 
 <script lang="ts">
-export default {}
+import Card from '../components/Card.vue'
+
+export default {
+  components: {
+    Card
+  }
+}
 </script>
 
-<style scoped>
+<style lang="scss">
+h1 {
+  color: $text-light;
+}
+
 .banner {
   width: 100%;
   height: auto;
