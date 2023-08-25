@@ -48,7 +48,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 .banner {
   width: 100%;
   margin-bottom: 15px;

@@ -4,45 +4,40 @@
       <div class="container__logo">
         <router-link to="/"><img src="../assets/img/logo.png" /></router-link>
       </div>
-      <nav class="container__nav">
-        <ul>
-          <li>
-            <router-link class="link" to="/">Menu</router-link>
-          </li>
-          <li>
-            <router-link class="link" to="/about">Sobre</router-link>
-          </li>
-          <li>
-            <router-link class="link" to="/">Carrinho</router-link>
-          </li>
-          <li>
-            <div class="login" data-app>
-              <!-- Login -->
-              <span v-if="!isLogged" class="login__btn" to="/login">LOGIN</span>
-              <!-- User -->
-              <div v-else class="login_user">
-                <v-menu offset-y transition="slide-y-transition">
-                  <template v-slot:activator="{ on, attrs }">
-                    <span icon v-bind="attrs" v-on="on">
-                      <font-awesome-icon
-                        class="login_user_icon fa-2x"
-                        icon="fa-solid fa-circle-user"
-                      />
-                    </span>
-                  </template>
-                  <!-- <UserOptions></UserOptions> -->
-                </v-menu>
-              </div>
-            </div>
-          </li>
-        </ul>
-      </nav>
+      <div class="centered-menu">
+        <nav class="container__nav">
+          <ul>
+            <li>
+              <router-link class="link" to="/">HOME</router-link>
+            </li>
+            <li>
+              <router-link class="link" to="/about">CARDÁPIO</router-link>
+            </li>
+            <li>
+              <router-link class="link" to="/">SOBRE</router-link>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <div class="container__right">
+        <div class="login" data-app>
+          <!-- Login -->
+          <span v-if="!isLogged" class="login__btn" to="/login">Login</span>
+          <!-- User -->
+        </div>
+        <div class="cart" data-app>
+          <!-- Login -->
+          <span v-if="!isLogged" class="cart__btn" to="/login"></span>
+          <!-- User -->
+        </div>
+      </div>
     </div>
   </header>
 </template>
 
 <script lang="ts">
 // import UserOptions from './UserOptions.vue'
+
 export default {
   components: {
     // UserOptions
@@ -54,13 +49,14 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 html {
   overflow: auto;
 }
 
 header {
-  background: #1c1c1c;
+  z-index: 1;
+  position: relative;
 }
 
 .container {
@@ -94,6 +90,10 @@ header {
     display: inline-block;
   }
 
+  &__right {
+    padding-right: 20px;
+  }
+
   .link {
     margin: 0 20px;
     color: #fff;
@@ -122,20 +122,26 @@ header {
   }
 }
 
+.centered-menu {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+}
+
 .login {
   cursor: pointer;
-  height: 80px;
-  width: 130px;
+  height: 40px;
+  width: 100px;
   background-color: #378c3b;
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: 10px;
 
   &__btn {
     color: #ffffff;
     font-weight: bold;
     font-size: 16px;
-    font-family: 'Inter', sans-serif;
   }
 
   &_user {
