@@ -55,10 +55,6 @@ button {
   cursor: pointer;
 }
 
-img {
-  pointer-events: none;
-}
-
 ::-webkit-scrollbar {
   width: 1em;
   background-color: $background-dark;

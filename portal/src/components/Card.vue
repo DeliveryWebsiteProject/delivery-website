@@ -1,6 +1,6 @@
 <template>
   <div class="card">
-    <img :src="photo" alt="Foto Pizza">
+    <img :src="$getImage('Margherita.png')" alt="Foto Pizza">
     <div class="info">
       <span class="info_name">{{ name }}</span>
       <!-- TO-DO: Implementar botão de Info -->
@@ -11,12 +11,19 @@
 
       <div class="buttons">
         <div class="counter">
-          <img @click="plusCounter" class="counter_button" :src="plusIcon">
+          <img 
+            @click="minusCounter"
+            :class="blocked ? 'counter_button_block' : 'counter_button'"
+            :src="$getIcon('minus')">
           <p class="counter_text">{{ counter }}</p>
-          <img @click="minusCounter" class="counter_button" :src="minusIcon">
+          <img 
+            @click="plusCounter"
+            class="counter_button"
+            :src="$getIcon('plus')"
+          >
         </div>
         <button>
-          <img :src="cardIcon">
+          <img :src="$getIcon('card')">
           Carrinho
         </button>
       </div>
@@ -27,24 +34,27 @@
 <script lang="ts">
 export default {
   data: () => ({
-    photo: require('@/assets/img/photos/Margherita.png'),
     name: 'Margherita',
     price: 50,
     counter: 1,
 
-    plusIcon: require('@/assets/img/icons/plus.svg'),
-    minusIcon: require('@/assets/img/icons/minus.svg'),
-    cardIcon: require('@/assets/img/icons/card.svg'),
+    blocked: true
   }),
   methods: {
     plusCounter() {
+      this.blocked = false
+
       this.counter++
     },
     minusCounter() {
       if ( this.counter > 1 ) {
         this.counter--
       }
-    }
+
+      if ( this.counter == 1 ) {
+        this.blocked = true
+      }
+    },
   },
 }
 </script>
@@ -118,6 +128,11 @@ img {
 
   &_button {
     cursor: pointer;
+
+    &_block {
+      cursor: not-allowed;  
+      filter: invert(72%) sepia(0%) saturate(4165%) hue-rotate(314deg) brightness(97%) contrast(119%);
+    }
   }
 
   &_text {
