@@ -1,31 +1,29 @@
 <template>
   <div>
     <div>
-      <img src="../assets/images/home_background.png" class="banner" />
+      <Header />
+      <img class="banner" src="../assets/images/home_background.png" />
     </div>
-    <Card></Card>
+    <div>
+      <Card />
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import Card from '../components/Card.vue'
+import Header from '@/components/Header.vue';
+import Card from '@/components/Card.vue'
 
 export default {
   components: {
+    Header,
     Card
   }
 }
 </script>
 
-<style lang="scss">
-h1 {
-  color: $text-light;
-}
-
+<style scoped lang="scss">
 .banner {
   width: 100%;
-  height: auto;
-  position: absolute;
-  top: 0;
 }
 </style>

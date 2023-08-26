@@ -71,7 +71,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 .connect {
   background-color: #378c3b;
   box-shadow: 0px 0px 5px 2px #00000099;

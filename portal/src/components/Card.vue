@@ -1,6 +1,6 @@
 <template>
   <div class="card">
-    <img :src="$getImage('Margherita.png')" alt="Foto Pizza">
+    <img :src="$getImage('Margherita.png')" class="photo">
     <div class="info">
       <span class="info_name">{{ name }}</span>
       <!-- TO-DO: Implementar botão de Info -->
@@ -70,7 +70,7 @@ export default {
   box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.3);
 }
 
-img {
+.photo {
   border-radius: 20px 20px 0 0;
 }
 

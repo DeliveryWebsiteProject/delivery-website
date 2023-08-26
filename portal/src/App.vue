@@ -1,19 +1,8 @@
 <template>
   <div id="app">
-    <HeaderApp />
     <router-view />
   </div>
 </template>
-
-<script lang="ts">
-import HeaderApp from './components/Header.vue'
-
-export default {
-  components: {
-    HeaderApp,
-  }
-}
-</script>
 
 <style lang="scss">
 @font-face {

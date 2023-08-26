@@ -31,7 +31,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 .links {
   &_title {
     color: #378c3b;
