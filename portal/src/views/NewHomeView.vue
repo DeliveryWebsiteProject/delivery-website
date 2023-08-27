@@ -4,20 +4,20 @@
       <Header />
       <img class="banner" src="../assets/images/home_background.png" />
     </div>
-    <div>
-      <Card />
+    <div class="contents">
+      <MostRequested />
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import Header from '@/components/Header.vue';
-import Card from '@/components/Card.vue'
+import MostRequested from '@/components/MostRequested.vue';
 
 export default {
   components: {
     Header,
-    Card
+    MostRequested
   }
 }
 </script>
@@ -25,5 +25,10 @@ export default {
 <style scoped lang="scss">
 .banner {
   width: 100%;
+}
+
+.contents {
+  display: flex;
+  justify-content: center;
 }
 </style>

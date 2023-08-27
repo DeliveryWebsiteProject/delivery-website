@@ -1,11 +1,11 @@
 <template>
   <div class="card">
-    <img :src="$getImage('Margherita.png')" class="photo">
+    <img :src="$getImage(pizza.photo)" class="photo">
     <div class="info">
-      <span class="info_name">{{ name }}</span>
+      <span class="info_name">{{ pizza.name }}</span>
       <!-- TO-DO: Implementar botão de Info -->
       <div class="info_price">
-        <span class="info_price_high">R${{ price }},</span>
+        <span class="info_price_high">R${{ pizza.price }},</span>
         <span class="info_price_low">00</span>
       </div>
 
@@ -32,7 +32,20 @@
 </template>
 
 <script lang="ts">
+
+interface PizzaCard {
+  name: string,
+  price: number,
+  photo: string
+}
+
 export default {
+  props: {
+    pizza: {
+      type: Object as () => PizzaCard,
+      required: true
+    }
+  },
   data: () => ({
     name: 'Margherita',
     price: 50,
@@ -146,6 +159,7 @@ button {
   height: 45px;
 
   background-color: $primary-color;
+  transition: background-color 0.2s ease-in-out;
 
   margin-right: 30px;
 
@@ -154,5 +168,10 @@ button {
   font-weight: 600;
 
   gap: 10px;
+
+  &:hover {
+    background-color: $primary-darker;
+    transition: background-color 0.2s ease-in-out;
+  }
 }
 </style>

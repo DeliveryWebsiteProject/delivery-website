@@ -1,5 +1,5 @@
 <template>
-  <header :class="{change_color: scrollPosition > 50 }">
+  <header :class="{ change_color: scrollPosition > 50 }">
     <div class="logo">
       <router-link to="/">
         <img :src="$getIcon('logo')" />
