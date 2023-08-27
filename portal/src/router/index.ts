@@ -1,31 +1,29 @@
-import Vue from 'vue'
-import VueRouter, { RouteConfig } from 'vue-router'
-import NewHomeView from '@/views/NewHomeView.vue'
-import LoginView from '@/views/LoginView.vue'
+import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
+import HomeView from '@/views/HomeView.vue'
+import AboutView from '@/views/AboutView.vue'
 
-Vue.use(VueRouter)
-
-const routes: Array<RouteConfig> = [
+const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    name: 'home',
-    component: NewHomeView
+    name: 'Basileus Pizza Artesanal',
+    component: HomeView
   },
   {
     path: '/about',
-    name: 'about',
-    component: () =>
-      import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  },
-  {
-    path: '/login',
-    name: 'login',
-    component: LoginView
+    name: 'Sobre a Basileus',
+    component: AboutView
   }
 ]
 
-const router = new VueRouter({
+const router = createRouter({
+  history: createWebHashHistory(),
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  document.title = to.name as string
+
+  next()
 })
 
 export default router

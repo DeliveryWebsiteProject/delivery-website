@@ -1,16 +1,21 @@
 <template>
   <div>
-    <img :src="$getImage('most_requested.svg')" alt="As mais requisitadas">
+    <img :src="$getImage('most_requested.svg')" alt="As mais pedidas">
     <div class="cards">
-      <Card v-for="pizza in pizzas" :key="pizza.name" :pizza="pizza" />
+      <Card
+        v-for="pizza in pizzas"
+        :key="pizza.name"
+        :pizza="pizza"
+      />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import Card from './Card.vue';
+import { defineComponent } from 'vue';
+import Card from '../Card.vue';
 
-export default ({
+export default defineComponent ({
   components: {
     Card
   },

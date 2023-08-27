@@ -29,7 +29,9 @@
 </template>
 
 <script lang="ts">
-export default {
+import { defineComponent } from 'vue';
+
+export default defineComponent ({
   data: () => ({
     scrollPosition: 0,
 
@@ -47,7 +49,7 @@ export default {
       this.scrollPosition = window.scrollY
     }
   }
-}
+})
 </script>
 
 <style scoped lang="scss">

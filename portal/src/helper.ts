@@ -1,13 +1,14 @@
+import { App } from 'vue'
+
 const getImage = (url: string): string => {
-    return require(`@/assets/images/${url}`)
+  return require(`@/assets/images/${url}`)
 }
 
 const getIcon = (url: string): string => {
-    return require(`@/assets/icons/${url}.svg`)
+  return require(`@/assets/icons/${url}.svg`)
 }
 
-// TO-DO: Find Vue Component
-export default (Vue: any) => {
-    Vue.prototype.$getImage = getImage,
-    Vue.prototype.$getIcon = getIcon
+export default (Vue: App<Element>) => {
+  Vue.config.globalProperties.$getImage = getImage,
+    Vue.config.globalProperties.$getIcon = getIcon
 }

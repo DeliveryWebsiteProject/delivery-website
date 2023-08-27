@@ -36,9 +36,10 @@
 </template>
 
 <script lang="ts">
+import { defineComponent } from 'vue'
 import FooterTopic from './FooterTopic.vue'
 
-export default {
+export default defineComponent ({
   components: {
     FooterTopic
   },
@@ -68,7 +69,7 @@ export default {
       ]
     }
   }
-}
+})
 </script>
 
 <style scoped lang="scss">

@@ -15,9 +15,9 @@
 </template>
 
 <script lang="ts">
-import { PropType } from 'vue'
+import { PropType, defineComponent } from 'vue'
 
-export default {
+export default defineComponent ({
   props: {
     title: {
       type: String,
@@ -28,7 +28,7 @@ export default {
       required: true
     }
   }
-}
+})
 </script>
 
 <style scoped lang="scss">

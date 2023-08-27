@@ -32,6 +32,7 @@
 </template>
 
 <script lang="ts">
+import { defineComponent } from 'vue'
 
 interface PizzaCard {
   name: string,
@@ -39,7 +40,7 @@ interface PizzaCard {
   photo: string
 }
 
-export default {
+export default defineComponent ({
   props: {
     pizza: {
       type: Object as () => PizzaCard,
@@ -69,7 +70,7 @@ export default {
       }
     },
   },
-}
+})
 </script>
 
 <style scoped lang="scss">
