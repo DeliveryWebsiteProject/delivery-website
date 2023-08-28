@@ -17,7 +17,7 @@
 <script lang="ts">
 import { PropType, defineComponent } from 'vue'
 
-export default defineComponent ({
+export default defineComponent({
   props: {
     title: {
       type: String,

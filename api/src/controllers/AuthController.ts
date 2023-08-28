@@ -5,7 +5,9 @@ import UserRepository from "../repositories/UserRepository";
 
 class AuthController {
   public async authenticate(req: Request, res: Response): Promise<Response> {
-    const { cpf, password } = req.body;
+    let { cpf, password } = req.body;
+
+    cpf = cpf.replace(/\D/g, '');
 
     const user = await UserRepository.findOne(cpf);
 

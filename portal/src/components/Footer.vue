@@ -39,7 +39,7 @@
 import { defineComponent } from 'vue'
 import FooterTopic from './FooterTopic.vue'
 
-export default defineComponent ({
+export default defineComponent({
   components: {
     FooterTopic
   },

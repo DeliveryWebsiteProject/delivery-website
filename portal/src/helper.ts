@@ -9,6 +9,6 @@ const getIcon = (url: string): string => {
 }
 
 export default (Vue: App<Element>) => {
-  Vue.config.globalProperties.$getImage = getImage,
-    Vue.config.globalProperties.$getIcon = getIcon
+  (Vue.config.globalProperties.$getImage = getImage),
+    (Vue.config.globalProperties.$getIcon = getIcon)
 }

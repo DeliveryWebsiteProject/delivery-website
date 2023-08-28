@@ -17,21 +17,19 @@
       </nav>
     </div>
     <div class="buttons">
-      <button class="buttons_card">
+      <button class="buttons_card" >
         <img :src="$getIcon('card_colorful')" />
       </button>
 
-      <button class="buttons_login">
-        Login
-      </button>
+      <router-link to='/login' class="buttons_login">Login</router-link>
     </div>
   </header>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent } from 'vue'
 
-export default defineComponent ({
+export default defineComponent({
   data: () => ({
     scrollPosition: 0,
 
@@ -42,7 +40,7 @@ export default defineComponent ({
     ]
   }),
   mounted() {
-    window.addEventListener('scroll', this.updateScroll);
+    window.addEventListener('scroll', this.updateScroll)
   },
   methods: {
     updateScroll() {
@@ -153,6 +151,8 @@ header {
     color: $text-light;
     font-weight: bold;
     font-size: 24px;
+
+    text-decoration: none;
 
     &:hover {
       background-color: $primary-darker;

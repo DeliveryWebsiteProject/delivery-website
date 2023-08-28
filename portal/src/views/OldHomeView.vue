@@ -35,7 +35,7 @@ import Footer from '../components/Footer.vue'
 import Button from '../components/Button.vue'
 import { defineComponent } from 'vue'
 
-export default defineComponent ({
+export default defineComponent({
   components: {
     Card,
     Footer,

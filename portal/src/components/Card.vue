@@ -1,6 +1,6 @@
 <template>
   <div class="card">
-    <img :src="$getImage(pizza.photo)" class="photo">
+    <img :src="$getImage(pizza.photo)" class="photo" />
     <div class="info">
       <span class="info_name">{{ pizza.name }}</span>
       <!-- TO-DO: Implementar botão de Info -->
@@ -11,19 +11,20 @@
 
       <div class="buttons">
         <div class="counter">
-          <img 
+          <img
             @click="minusCounter"
             :class="blocked ? 'counter_button_block' : 'counter_button'"
-            :src="$getIcon('minus')">
+            :src="$getIcon('minus')"
+          />
           <p class="counter_text">{{ counter }}</p>
-          <img 
+          <img
             @click="plusCounter"
             class="counter_button"
             :src="$getIcon('plus')"
-          >
+          />
         </div>
         <button>
-          <img :src="$getIcon('card')">
+          <img :src="$getIcon('card')" />
           Carrinho
         </button>
       </div>
@@ -35,12 +36,12 @@
 import { defineComponent } from 'vue'
 
 interface PizzaCard {
-  name: string,
-  price: number,
+  name: string
+  price: number
   photo: string
 }
 
-export default defineComponent ({
+export default defineComponent({
   props: {
     pizza: {
       type: Object as () => PizzaCard,
@@ -61,15 +62,15 @@ export default defineComponent ({
       this.counter++
     },
     minusCounter() {
-      if ( this.counter > 1 ) {
+      if (this.counter > 1) {
         this.counter--
       }
 
-      if ( this.counter == 1 ) {
+      if (this.counter == 1) {
         this.blocked = true
       }
-    },
-  },
+    }
+  }
 })
 </script>
 
@@ -116,7 +117,7 @@ export default defineComponent ({
 
 .buttons {
   width: 100%;
-  
+
   margin: 25px 0;
 
   display: flex;
@@ -138,14 +139,15 @@ export default defineComponent ({
   gap: 10px;
   margin-left: 30px;
 
-  background-color: #FFF;
+  background-color: #fff;
 
   &_button {
     cursor: pointer;
 
     &_block {
-      cursor: not-allowed;  
-      filter: invert(72%) sepia(0%) saturate(4165%) hue-rotate(314deg) brightness(97%) contrast(119%);
+      cursor: not-allowed;
+      filter: invert(72%) sepia(0%) saturate(4165%) hue-rotate(314deg)
+        brightness(97%) contrast(119%);
     }
   }
 
@@ -164,7 +166,7 @@ button {
 
   margin-right: 30px;
 
-  color: #FFF;
+  color: #fff;
   font-size: 18px;
   font-weight: 600;
 
@@ -172,7 +174,6 @@ button {
 
   &:hover {
     background-color: $primary-darker;
-    transition: background-color 0.2s ease-in-out;
   }
 }
 </style>

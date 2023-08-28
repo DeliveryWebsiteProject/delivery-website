@@ -11,11 +11,11 @@
 </template>
 
 <script lang="ts">
-import Header from '@/components/Header.vue';
-import MostRequested from '@/components/home/MostRequested.vue';
-import { defineComponent } from 'vue';
+import Header from '@/components/Header.vue'
+import MostRequested from '@/components/home/MostRequested.vue'
+import { defineComponent } from 'vue'
 
-export default defineComponent ({
+export default defineComponent({
   components: {
     Header,
     MostRequested
