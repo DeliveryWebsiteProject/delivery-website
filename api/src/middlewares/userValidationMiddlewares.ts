@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { User } from "../models";
 import ApiError from "../utils/ApiError";
 import { HttpStatus } from "../utils/HttpStatus";
-import UserRepository from "../repositories/UserRepository";
+import UserRepositoryTransaction from "../repositories/user/UserRepositoryTransaction";
 
 export default async function userValidationMiddlewares(
   req: Request, res: Response, next: NextFunction
@@ -14,7 +14,7 @@ export default async function userValidationMiddlewares(
 
     if (!name || !cpf || !password || !phone) return next(new ApiError('Campos obrigatórios não preenchidos', HttpStatus.BAD_REQUEST))
 
-    const user = await UserRepository.findOne(cpf);
+    const user = await new UserRepositoryTransaction().getUserByCpf(cpf);
 
     if (!user) {
       if (password.length < 6) return next(new ApiError('A senha deve ter no mínimo 6 caracteres', HttpStatus.BAD_REQUEST));

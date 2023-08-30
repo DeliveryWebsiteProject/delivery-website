@@ -1,4 +1,5 @@
 import { RowDataPacket } from "mysql2"
+import Ingredient from "./Ingredient"
 
 export enum Category {
   SALTY,
@@ -11,12 +12,12 @@ export enum State {
 }
 
 interface Pizza extends RowDataPacket {
-  id: Number
-  name: string
-  price: Number
-  category: Category
-  photo: string
-  state: State
+  id: string,
+  name: string,
+  price: Number,
+  category: Category,
+  state: State,
+  ingredients?: Ingredient[],
 }
 
 export default Pizza
