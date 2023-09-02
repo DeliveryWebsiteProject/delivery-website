@@ -12,11 +12,11 @@
 export default {
     name: 'SearchButton',
     props: {
-        value: String // Anote o tipo da propriedade 'value'
+        value: String 
     },
     data() {
         return {
-            searchQuery: (this as any).value || '' // Use um tipo explícito para 'this'
+            searchQuery: (this as any).value || '' 
         }
     }
 }
