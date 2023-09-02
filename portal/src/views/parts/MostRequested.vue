@@ -1,15 +1,17 @@
 <template>
-  <div>
-    <img :src="$getImage('most_requested.svg')" alt="As mais pedidas" />
-    <div class="cards">
-      <Card v-for="pizza in pizzas" :key="pizza.name" :pizza="pizza" />
+  <div class="most_requested">
+    <div>
+      <img :src="$getImage('most_requested.svg')" alt="As mais pedidas" />
+      <div class="cards">
+        <Card v-for="pizza in pizzas" :key="pizza.name" :pizza="pizza" />
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import Card from '../Card.vue'
+import Card from '../../components/Card.vue'
 
 export default defineComponent({
   components: {
@@ -26,6 +28,12 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
+.most_requested {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .cards {
   display: flex;
   flex-direction: row;

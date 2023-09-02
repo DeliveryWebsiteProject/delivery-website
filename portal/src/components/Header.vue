@@ -70,11 +70,13 @@ header {
   align-items: center;
 
   background-color: #00000000;
+  box-shadow: none;
   transition: background-color 0.5s ease-in-out;
 }
 
 .change_color {
   background-color: $background-dark;
+  box-shadow: 0px 10px 10px 0px #0000004d;
   transition: background-color 0.5s ease-in-out;
 }
 
