@@ -10,8 +10,8 @@ CREATE TABLE basileus.users (
 	password varchar(120) NOT NULL,
 	phone varchar(11) NOT NULL,
 	address varchar(120) NULL,
-	role BIT NOT NULL,
-	state BIT NOT NULL,
+	role smallint NOT NULL,
+	state smallint NOT NULL,
 	CONSTRAINT user_pk PRIMARY KEY (id)
 );
 
@@ -22,9 +22,9 @@ CREATE TABLE basileus.pizza (
 	id varchar(50) NOT NULL,
 	name varchar(20) NOT NULL,
 	price DOUBLE NOT NULL,
-	category BIT NOT NULL,
+	category smallint NOT NULL,
 	photo varchar(200) NOT NULL,
-	state BIT NOT NULL,
+	state smallint NOT NULL,
   CONSTRAINT pizz_pk PRIMARY KEY (id)
 );
 

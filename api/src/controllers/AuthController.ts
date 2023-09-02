@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
-import UserRepository from "../repositories/UserRepository";
+import UserRepositoryTransaction from "../repositories/user/UserRepositoryTransaction";
 
 class AuthController {
   public async authenticate(req: Request, res: Response): Promise<Response> {
@@ -9,7 +9,7 @@ class AuthController {
 
     cpf = cpf.replace(/\D/g, '');
 
-    const user = await UserRepository.findOne(cpf);
+    const user = await new UserRepositoryTransaction().getUserByCpf(cpf);
 
     if (!user) {
       return res.sendStatus(401)
