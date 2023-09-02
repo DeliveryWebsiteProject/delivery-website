@@ -1,8 +1,8 @@
 import { RowDataPacket } from "mysql2"
 
 interface PizzaMapping extends RowDataPacket {
-  ref_pizza: Number
-  ref_ingr: Number
+  ref_pizza: string,
+  ref_ingredient: string,
 }
 
 export default PizzaMapping

@@ -1,10 +1,10 @@
-import { App } from 'vue'
+import { App, ImgHTMLAttributes, ReservedProps } from 'vue'
 
-const getImage = (url: string): string => {
+const getImage = (url: string): ImgHTMLAttributes & ReservedProps => {
   return require(`@/assets/images/${url}`)
 }
 
-const getIcon = (url: string): string => {
+const getIcon = (url: string): ImgHTMLAttributes & ReservedProps => {
   return require(`@/assets/icons/${url}.svg`)
 }
 

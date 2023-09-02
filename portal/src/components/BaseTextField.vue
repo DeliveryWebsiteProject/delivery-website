@@ -58,7 +58,7 @@ export default defineComponent({
     onBlur() {
       this.focus = false
     },
-    updateValue(event) {
+    updateValue(event: any) {
       this.$emit('update:modelValue', event.target.value)
     }
   }

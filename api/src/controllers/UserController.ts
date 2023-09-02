@@ -1,15 +1,16 @@
 import { Request, Response } from "express";
-import UserRepository from "../repositories/UserRepository";
+import { User } from "../models";
+import UserRepositoryTransaction from "../repositories/user/UserRepositoryTransaction";
 
 class UserController {
-  public async index(req: Request, res: Response): Promise<Response> {
-    const users = await UserRepository.findAll();
+  public async index(req: Request, res: Response): Promise<Response<User[]>> {
+    const users = await new UserRepositoryTransaction().findAll();
 
     return res.json(users)
   }
 
-  public async store(req: Request, res: Response): Promise<Response> {
-    const user = await UserRepository.store(req.body);
+  public async store(req: Request, res: Response): Promise<Response<User>> {
+    const user = await new UserRepositoryTransaction().store(req.body);
 
     return res.json(user)
   }

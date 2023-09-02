@@ -17,11 +17,14 @@
       </nav>
     </div>
     <div class="buttons">
-      <button class="buttons_card" >
+      <button class="buttons_card">
         <img :src="$getIcon('card_colorful')" />
       </button>
 
-      <router-link to='/login' class="buttons_login">Login</router-link>
+      <router-link v-if="!logged" to="/login" class="buttons_login"
+        >Login</router-link
+      >
+      <div v-else>LOGADO</div>
     </div>
   </header>
 </template>
@@ -32,6 +35,7 @@ import { defineComponent } from 'vue'
 export default defineComponent({
   data: () => ({
     scrollPosition: 0,
+    logged: false,
 
     navItems: [
       { name: 'HOME', route: '/' },
@@ -41,6 +45,8 @@ export default defineComponent({
   }),
   mounted() {
     window.addEventListener('scroll', this.updateScroll)
+
+    localStorage.getItem('token') ? (this.logged = true) : (this.logged = false)
   },
   methods: {
     updateScroll() {
@@ -64,11 +70,13 @@ header {
   align-items: center;
 
   background-color: #00000000;
+  box-shadow: none;
   transition: background-color 0.5s ease-in-out;
 }
 
 .change_color {
   background-color: $background-dark;
+  box-shadow: 0px 10px 10px 0px #0000004d;
   transition: background-color 0.5s ease-in-out;
 }
 

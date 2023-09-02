@@ -81,12 +81,12 @@ export default defineComponent({
   width: 340px;
   height: 450px;
 
-  border-radius: 20px;
-  box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.3);
+  border-radius: 15px;
+  box-shadow: 0px 4px 10px 0px #0000004d;
 }
 
 .photo {
-  border-radius: 20px 20px 0 0;
+  border-radius: 15px 15px 0 0;
 }
 
 .info {

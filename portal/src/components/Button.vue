@@ -33,7 +33,6 @@ export default defineComponent({
     font-size: 17px;
     color: #fff;
     font-weight: bold;
-    font-family: 'Inter', sans-serif;
   }
 
   &:hover {

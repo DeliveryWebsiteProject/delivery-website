@@ -8,21 +8,21 @@
     </div>
 </template>
   
-<script>
+<script lang="ts">
 export default {
     name: 'SearchButton',
     props: {
-        value: String
+        value: String // Anote o tipo da propriedade 'value'
     },
     data() {
         return {
-            searchQuery: this.value || ''
+            searchQuery: (this as any).value || '' // Use um tipo explícito para 'this'
         }
     }
 }
 </script>
   
-<style scoped>
+<style scoped lang="scss">
 .search-button {
     display: flex;
     align-items: center;
@@ -45,4 +45,3 @@ export default {
     margin-left: 5px;
 }
 </style>
-  
