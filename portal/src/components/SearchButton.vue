@@ -1,0 +1,48 @@
+<template>
+    <div class="search-button">
+        <div class="search-icon">
+            <img :src="$getIcon('search')" />
+        </div>
+        <input type="text" class="search-input" placeholder="Pesquisa" v-model="searchQuery"
+            @input="$emit('input', searchQuery)" />
+    </div>
+</template>
+  
+<script>
+export default {
+    name: 'SearchButton',
+    props: {
+        value: String
+    },
+    data() {
+        return {
+            searchQuery: this.value || ''
+        }
+    }
+}
+</script>
+  
+<style scoped>
+.search-button {
+    display: flex;
+    align-items: center;
+    background: $background-dark;
+    border-radius: 10px;
+    padding: 5px;
+    border: 2px solid #353535;
+}
+
+.search-input {
+    border: none;
+    outline: none;
+    background-color: transparent;
+    color: white;
+    margin-left: 20px;
+    font-size: 17px;
+}
+
+.search-icon {
+    margin-left: 5px;
+}
+</style>
+  

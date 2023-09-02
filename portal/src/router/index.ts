@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
 import AboutView from '@/views/AboutView.vue'
+import CardapioView from '@/views/CardapioView.vue'
 import LoginView from '@/views/login/LoginView.vue'
 import LoginPage from '@/views/login/LoginPage.vue'
 import SignupView from '@/views/login/SignupView.vue'
@@ -15,6 +16,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/about',
     name: 'Sobre a Basileus',
     component: AboutView
+  },
+  {
+    path: '/cardapio',
+    name: 'Cardapio',
+    component: CardapioView
   },
   {
     path: '/login',

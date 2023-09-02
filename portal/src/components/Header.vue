@@ -35,7 +35,7 @@ export default defineComponent({
 
     navItems: [
       { name: 'HOME', route: '/' },
-      { name: 'CARDÁPIO', route: '/' },
+      { name: 'CARDÁPIO', route: '/cardapio' },
       { name: 'SOBRE', route: '/about' }
     ]
   }),
