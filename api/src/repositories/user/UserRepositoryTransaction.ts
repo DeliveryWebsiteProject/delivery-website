@@ -18,7 +18,13 @@ export default class UserRepositoryTransaction implements UserRepository {
   }
 
   async store(data: User): Promise<User> {
-    Object.assign(data, { address: data.address ?? null, role: data.role ?? Role.USER, state: data.state ?? State.ACTIVE });
+    Object.assign(data, {
+      cpf: data.cpf.replace(/\W/g, ''),
+      phone: data.phone.replace(/\W/g, ''),
+      address: data.address ?? null,
+      role: data.role ?? Role.USER,
+      state: data.state ?? State.ACTIVE
+    });
 
     const salt = await bcrypt.genSalt(10);
 

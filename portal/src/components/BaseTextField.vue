@@ -7,11 +7,12 @@
         class="field__input"
         @focus="focus = true"
         @blur="focus = false"
-        :name="name"
-        :placeholder="placeholder"
-        :data-maska="mask"
-        :type="type"
+        :name=name
+        :placeholder=placeholder
+        :data-maska=mask
+        :type="type || 'text'"
         @input="updateValue"
+        :pattern="pattern"
       />
     </label>
   </div>
@@ -49,6 +50,9 @@ export default defineComponent({
     modelValue: {
       type: String,
       default: ''
+    },
+    pattern: {
+      type: String
     }
   },
   methods: {

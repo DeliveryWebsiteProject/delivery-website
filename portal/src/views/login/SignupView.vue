@@ -1,18 +1,22 @@
 <template>
   <div class="form_container">
     <form class="register_form" @submit="register">
-      <BaseTextField name="Nome" />
+      <BaseTextField name="Nome" v-model="name" />
+      <BaseTextField name="Senha" type="password" v-model="password" />
       <BaseTextField
         name="Cpf"
         placeholder="###.###.###-##"
         mask="###.###.###-##"
+        v-model="cpf"
       />
       <BaseTextField
         name="Telefone"
         placeholder="(##) #####-####"
         mask="(##) #####-####"
+        v-model="phone"
       />
-      <BaseTextField name="Endereço" />
+      <BaseTextField name="Endereço" :required="false" v-model="address" />
+      <span class="register_form__error">{{ error }}</span>
       <Button class="register_form__btn" type="submit" text="Criar" />
     </form>
   </div>
@@ -20,8 +24,10 @@
 
 <script lang="ts">
 import BaseTextField from '@/components/BaseTextField.vue'
+import UserService from '@/services/UserService'
 import Button from '@/components/Button.vue'
 import { defineComponent } from 'vue'
+import { User } from '@/models'
 
 export default defineComponent({
   components: {
@@ -30,13 +36,37 @@ export default defineComponent({
   },
   data() {
     return {
-      cpf: null,
-      password: null
+      name: '',
+      cpf: '',
+      password: '',
+      address: '',
+      phone: '',
+      error: ''
     }
   },
   methods: {
-    async register() {
-      console.log('login')
+    async register(event: Event) {
+      event?.preventDefault()
+
+      this.error = ''
+
+      const user = {
+        name: this.name,
+        cpf: this.cpf,
+        password: this.password,
+        address: this.address,
+        phone: this.phone
+      } as User
+
+      UserService.create(user)
+        .then((body) => {
+          if (body) {
+            this.$router.push('/login')
+          }
+        })
+        .catch((err) => {
+          this.error = err.response.data.error
+        })
     }
   }
 })
@@ -62,6 +92,12 @@ export default defineComponent({
   &__btn {
     width: 50%;
     margin-top: 1em;
+  }
+
+  &__error {
+    color: rgb(253, 120, 120);
+    height: 15px;
+    font-size: 11px;
   }
 }
 </style>

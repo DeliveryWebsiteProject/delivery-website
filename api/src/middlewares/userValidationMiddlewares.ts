@@ -10,7 +10,10 @@ export default async function userValidationMiddlewares(
   const value = req.body as any;
 
   if (value) {
-    const { name, cpf, password, phone } = value as User;
+    let { name, cpf, password, phone } = value as User;
+
+    cpf = cpf.replace(/\W/g, '');
+    phone = phone.replace(/\W/g, '');
 
     if (!name || !cpf || !password || !phone) return next(new ApiError('Campos obrigatórios não preenchidos', HttpStatus.BAD_REQUEST))
 
@@ -21,7 +24,7 @@ export default async function userValidationMiddlewares(
 
       if (cpf.length !== 11 || cpf.match(/^([0-9]{2}[\.]?[0-9]{3}[\.]?[0-9]{3}[\/]?[0-9]{4}[-]?[0-9]{2})|([0-9]{3}[\.]?[0-9]{3}[\.]?[0-9]{3}[-]?[0-9]{2})^/)) return next(new ApiError('CPF inválido', HttpStatus.BAD_REQUEST));
 
-      if (phone.length != 11) return next(new ApiError('Telefone inválido', HttpStatus.BAD_REQUEST));
+      if (phone.length !== 11) return next(new ApiError('Telefone inválido', HttpStatus.BAD_REQUEST));
     } else {
       return next(new ApiError('CPF já cadastrado', HttpStatus.BAD_REQUEST));
     }
