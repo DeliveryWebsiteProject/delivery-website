@@ -14,6 +14,14 @@ class UserController {
 
     return res.json(user)
   }
+
+  public async getUserById(req: Request, res: Response): Promise<Response<User>> {
+    const { id } = req.params;
+
+    const user = await new UserRepositoryTransaction().getUserById(id);
+
+    return res.json(user)
+  }
 }
 
 export default new UserController()

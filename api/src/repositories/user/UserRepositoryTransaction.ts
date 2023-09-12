@@ -57,5 +57,20 @@ export default class UserRepositoryTransaction implements UserRepository {
 
     return user;
   }
+
+  async getUserById(id: string): Promise<User> {
+    const conn = await Database.getInstance().connect();
+
+    let user: User | undefined = undefined;
+
+    let [rows] = await conn.execute<User[]>(
+      'SELECT * FROM users WHERE id = ?', [id]);
+
+    conn.end();
+
+    user = rows[0];
+
+    return user;
+  }
 }
 
