@@ -8,7 +8,7 @@
       Oops. Nada aqui...
     </div>
 
-    <router-link class="button" to="/">
+    <router-link class="button" to="/" @click="$scrollToTop">
       <Button text="Ir para Home" />
     </router-link>
   </div>

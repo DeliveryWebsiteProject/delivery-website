@@ -11,12 +11,13 @@
       <Button class="login_form__btn" type="submit" text="Login" />
     </form>
     <div class="signup">
-      <span
-        >Ainda não se registrou?
-        <router-link class="signup__link" to="/signup"
-          >Crie uma conta</router-link
-        >.</span
-      >
+      <span>
+        Ainda não se registrou?
+        <router-link class="signup__link" to="/signup" @click="$scrollToTop">
+          Crie uma conta
+        </router-link>
+        .
+      </span>
     </div>
   </div>
 </template>

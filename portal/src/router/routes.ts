@@ -4,22 +4,34 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'Basileus Pizza Artesanal',
-    component: () => import('@/views/HomeView.vue')
+    component: () => import('@/views/HomeView.vue'),
+    meta: {
+      auth: false
+    }
   },
   {
     path: '/about',
     name: 'Sobre a Basileus',
-    component: () => import('@/views/AboutView.vue')
+    component: () => import('@/views/AboutView.vue'),
+    meta: {
+      auth: false
+    }
   },
   {
     path: '/cardapio',
     name: 'Cardapio',
-     component: () => import('@/views/CardapioView.vue')
+    component: () => import('@/views/CardapioView.vue'),
+    meta: {
+      auth: false
+    }
   },
   {
     path: '/login',
     name: 'Login',
     component: () => import('@/views/login/LoginView.vue'),
+    meta: {
+      auth: false
+    },
     children: [
       {
         path: '',
@@ -38,7 +50,10 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/:catchAll(.*)*',
     name: 'Página não encontrada',
-    component: () => import('@/views/ErrorNotFound.vue')
+    component: () => import('@/views/ErrorNotFound.vue'),
+    meta: {
+      auth: false
+    }
   }
 ]
 
