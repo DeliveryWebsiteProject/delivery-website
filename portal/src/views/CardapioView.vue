@@ -7,10 +7,10 @@
     <Button v-for="(text, index) in filtrosTexts" :key="index" :text="text" class="button-item"
       :class="{ 'button-black': selectedButton !== text, 'button-green': selectedButton === text }"
       @click="selectedButton = text" />
-    <SearchButton />
+    <SearchButton @pesquisa="searchPizza" />
   </div>
   <div class="cards">
-    <Card v-for="pizza in pizzas" :key="pizza.name" :pizza="pizza" class="card"/>
+    <Card v-for="pizza in filteredPizzas" :key="pizza.name" :pizza="pizza" class="card"/>
   </div>
 </template>
 
@@ -19,6 +19,7 @@ import Header from '../components/Header.vue'
 import SearchButton from '../components/SearchButton.vue'
 import Button from '../components/Button.vue'
 import Card from '../components/Card.vue'
+import { PizzaCard } from '@/models'
 import { defineComponent } from 'vue'
 
 export default defineComponent({
@@ -28,20 +29,33 @@ export default defineComponent({
     Button,
     Card
   },
-  data() {
-    return {
-      filtrosTexts: ['Salgadas', 'Doces'],
-      selectedButton: null,
-      pizzas: [
-        { name: 'Margherita', price: 50, photo: 'margherita.png' },
-        { name: 'Capricchosa', price: 68, photo: 'capricchosa.png' },
-        { name: 'Basileus', price: 52, photo: 'basileus.png' },
-        { name: 'Basileus', price: 52, photo: 'basileus.png' },
-        { name: 'Basileus', price: 52, photo: 'basileus.png' },
-        { name: 'Basileus', price: 52, photo: 'basileus.png' },
-        { name: 'Capricchosa', price: 68, photo: 'capricchosa.png' },
-        { name: 'Margherita', price: 50, photo: 'margherita.png' },
-      ]
+  mounted() {
+    this.filteredPizzas = this.pizzas  
+  },
+  data: () => ({
+    filtrosTexts: ['Salgadas', 'Doces'],
+    selectedButton: null,
+    pizzas: [
+      { name: 'Margherita', price: 50, photo: 'margherita.png' },
+      { name: 'Capricchosa', price: 68, photo: 'capricchosa.png' },
+      { name: 'Basileus', price: 52, photo: 'basileus.png' },
+      { name: 'Basileus', price: 52, photo: 'basileus.png' },
+      { name: 'Basileus', price: 52, photo: 'basileus.png' },
+      { name: 'Basileus', price: 52, photo: 'basileus.png' },
+      { name: 'Capricchosa', price: 68, photo: 'capricchosa.png' },
+      { name: 'Margherita', price: 50, photo: 'margherita.png' },
+    ] as PizzaCard[],
+    filteredPizzas: [] as PizzaCard[]
+  }),
+  methods: {
+    searchPizza(data: string) {
+      // TO-DO: Arrumar busca quando houver consulta da API
+
+      if (data.length > 0) {
+        this.filteredPizzas = this.pizzas.filter( p => p.name.toLowerCase().includes(data.toLowerCase()));
+      } else {
+        this.filteredPizzas = this.pizzas
+      }
     }
   }
 })
