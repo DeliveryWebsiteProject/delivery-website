@@ -9,6 +9,7 @@ const getIcon = (url: string): ImgHTMLAttributes & ReservedProps => {
 }
 
 export default (Vue: App<Element>) => {
-  (Vue.config.globalProperties.$getImage = getImage),
-    (Vue.config.globalProperties.$getIcon = getIcon)
+  Vue.config.globalProperties.$getImage = getImage,
+    Vue.config.globalProperties.$getIcon = getIcon,
+    Vue.config.globalProperties.$scrollToTop = () => window.scrollTo(0, 0)
 }

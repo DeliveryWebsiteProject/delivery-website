@@ -1,7 +1,7 @@
 <template>
   <header :class="{ change_color: scrollPosition > 50 }">
     <div class="logo">
-      <router-link to="/">
+      <router-link to="/" @click="$scrollToTop">
         <img :src="$getIcon('logo')" />
       </router-link>
     </div>
@@ -9,7 +9,7 @@
       <nav class="nav">
         <ul>
           <li v-for="item in navItems" :key="item.name">
-            <router-link class="nav_item" :to="item.route">
+            <router-link class="nav_item" :to="item.route" @click="$scrollToTop">
               {{ item.name }}
             </router-link>
           </li>
@@ -21,9 +21,14 @@
         <img :src="$getIcon('card_colorful')" />
       </button>
 
-      <router-link v-if="!logged" to="/login" class="buttons_login"
-        >Login</router-link
+      <router-link
+        v-if="!logged"
+        to="/login"
+        @click="$scrollToTop"
+        class="buttons_login"
       >
+        Login
+      </router-link>
       <div v-else>LOGADO</div>
     </div>
   </header>
