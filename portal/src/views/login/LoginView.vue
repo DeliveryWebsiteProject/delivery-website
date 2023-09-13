@@ -49,7 +49,6 @@ export default defineComponent({
       if (this.cpf && this.password) {
         SessionService.login(this.cpf, this.password)
           .then((result) => {
-            sessionStorage.setItem('token', result?.token ?? '')
             this.setToken(result?.token ?? '')
             this.updateActualUser()
 

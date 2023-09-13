@@ -1,5 +1,3 @@
-// import Buffer from 
-
 interface Payload {
   id: string
   exp: number
@@ -35,10 +33,6 @@ const isTokenValid = (token: string) => {
   }
 
   const decodedToken = decode(token)
-
-  console.log(decodedToken.expires)
-  console.log(Date.now())
-  console.log(decodedToken.expires > Date.now());
 
   return decodedToken.expires > Date.now()
 }
