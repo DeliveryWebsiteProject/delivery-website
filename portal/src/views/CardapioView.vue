@@ -97,11 +97,10 @@ export default defineComponent({
 
 .cards {
   display: grid; 
-  grid-template-columns: repeat(4, 1fr); 
-  grid-gap: 50px;
-  margin-top: 5%;
-  margin-left: 200px;
-  margin-right: 200px;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  column-gap: 30px;
+  padding: 50px 20px;
+  justify-items: center;
 }
 
 .card {
