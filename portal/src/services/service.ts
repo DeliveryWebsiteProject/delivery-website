@@ -15,8 +15,6 @@ export default {
   },
 
   async post<T>(url: string, data: object): Promise<T | undefined> {
-    console.log(process.env.VUE_APP_API_URL);
-
     const { data: returnedData } = await instance.post(url, data)
 
     return returnedData
