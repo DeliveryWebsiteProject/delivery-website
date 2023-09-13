@@ -1,5 +1,7 @@
+// import Buffer from 
+
 interface Payload {
-  id: number
+  id: string
   exp: number
 }
 
@@ -14,8 +16,8 @@ const decode = (token: string): Token => {
   if (!token) return {} as Token
 
   const tokenArray = token.split('.')
-  const header = JSON.parse(Buffer.from(tokenArray[0], 'base64').toString())
-  const payload = JSON.parse(Buffer.from((tokenArray[1]), 'base64').toString())
+  const header = JSON.parse(atob(tokenArray[0]))
+  const payload = JSON.parse(atob((tokenArray[1])))
 
   const decodedToken: Token = {
     header,
@@ -27,4 +29,21 @@ const decode = (token: string): Token => {
   return decodedToken
 }
 
-export default decode
+const isTokenValid = (token: string) => {
+  if (!token || !localStorage.getItem('token')) {
+    return false
+  }
+
+  const decodedToken = decode(token)
+
+  console.log(decodedToken.expires)
+  console.log(Date.now())
+  console.log(decodedToken.expires > Date.now());
+
+  return decodedToken.expires > Date.now()
+}
+
+export default {
+  decode,
+  isTokenValid
+}

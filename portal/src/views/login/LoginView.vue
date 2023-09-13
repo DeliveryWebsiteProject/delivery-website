@@ -26,6 +26,8 @@
 import BaseTextField from '@/components/BaseTextField.vue'
 import Button from '@/components/Button.vue'
 import SessionService from '@/services/SessionService'
+import { mapActions } from 'pinia'
+import { useSessionStore } from '@/stores/session'
 import { defineComponent } from 'vue'
 
 export default defineComponent({
@@ -42,14 +44,14 @@ export default defineComponent({
     }
   },
   methods: {
+    ...mapActions(useSessionStore, ['setToken', 'updateActualUser']),
     async login() {
       if (this.cpf && this.password) {
         SessionService.login(this.cpf, this.password)
           .then((result) => {
             sessionStorage.setItem('token', result?.token ?? '')
-            // this.setToken(result.token)
-            // this.setActualUser()
-            // this.connect()
+            this.setToken(result?.token ?? '')
+            this.updateActualUser()
 
             this.$router.push('/')
           })

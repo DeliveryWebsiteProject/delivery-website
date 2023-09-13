@@ -21,7 +21,9 @@ class AuthController {
       return res.sendStatus(401)
     }
 
-    const token = jwt.sign(Object.assign(user, { password: null }), (process.env.JWT_SECRET_KEY ?? '').toString(), { expiresIn: '1d' });
+    const expirationTime = new Date(Date.now() + 1 * 60 * 60 * 1000).getTime() // 1 Hour
+
+    const token = jwt.sign(Object.assign(user, { password: null, exp: expirationTime }), (process.env.JWT_SECRET_KEY ?? '').toString());
 
     const jsonUser = Object.assign(user, { password: null, token: token });
 

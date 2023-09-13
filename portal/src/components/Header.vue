@@ -35,6 +35,8 @@
 </template>
 
 <script lang="ts">
+import { mapGetters } from 'pinia'
+import { useSessionStore } from '@/stores/session'
 import { defineComponent } from 'vue'
 
 export default defineComponent({
@@ -51,9 +53,10 @@ export default defineComponent({
   mounted() {
     window.addEventListener('scroll', this.updateScroll)
 
-    localStorage.getItem('token') ? (this.logged = true) : (this.logged = false)
+    this.getToken() ? (this.logged = true) : (this.logged = false)
   },
   methods: {
+    ...mapGetters(useSessionStore, ['getToken']),
     updateScroll() {
       this.scrollPosition = window.scrollY
     }
