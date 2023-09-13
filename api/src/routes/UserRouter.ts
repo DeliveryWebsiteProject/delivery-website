@@ -7,6 +7,6 @@ const userRoutes = Router();
 
 userRoutes.get('/users', authMiddleware, UserController.index)
 userRoutes.post("/users/create", userValidationMiddlewares, UserController.store);
-userRoutes.post("/users/:id", UserController.getUserById);
+userRoutes.get("/users/:id", UserController.getUserById);
 
 export default userRoutes;
