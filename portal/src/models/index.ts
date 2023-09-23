@@ -1,2 +1,8 @@
-export { default as User } from './user'
-export { default as PizzaCard } from './pizzaCard'
+import User, { Role } from '@/models/user'
+import PizzaCard from '@/models/pizzaCard'
+
+export {
+  User,
+  Role,
+  PizzaCard
+}

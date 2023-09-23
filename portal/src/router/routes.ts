@@ -45,6 +45,14 @@ const routes: Array<RouteRecordRaw> = [
       }
     ]
   },
+  {
+    path: '/admin',
+    name: 'Administrador',
+    component: () => import('@/views/AdminView.vue'),
+    meta: {
+      auth: true
+    }
+  },
 
   // Deixar como último
   {

@@ -1,5 +1,5 @@
 import { User } from '@/models'
-import service from "./service";
+import service from "@/services/service";
 
 export default {
   async create(data: User): Promise<User | undefined> {

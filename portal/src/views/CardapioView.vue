@@ -15,10 +15,10 @@
 </template>
 
 <script lang="ts">
-import Header from '../components/Header.vue'
-import SearchButton from '../components/SearchButton.vue'
-import Button from '../components/Button.vue'
-import Card from '../components/Card.vue'
+import Header from '@/components/Header.vue'
+import SearchButton from '@/components/SearchButton.vue'
+import Button from '@/components/Button.vue'
+import Card from '@/components/Card.vue'
 import { PizzaCard } from '@/models'
 import { defineComponent } from 'vue'
 

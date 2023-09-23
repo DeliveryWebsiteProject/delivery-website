@@ -1,6 +1,6 @@
 <template>
   <div class="form_container">
-    <form class="login_form" @submit.prevent="login">
+    <form class="login_form" @submit.prevent="doLogin">
       <BaseTextField
         name="Cpf"
         placeholder="###.###.###-##"
@@ -44,24 +44,23 @@ export default defineComponent({
     }
   },
   methods: {
-    ...mapActions(useSessionStore, ['setToken', 'updateActualUser']),
-    async login() {
+    ...mapActions(useSessionStore, ['login']),
+    async doLogin() {
+      this.loading = true
+
       if (this.cpf && this.password) {
-        SessionService.login(this.cpf, this.password)
-          .then((result) => {
-            this.setToken(result?.token ?? '')
-            this.updateActualUser()
+        await this.login(this.cpf, this.password)
+        .then(() => {
+          this.$router.push('/')
+        })
+        .catch((err) => {
+          this.showError = true
 
-            this.$router.push('/')
-          })
-          .catch((err) => {
-            this.showError = true
+          throw err
+        })
+      } 
 
-            throw err
-          })
-      } else {
-        this.loading = false
-      }
+      this.loading = false
     }
   }
 })

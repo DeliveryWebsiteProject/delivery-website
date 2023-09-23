@@ -21,15 +21,7 @@
         <img :src="$getIcon('card_colorful')" />
       </button>
 
-      <router-link
-        v-if="!logged"
-        to="/login"
-        @click="$scrollToTop"
-        class="buttons_login"
-      >
-        Login
-      </router-link>
-      <div v-else>LOGADO</div>
+      <UserButton />
     </div>
   </header>
 </template>
@@ -38,11 +30,14 @@
 import { mapGetters } from 'pinia'
 import { useSessionStore } from '@/stores/session'
 import { defineComponent } from 'vue'
+import UserButton from '@/components/UserButton.vue'
 
 export default defineComponent({
+  components: {
+    UserButton
+  },
   data: () => ({
     scrollPosition: 0,
-    logged: false,
 
     navItems: [
       { name: 'HOME', route: '/' },
@@ -52,11 +47,9 @@ export default defineComponent({
   }),
   mounted() {
     window.addEventListener('scroll', this.updateScroll)
-
-    this.getToken() ? (this.logged = true) : (this.logged = false)
   },
   methods: {
-    ...mapGetters(useSessionStore, ['getToken']),
+    ...mapGetters(useSessionStore, ['getToken', 'isLogged']),
     updateScroll() {
       this.scrollPosition = window.scrollY
     }
@@ -149,31 +142,6 @@ header {
     border-radius: 100%;
 
     background-color: $text-light;
-  }
-
-  &_login {
-    height: 50px;
-    width: 150px;
-
-    background-color: $primary-color;
-    transition: background-color 0.2s ease-in-out;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 15px;
-
-    color: $text-light;
-    font-weight: bold;
-    font-size: 24px;
-
-    text-decoration: none;
-
-    &:hover {
-      background-color: $primary-darker;
-      transition: background-color 0.2s ease-in-out;
-    }
   }
 }
 </style>

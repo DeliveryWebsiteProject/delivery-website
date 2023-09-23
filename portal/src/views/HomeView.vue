@@ -2,7 +2,7 @@
   <div>
     <div class="top">
       <Header />
-      <img class="banner" src="../assets/images/home_background.png" />
+      <img class="banner" :src="$getImage('home_background.png')" />
     </div>
     <div class="contents">
       <Speciale />
@@ -60,7 +60,7 @@ export default defineComponent({
     border: none;
     border-radius: 15px;
 
-    box-shadow: 0px 4px 10px 0px #0000004d;
+    box-shadow: $box-shadow;
   }
 }
 </style>

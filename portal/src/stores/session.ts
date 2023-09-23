@@ -1,12 +1,11 @@
 import { defineStore } from 'pinia'
 import jwt from '@/plugins/jwt'
-import { User } from '@/models'
-import { Role } from '@/models/user'
-import UserService from '@/services/UserService'
+import { User, Role } from '@/models'
+import SessionService from '@/services/SessionService'
 
 export const useSessionStore = defineStore('session', {
   state: () => ({
-    token: localStorage.getItem('token') ?? '',
+    token: '',
     actualUser: undefined as User | undefined,
   }),
   getters: {
@@ -18,9 +17,19 @@ export const useSessionStore = defineStore('session', {
     },
     isAdmin(state) {
       return state.actualUser?.role === Role.ADMIN
+    },
+    isLogged(state) {
+      return !!state.token
     }
   },
   actions: {
+    async login(cpf: string, password: string) {
+      SessionService.login(cpf, password)
+        .then(async (result) => {
+          this.setToken(result?.token ?? '')
+          await this.updateActualUser()
+        })
+    },
     setToken(token: string) {
       localStorage.setItem('token', token)
 
@@ -32,9 +41,15 @@ export const useSessionStore = defineStore('session', {
       this.token = ''
     },
     async updateActualUser() {
-      const userId = jwt.decode(this.token).payload.id
+      this.actualUser = jwt.decode(this.token).payload as User
+    },
+    async fetch() {
+      const token = localStorage.getItem('token');
 
-      this.actualUser = await UserService.getUserById(userId)
-    }
+      if (token) {
+        this.token = token
+        await this.updateActualUser()
+      }
+    },
   }
 })

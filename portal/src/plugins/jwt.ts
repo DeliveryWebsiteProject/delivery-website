@@ -1,5 +1,7 @@
+import { User } from '@/models'
+
 interface Payload {
-  id: string
+  user: User
   exp: number
 }
 

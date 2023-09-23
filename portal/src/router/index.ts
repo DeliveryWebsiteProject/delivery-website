@@ -1,5 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import routes from './routes'
+import routes from '@/router/routes'
 import { useSessionStore } from '@/stores/session'
 import jwt from '@/plugins/jwt'
 

@@ -76,13 +76,13 @@ export default defineComponent({
 
 <style scoped lang="scss">
 .card {
-  background: #242424;
+  background: $card-color;
 
   width: 340px;
   height: 450px;
 
   border-radius: 15px;
-  box-shadow: 0px 4px 10px 0px #0000004d;
+  box-shadow: $box-shadow;
 }
 
 .photo {
