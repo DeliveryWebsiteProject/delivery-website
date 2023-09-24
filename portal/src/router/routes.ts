@@ -26,6 +26,14 @@ const routes: Array<RouteRecordRaw> = [
     }
   },
   {
+    path: '/profile',
+    name: 'Perfil',
+    component: () => import('@/views/ProfileView.vue'),
+    meta: {
+      auth: false
+    }
+  },
+  {
     path: '/login',
     name: 'Login',
     component: () => import('@/views/login/LoginPage.vue'),
