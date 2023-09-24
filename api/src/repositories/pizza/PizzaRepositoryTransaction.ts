@@ -35,8 +35,14 @@ export default class PizzaRepositoryTransaction implements PizzaRepository {
     throw new Error("Method not implemented.");
   }
 
-  delete(id: number): Promise<Pizza> {
-    throw new Error("Method not implemented.");
+  async delete(id: number): Promise<void> {
+    const conn = await Database.getInstance().connect();
+
+    await conn.execute(
+      `UPDATE pizzas SET state = ${State.INACTIVE} WHERE id = ${id}`
+    )
+
+    conn.end()
   }
 
   show(id: number): Promise<Pizza> {

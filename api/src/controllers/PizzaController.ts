@@ -32,7 +32,11 @@ export default class PizzaController {
     return res.json([]);
   }
 
-  public static async delete(req: Request, res: Response): Promise<any> {
-    return res.json([]);
+  public static async delete(req: Request, res: Response): Promise<void> {
+    const id = Number(req.params.id)
+
+    await new PizzaRepositoryTransaction().delete(id)
+
+    res.status(200).end();
   }
 }

@@ -1,5 +1,94 @@
 <template>
-  <div>
-    <h1>Admin View</h1>
+  <div class="main">
+    <Header />
+    <div>
+      <div class="content">
+        <div class="content_top">
+          <h1>Pizzas Cadastradas</h1>
+    
+          <button @click="togglePopup" class="add_button">
+            <img :src="$getIcon('plus_light')">
+          </button>
+
+          <PizzaEditor v-if="toggleMenu" :edit="false" :toggle-popup="togglePopup"  />
+        </div>
+  
+        <div class="list">
+          <PizzaList />
+        </div>
+      </div>
+    </div>
   </div>
 </template>
+
+<script lang="ts">
+import { defineComponent } from 'vue';
+import Header from '@/components/Header.vue';
+import PizzaList from '@/components/admin/PizzaList.vue';
+import PizzaEditor from '@/components/PizzaEditor.vue';
+
+export default defineComponent ({
+  components: {
+    Header,
+    PizzaEditor,
+    PizzaList
+  },
+  data: () => ({
+    toggleMenu: false
+  }),
+  methods: {
+    togglePopup() {
+      this.toggleMenu = !this.toggleMenu
+    }
+  }
+})
+</script>
+
+<style lang="scss" scoped>
+.main {
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.content {
+  width: 940px;
+  height: 810px;
+  
+  border-radius: 20px;
+
+  background-color: $card-color;
+  box-shadow: $box-shadow;
+
+  &_top {
+    padding: 36px 40px;
+
+    color: $text-light;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+.add_button {
+  background-color: $primary-color;
+  transition: background-color 0.2s ease-in-out;
+
+  width: 40px;
+  height: 40px;
+
+  border-radius: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    background-color: $primary-darker;
+  }
+}
+</style>

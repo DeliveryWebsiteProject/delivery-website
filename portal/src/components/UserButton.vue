@@ -4,7 +4,7 @@
       <p class="user_button_name">{{ getActualUser()?.name }}</p>
       <img :src="$getIcon('user')" />
       
-      <Menu v-if="showMenu" class="menu">
+      <Menu v-if="showMenu">
         <router-link to="/profile">
           Perfil
         </router-link>
@@ -70,10 +70,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-
-.menu {
-  text-align: left;
-}
 .user_button {
   height: 50px;
   width: 150px;

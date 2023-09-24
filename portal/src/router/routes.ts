@@ -30,7 +30,7 @@ const routes: Array<RouteRecordRaw> = [
     name: 'Perfil',
     component: () => import('@/views/ProfileView.vue'),
     meta: {
-      auth: false
+      auth: true
     }
   },
   {
