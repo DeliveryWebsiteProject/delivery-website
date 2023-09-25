@@ -10,5 +10,6 @@ userRoutes.get('/users', authMiddleware, UserController.index)
 userRoutes.post("/users", userAddMiddlewares, UserController.add);
 userRoutes.get("/users/:id", UserController.getUserById);
 userRoutes.put("/users/:id", userUpdateMiddlewares, UserController.update);
+userRoutes.delete("/users/:id", UserController.delete);
 
 export default userRoutes;
