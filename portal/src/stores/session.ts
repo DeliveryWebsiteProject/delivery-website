@@ -43,12 +43,17 @@ export const useSessionStore = defineStore('session', {
     async updateActualUser() {
       this.actualUser = jwt.decode(this.token).payload as User
     },
-    async fetch() {
-      const token = localStorage.getItem('token');
-
-      if (token) {
-        this.token = token
+    async fetch(user?: User) {
+      if (user) {
+        this.setToken(user?.token ?? '')
         await this.updateActualUser()
+      } else {
+        const token = localStorage.getItem('token');
+
+        if (token) {
+          this.token = token
+          await this.updateActualUser()
+        }
       }
     },
   }

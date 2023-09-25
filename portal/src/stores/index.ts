@@ -1,4 +1,5 @@
 import { useSessionStore } from '@/stores/session'
+import { useUserStore } from '@/stores/user'
 import { usePizzaStore } from '@/stores/pizza'
 
 export const installStores = () => {
@@ -6,7 +7,8 @@ export const installStores = () => {
     usePizzaStore().fetch()
 }
 
-export default {
+export {
   useSessionStore,
-  usePizzaStore
+  usePizzaStore,
+  useUserStore,
 }

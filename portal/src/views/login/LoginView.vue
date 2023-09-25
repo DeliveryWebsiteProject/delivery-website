@@ -25,7 +25,6 @@
 <script lang="ts">
 import BaseTextField from '@/components/BaseTextField.vue'
 import Button from '@/components/Button.vue'
-import SessionService from '@/services/SessionService'
 import { mapActions } from 'pinia'
 import { useSessionStore } from '@/stores/session'
 import { defineComponent } from 'vue'

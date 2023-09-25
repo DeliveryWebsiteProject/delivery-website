@@ -24,10 +24,11 @@
 
 <script lang="ts">
 import BaseTextField from '@/components/BaseTextField.vue'
-import UserService from '@/services/UserService'
 import Button from '@/components/Button.vue'
 import { defineComponent } from 'vue'
 import { User } from '@/models'
+import { mapActions } from 'pinia'
+import { useUserStore } from '@/stores/user'
 
 export default defineComponent({
   components: {
@@ -45,20 +46,21 @@ export default defineComponent({
     }
   },
   methods: {
+    ...mapActions(useUserStore, ['addUser']),
     async register(event: Event) {
       event?.preventDefault()
 
       this.error = ''
 
-      const user = {
+      const user: User = {
         name: this.name,
         cpf: this.cpf,
         password: this.password,
         address: this.address,
         phone: this.phone
-      } as User
+      }
 
-      UserService.create(user)
+      this.addUser(user)
         .then((body) => {
           if (body) {
             this.$router.push('/login')

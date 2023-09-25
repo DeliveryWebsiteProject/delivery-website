@@ -24,3 +24,9 @@ export default defineComponent({
   },
 })
 </script>
+
+<style lang="scss" scoped>
+h2 {
+  color: $text-light;
+}
+</style>

@@ -7,12 +7,13 @@
         class="field__input"
         @focus="focus = true"
         @blur="focus = false"
+        @input="updateValue"
         :name=name
         :placeholder=placeholder
         :data-maska=mask
         :type="type || 'text'"
-        @input="updateValue"
         :pattern="pattern"
+        :value="modelValue"
       />
     </label>
   </div>
