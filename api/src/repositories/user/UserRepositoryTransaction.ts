@@ -74,6 +74,11 @@ export default class UserRepositoryTransaction implements UserRepository {
   }
 
   async update(id: string, data: User): Promise<User> {
+    Object.assign(data, {
+      phone: data.phone.replace(/\W/g, ''),
+      address: data.address ?? null,
+    });
+
     const conn = await Database.getInstance().connect();
 
     await conn.execute(
