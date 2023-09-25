@@ -10,7 +10,7 @@ export default class UserRepositoryTransaction implements UserRepository {
   async findAll(): Promise<User[]> {
     const conn = await Database.getInstance().connect();
 
-    const [rows] = await conn.execute<User[]>('SELECT * FROM users');
+    const [rows] = await conn.execute<User[]>('SELECT * FROM users where state = ?', [State.ACTIVE]);
 
     conn.end()
 
