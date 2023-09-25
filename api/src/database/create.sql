@@ -18,7 +18,7 @@ CREATE TABLE basileus.users (
 -- --------------------------------------------------------
 -- Table structure for table 'PIZZA'
 -- --------------------------------------------------------
-CREATE TABLE basileus.pizza (
+CREATE TABLE basileus.pizzas (
 	id varchar(50) NOT NULL,
 	name varchar(20) NOT NULL,
 	price DOUBLE NOT NULL,

@@ -72,5 +72,17 @@ export default class UserRepositoryTransaction implements UserRepository {
 
     return user;
   }
+
+  async updateUser(id: string, data: User): Promise<User> {
+    const conn = await Database.getInstance().connect();
+
+    await conn.execute(
+      'UPDATE users SET name = ?, phone = ?, address = ? WHERE id = ?',
+      [data.name, data.phone, data.address, id]);
+
+    conn.end();
+
+    return data;
+  }
 }
 
