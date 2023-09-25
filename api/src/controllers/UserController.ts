@@ -9,7 +9,7 @@ class UserController {
     return res.json(users)
   }
 
-  public async store(req: Request, res: Response): Promise<Response<User>> {
+  public async add(req: Request, res: Response): Promise<Response<User>> {
     const user = await new UserRepositoryTransaction().store(req.body);
 
     return res.json(user)
@@ -23,12 +23,20 @@ class UserController {
     return res.json(user)
   }
 
-  public async updateUser(req: Request, res: Response): Promise<Response<User>> {
+  public async update(req: Request, res: Response): Promise<Response<User>> {
     const { id } = req.params;
 
-    const user = await new UserRepositoryTransaction().updateUser(id, req.body);
+    const user = await new UserRepositoryTransaction().update(id, req.body);
 
     return res.json(user);
+  }
+
+  public async delete(req: Request, res: Response): Promise<void> {
+    const { id } = req.params;
+
+    await new UserRepositoryTransaction().delete(id);
+
+    res.status(200).end();
   }
 }
 

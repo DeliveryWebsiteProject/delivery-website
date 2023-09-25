@@ -73,7 +73,7 @@ export default class UserRepositoryTransaction implements UserRepository {
     return user;
   }
 
-  async updateUser(id: string, data: User): Promise<User> {
+  async update(id: string, data: User): Promise<User> {
     const conn = await Database.getInstance().connect();
 
     await conn.execute(
@@ -83,6 +83,15 @@ export default class UserRepositoryTransaction implements UserRepository {
     conn.end();
 
     return data;
+  }
+
+  async delete(id: string): Promise<void> {
+    const conn = await Database.getInstance().connect();
+
+    await conn.execute(
+      'UPDATE users SET state = ? WHERE id = ?', [State.INACTIVE, id]);
+
+    conn.end();
   }
 }
 
