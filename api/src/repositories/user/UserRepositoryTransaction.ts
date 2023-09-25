@@ -87,7 +87,7 @@ export default class UserRepositoryTransaction implements UserRepository {
 
     conn.end();
 
-    data = rows[0];
+    data = await this.getUserById(id);
 
     return data;
   }
