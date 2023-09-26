@@ -71,13 +71,15 @@ export default defineComponent({
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    max-height: 600px;
+    overflow-y: auto;
 
     .pizza-item {
       width: 100%;
       box-sizing: border-box;
 
       @media(min-width: 768px) {
-        width: 50%; 
+        width: 50%;
       }
     }
   }
