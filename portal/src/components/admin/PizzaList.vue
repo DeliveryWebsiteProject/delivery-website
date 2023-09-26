@@ -5,7 +5,6 @@
         <div class="pizza">
           <div class="pizza_content">
             <p class="pizza_name">{{ pizza.name }}</p>
-
             <div>
               <div>
                 <span>Valor: </span>
@@ -16,12 +15,10 @@
                 <span>{{ pizza.category ? 'Doce' : 'Salgada' }}</span>
               </div>
             </div>
-            
             <div class="pizza_actions">
               <img :src="$getIcon('edit')" @click="openEdit(pizza)">
               <img :src="$getIcon('delete')" @click="openDelete(pizza)">
             </div>
-
             <PizzaEditor v-if="toggleMenu" :edit="true" :toggle-popup="toggleMenuPopup"  />
             <Confirm v-if="toggleConfirm" :confirm="confirmDelete" :toggle-popup="toggleConfirmPopup" />
           </div>
@@ -84,10 +81,9 @@ ul {
 .pizzas {
   display: grid; 
   justify-items: center;
-  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  grid-template-columns: repeat(2, minmax(200px, 1fr)); 
   column-gap: 15px;
   row-gap: 15px;
-
   padding: 0 20px;
 }
 
