@@ -2,6 +2,7 @@ import { Request, Response } from 'express'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import UserRepositoryTransaction from "../repositories/user/UserRepositoryTransaction";
+import { State } from '../models/User';
 
 class AuthController {
   public async authenticate(req: Request, res: Response): Promise<Response> {
@@ -13,6 +14,10 @@ class AuthController {
 
     if (!user) {
       return res.sendStatus(401)
+    }
+
+    if (user.state === State.INACTIVE) {
+      return res.sendStatus(401);
     }
 
     const isValidPassword = await bcrypt.compare(password, user.password);

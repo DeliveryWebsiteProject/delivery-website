@@ -10,28 +10,29 @@
     <BaseTextField name="Preço" v-model="price" :required="false" />
     <PizzaCategorySelector v-model="category" :required="false" />
     <BaseTextField name="Foto" v-model="photo" :required="false" />
+    <span class="error">{{ error }}</span>
   </Popup>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import Popup from '@/components/Popup.vue';
-import BaseTextField from '@/components/BaseTextField.vue';
-import { usePizzaStore } from '@/stores/pizza';
-import { mapGetters, mapActions } from 'pinia';
-import { Pizza, Category, State } from '@/models';
-import PizzaCategorySelector from '@/components/PizzaCategorySelector.vue';
+import { defineComponent } from 'vue'
+import Popup from '@/components/Popup.vue'
+import BaseTextField from '@/components/BaseTextField.vue'
+import { usePizzaStore } from '@/stores/pizza'
+import { mapGetters, mapActions } from 'pinia'
+import { Pizza, Category, State } from '@/models'
+import PizzaCategorySelector from '@/components/PizzaCategorySelector.vue'
 
 export default defineComponent({
   components: {
     Popup,
     BaseTextField,
-    PizzaCategorySelector,
+    PizzaCategorySelector
   },
   props: {
     edit: {
       type: Boolean,
-      required: true,
+      required: true
     },
     togglePopup: {
       type: Function,
@@ -45,6 +46,7 @@ export default defineComponent({
     price: '',
     category: 0,
     photo: '',
+    error: ''
   }),
   mounted() {
     if (this.edit) {
@@ -69,8 +71,8 @@ export default defineComponent({
     }
   },
   methods: {
-    ...mapGetters( usePizzaStore, ['getSelectedPizza']),
-    ...mapActions( usePizzaStore, ['addPizza', 'editPizza', 'fetch']),
+    ...mapGetters(usePizzaStore, ['getSelectedPizza']),
+    ...mapActions(usePizzaStore, ['addPizza', 'editPizza', 'fetch']),
     async createPizza() {
       const category = Number(this.category) ? Category.SWEET : Category.SALTY
 
@@ -83,8 +85,13 @@ export default defineComponent({
       }
 
       await this.addPizza(pizza)
-      this.fetch()
-      this.togglePopup()
+        .then((res) => {
+          this.fetch()
+          this.togglePopup()
+        })
+        .catch((err) => {
+          this.error = err.response.data.error
+        })
     },
     async updatePizza() {
       const category = Number(this.category) ? Category.SWEET : Category.SALTY
@@ -105,3 +112,11 @@ export default defineComponent({
   }
 })
 </script>
+
+<style scoped lang="scss">
+.error {
+  color: rgb(253, 120, 120);
+  height: 15px;
+  font-size: 11px;
+}
+</style>

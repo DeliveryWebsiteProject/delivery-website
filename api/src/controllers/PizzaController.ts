@@ -10,7 +10,7 @@ export default class PizzaController {
     return res.json(pizzas);
   }
 
-  public static async store(req: Request, res: Response): Promise<any> {
+  public static async add(req: Request, res: Response): Promise<any> {
     const { ingredients } = req.body;
 
     const pizza = await new PizzaRepositoryTransaction().store(req.body);

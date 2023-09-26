@@ -22,7 +22,7 @@
             <PizzaEditor v-if="toggleMenu" :edit="true" :toggle-popup="toggleMenuPopup"  />
             <Confirm v-if="toggleConfirm" :confirm="confirmDelete" :toggle-popup="toggleConfirmPopup" />
           </div>
-          <img class="pizza_photo" :src="$getImage(pizza.photo)">
+          <img class="pizza_photo" :src="$getImage(pizza.photo, 'default.png')">
         </div>
       </li>
     </ul>

@@ -1,7 +1,11 @@
 import { App, ImgHTMLAttributes, ReservedProps } from 'vue'
 
-const getImage = (url: string): ImgHTMLAttributes & ReservedProps => {
-  return require(`@/assets/images/${url}`)
+const getImage = (url: string, defImage?: string): ImgHTMLAttributes & ReservedProps => {
+  try {
+    return require(`@/assets/images/${url}`);
+  } catch (err) {
+    return require(`@/assets/images/${defImage}`);
+  }
 }
 
 const getIcon = (url: string): ImgHTMLAttributes & ReservedProps => {

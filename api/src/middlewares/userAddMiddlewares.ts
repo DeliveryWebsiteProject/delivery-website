@@ -20,7 +20,7 @@ export default async function userValidationMiddlewares(
     const user = await new UserRepositoryTransaction().getUserByCpf(cpf);
 
     if (!user) {
-      if (name.length > 120) return next(new ApiError('Nome inválido', HttpStatus.BAD_REQUEST));
+      if (name.length > 120) return next(new ApiError('Nome deve ter no máximo 120 caracteres', HttpStatus.BAD_REQUEST));
 
       if (password.length < 6) return next(new ApiError('A senha deve ter no mínimo 6 caracteres', HttpStatus.BAD_REQUEST));
 
@@ -28,7 +28,7 @@ export default async function userValidationMiddlewares(
 
       if (phone.length !== 11) return next(new ApiError('Telefone inválido', HttpStatus.BAD_REQUEST));
 
-      if ((address ?? '').length > 120) return next(new ApiError('Endereço inválido', HttpStatus.BAD_REQUEST));
+      if ((address ?? '').length > 120) return next(new ApiError('Endereço deve ter no máximo 120 caracteres', HttpStatus.BAD_REQUEST));
     } else {
       return next(new ApiError('CPF já cadastrado', HttpStatus.BAD_REQUEST));
     }
