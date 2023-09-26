@@ -57,12 +57,6 @@ export default defineComponent({
     }
   },
   methods: {
-    onFocus() {
-      this.focus = true
-    },
-    onBlur() {
-      this.focus = false
-    },
     updateValue(event: any) {
       this.$emit('update:modelValue', event.target.value)
     }
@@ -70,7 +64,7 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .field {
   width: 100%;
   display: flex;
@@ -95,6 +89,7 @@ export default defineComponent({
     background-color: #00000000;
     color: #fff;
     font-size: 1em;
+    font-family: 'Open Sans';
     letter-spacing: 0.025em;
     padding-left: 10px;
     border: none;

@@ -1,15 +1,15 @@
 <template>
   <Popup
     :button-label="title"
-    :do-action="createPizza"
+    :do-action="edit ? updatePizza : createPizza"
     :toggle-popup="togglePopup"
   >
     <h2>{{ title }} Pizza</h2>
 
-    <BaseTextField name="Nome" v-model="name" />
-    <BaseTextField name="Preço" v-model="price" />
-    <BaseTextField name="Categoria" v-model="category" />
-    <BaseTextField name="Foto" type="file" v-model="photo" />
+    <BaseTextField name="Nome" v-model="name" :required="false" />
+    <BaseTextField name="Preço" v-model="price" :required="false" />
+    <PizzaCategorySelector v-model="category" :required="false" />
+    <BaseTextField name="Foto" v-model="photo" :required="false" />
   </Popup>
 </template>
 
@@ -20,11 +20,13 @@ import BaseTextField from '@/components/BaseTextField.vue';
 import { usePizzaStore } from '@/stores/pizza';
 import { mapGetters, mapActions } from 'pinia';
 import { Pizza, Category, State } from '@/models';
+import PizzaCategorySelector from '@/components/PizzaCategorySelector.vue';
 
 export default defineComponent({
   components: {
     Popup,
     BaseTextField,
+    PizzaCategorySelector,
   },
   props: {
     edit: {
@@ -38,25 +40,37 @@ export default defineComponent({
   },
   data: () => ({
     title: '',
+    id: '',
     name: '',
     price: '',
-    category: '',
+    category: 0,
     photo: '',
   }),
   mounted() {
-    const pizza = this.getSelectedPizza()
+    if (this.edit) {
+      this.title = 'Editar'
 
-    if (pizza) {
-      this.name = pizza.name
-      this.price = pizza.price.toString()
-      this.category = pizza.category ? 'Doce' : 'Salgada'
+      const pizza = this.getSelectedPizza()
+
+      if (pizza) {
+        this.id = pizza.id?.toString() ?? ''
+        this.name = pizza.name
+        this.price = pizza.price.toString()
+        this.category = pizza.category
+        this.photo = pizza.photo
+      }
+    } else {
+      this.title = 'Adicionar'
+
+      this.name = ''
+      this.price = ''
+      this.category = 0
+      this.photo = ''
     }
-
-    this.title = this.edit ? 'Editar' : 'Adicionar'
   },
   methods: {
     ...mapGetters( usePizzaStore, ['getSelectedPizza']),
-    ...mapActions( usePizzaStore, ['addPizza']),
+    ...mapActions( usePizzaStore, ['addPizza', 'editPizza', 'fetch']),
     async createPizza() {
       const category = Number(this.category) ? Category.SWEET : Category.SALTY
 
@@ -68,9 +82,25 @@ export default defineComponent({
         state: State.ACTIVE
       }
 
-      console.log(pizza);
+      await this.addPizza(pizza)
+      this.fetch()
+      this.togglePopup()
+    },
+    async updatePizza() {
+      const category = Number(this.category) ? Category.SWEET : Category.SALTY
 
-      // this.addPizza(pizza)
+      const pizza: Pizza = {
+        id: this.id,
+        name: this.name,
+        price: Number(this.price),
+        category: category,
+        photo: this.photo,
+        state: State.ACTIVE
+      }
+
+      await this.editPizza(pizza)
+      this.fetch()
+      this.togglePopup()
     }
   }
 })

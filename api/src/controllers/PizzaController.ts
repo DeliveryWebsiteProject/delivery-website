@@ -17,9 +17,9 @@ export default class PizzaController {
 
     const mappings: PizzaMapping[] = [];
 
-    ingredients.forEach((ingredient: Ingredient) => mappings.push({ 'ref_pizza': pizza.id, 'ref_ingredient': ingredient.id } as PizzaMapping));
+    // ingredients.forEach((ingredient: Ingredient) => mappings.push({ 'ref_pizza': pizza.id, 'ref_ingredient': ingredient.id } as PizzaMapping));
 
-    await new PizzaMappingRepositoryTransaction().store(mappings);
+    // await new PizzaMappingRepositoryTransaction().store(mappings);
 
     return res.json(pizza);
   }
@@ -29,11 +29,15 @@ export default class PizzaController {
   }
 
   public static async update(req: Request, res: Response): Promise<any> {
-    return res.json([]);
+    const { id } = req.params;
+
+    const pizza = await new PizzaRepositoryTransaction().update(id, req.body);
+
+    return res.json(pizza)
   }
 
   public static async delete(req: Request, res: Response): Promise<void> {
-    const id = Number(req.params.id)
+    const { id } = req.params;
 
     await new PizzaRepositoryTransaction().delete(id)
 

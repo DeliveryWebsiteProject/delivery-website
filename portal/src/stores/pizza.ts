@@ -25,12 +25,8 @@ export const usePizzaStore = defineStore('pizza', {
     async addPizza(pizza: Pizza) {
       await PizzaService.addPizza(pizza)
     },
-    async editPizza() {
-      const pizza = this.selectedPizza
-
-      if (pizza) {
-        await PizzaService.updatePizza(pizza)
-      }
+    async editPizza(pizza: Pizza) {
+      await PizzaService.updatePizza(pizza)
     },
     async deletePizza() {
       const pizza = this.selectedPizza

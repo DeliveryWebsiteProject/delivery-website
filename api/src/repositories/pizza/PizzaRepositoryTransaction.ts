@@ -15,6 +15,21 @@ export default class PizzaRepositoryTransaction implements PizzaRepository {
     return rows;
   }
 
+  async getPizzaById(id: string): Promise<Pizza> {
+    const conn = await Database.getInstance().connect();
+
+    let pizza: Pizza | undefined = undefined;
+
+    let [rows] = await conn.execute<Pizza[]>(
+      'SELECT * FROM users WHERE id = ?', [id]);
+
+    conn.end();
+
+    pizza = rows[0];
+
+    return pizza;
+  }
+
   async store(data: Pizza): Promise<Pizza> {
     Object.assign(data, { state: data.state ?? State.ACTIVE });
 
@@ -23,29 +38,38 @@ export default class PizzaRepositoryTransaction implements PizzaRepository {
     const conn = await Database.getInstance().connect();
 
     await conn.execute(
-      'INSERT INTO pizzas (id, name, price, category, state) values ( ?, ?, ?, ?, ?, ? )',
-      [data.id, data.name, data.price, data.category, data.state]);
+      'INSERT INTO pizzas (id, name, price, category, photo, state) values ( ?, ?, ?, ?, ?, ? )',
+      [data.id, data.name, data.price, data.category, data.photo, data.state]);
 
     conn.end()
 
     return data;
   }
 
-  update(data: Pizza): Promise<Pizza> {
-    throw new Error("Method not implemented.");
+  async update(id: string, data: Pizza): Promise<Pizza> {
+    const conn = await Database.getInstance().connect();
+
+    await conn.execute<Pizza[]>(
+      'UPDATE pizzas SET name = ?, price = ?, category = ?, photo = ?, state = ? WHERE id = ?',
+      [data.name, data.price, data.category, data.photo, data.state, id]);
+
+    conn.end();
+
+    data = await this.getPizzaById(id);
+
+    return data;
   }
 
-  async delete(id: number): Promise<void> {
+  async delete(id: string): Promise<void> {
     const conn = await Database.getInstance().connect();
 
     await conn.execute(
-      `UPDATE pizzas SET state = ${State.INACTIVE} WHERE id = ${id}`
-    )
+      'UPDATE pizzas SET state = ? WHERE id = ?', [State.INACTIVE, id]);
 
-    conn.end()
+    conn.end();
   }
 
-  show(id: number): Promise<Pizza> {
+  show(id: string): Promise<Pizza> {
     throw new Error("Method not implemented.");
   }
 }

@@ -16,6 +16,7 @@ interface Pizza extends RowDataPacket {
   name: string,
   price: Number,
   category: Category,
+  photo: string,
   state: State,
   ingredients?: Ingredient[],
 }

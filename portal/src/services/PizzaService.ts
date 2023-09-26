@@ -18,7 +18,7 @@ export default {
     return service.put<Pizza>(`/pizzas/${data.id}`, data)
   },
 
-  async deletePizza(data: string): Promise<Pizza | undefined> {
-    return service.delete<Pizza>(`/pizzas/${data}`)
+  async deletePizza(id: string): Promise<Pizza | undefined> {
+    return service.delete<Pizza>(`/pizzas/${id}`)
   }
 }

@@ -15,9 +15,9 @@ interface Pizza {
   name: string,
   price: Number,
   category: Category,
+  photo: string,
   state: State,
   // ingredients?: Ingredient[],
-  photo: string,
 }
 
 export default Pizza
