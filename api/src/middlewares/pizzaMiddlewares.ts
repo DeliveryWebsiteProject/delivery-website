@@ -2,11 +2,9 @@ import { NextFunction, Request, Response } from "express";
 import { Pizza } from "../models";
 import ApiError from "../utils/ApiError";
 import { HttpStatus } from "../utils/HttpStatus";
-import UserRepositoryTransaction from "../repositories/user/UserRepositoryTransaction";
-import PizzaRepositoryTransaction from "../repositories/pizza/PizzaRepositoryTransaction";
 import { Category } from "../models/Pizza";
 
-export default async function pizzaAddMiddlewares(
+export default async function pizzaMiddlewares(
     req: Request, res: Response, next: NextFunction
 ) {
     const value = req.body as any;
