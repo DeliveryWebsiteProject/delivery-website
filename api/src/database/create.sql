@@ -32,8 +32,8 @@ CREATE TABLE basileus.pizzas (
 -- Table structure for table 'PIZZA_MAPPING'
 -- --------------------------------------------------------
 CREATE TABLE basileus.pizza_mapping (
-	ref_pizza INT NOT NULL,
-	ref_ingr INT NOT NULL
+	ref_pizza varchar(100) NOT NULL,
+	ref_ingredient varchar(100) NOT NULL
 );
 
 -- --------------------------------------------------------

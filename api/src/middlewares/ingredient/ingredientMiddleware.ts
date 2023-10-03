@@ -1,9 +1,9 @@
 import { NextFunction, Request, Response } from "express";
-import { Ingredient } from "../models";
-import ApiError from "../utils/ApiError";
-import { HttpStatus } from "../utils/HttpStatus";
+import { Ingredient } from "../../models";
+import ApiError from "../../utils/ApiError";
+import { HttpStatus } from "../../utils/HttpStatus";
 
-export default async function ingredientMiddlewares(
+export default async function ingredientMiddleware(
     req: Request, res: Response, next: NextFunction
 ) {
     const value = req.body as any;

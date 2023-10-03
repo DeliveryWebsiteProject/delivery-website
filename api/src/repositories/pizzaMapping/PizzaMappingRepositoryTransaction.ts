@@ -1,3 +1,4 @@
+import { RowDataPacket } from "mysql2";
 import Database from "../../database";
 import { PizzaMapping } from "../../models";
 import PizzaMappingRepository from "./PizzaMappingRepository";
@@ -23,5 +24,13 @@ export default class PizzaMappingRepositoryTransaction implements PizzaMappingRe
     conn.end();
 
     return data;
+  }
+
+  async hasIngredientMapping(ingredientId: string): Promise<boolean> {
+    const conn = await Database.getInstance().connect();
+
+    const [rows] = await conn.execute<RowDataPacket[]>('SELECT count(*) as maps FROM pizza_mapping WHERE ref_ingredient = ?', [ingredientId]);
+
+    return rows[0].maps > 0;
   }
 }

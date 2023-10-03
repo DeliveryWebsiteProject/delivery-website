@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import jwt from 'jsonwebtoken'
-import ApiError from "../utils/ApiError";
-import { HttpStatus } from "../utils/HttpStatus";
+import ApiError from "../../utils/ApiError";
+import { HttpStatus } from "../../utils/HttpStatus";
 
 export default function authMiddleware(
   req: Request, res: Response, next: NextFunction
