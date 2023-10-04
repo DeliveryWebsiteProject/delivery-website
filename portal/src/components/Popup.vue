@@ -68,6 +68,5 @@ export default defineComponent({
       gap: 15px;
     }
   }
-
 }
 </style>

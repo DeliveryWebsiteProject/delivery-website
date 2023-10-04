@@ -7,7 +7,7 @@
     <h2>{{ title }} Pizza</h2>
 
     <BaseTextField name="Nome" v-model="name" :required="false" />
-    <BaseTextField name="Preço" v-model="price" :required="false" />
+    <BaseTextField name="Preço" v-model="price" type="number" :required="false" />
     <PizzaCategorySelector v-model="category" :required="false" />
     <BaseTextField name="Foto" v-model="photo" :required="false" />
     <span class="error">{{ error }}</span>
