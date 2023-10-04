@@ -4,7 +4,7 @@ CREATE DATABASE basileus;
 -- Table structure for table 'USERS'
 -- --------------------------------------------------------
 CREATE TABLE basileus.users (
-	id varchar(120) NOT NULL,
+	id varchar(100) NOT NULL,
 	cpf varchar(11) NOT NULL,
 	name varchar(120) NOT NULL,
 	password varchar(120) NOT NULL,
@@ -16,14 +16,14 @@ CREATE TABLE basileus.users (
 );
 
 -- --------------------------------------------------------
--- Table structure for table 'PIZZA'
+-- Table structure for table 'PIZZAS'
 -- --------------------------------------------------------
 CREATE TABLE basileus.pizzas (
-	id varchar(50) NOT NULL,
+	id varchar(100) NOT NULL,
+	ref_photo varchar(100) NOT NULL,
 	name varchar(20) NOT NULL,
 	price DOUBLE NOT NULL,
 	category smallint NOT NULL,
-	photo varchar(200) NOT NULL,
 	state smallint NOT NULL,
   CONSTRAINT pizz_pk PRIMARY KEY (id)
 );
@@ -33,14 +33,24 @@ CREATE TABLE basileus.pizzas (
 -- --------------------------------------------------------
 CREATE TABLE basileus.pizza_mapping (
 	ref_pizza varchar(100) NOT NULL,
-	ref_ingredient varchar(100) NOT NULL
+	ref_ingredient varchar(100) NOT NULL,
+	CONSTRAINT pizza_mapping_pk PRIMARY KEY (ref_pizza, ref_ingredient)
 );
 
 -- --------------------------------------------------------
--- Table structure for table 'INGREDIENT'
+-- Table structure for table 'INGREDIENTS'
 -- --------------------------------------------------------
-CREATE TABLE basileus.ingredient (
-	id varchar(50) NOT NULL,
+CREATE TABLE basileus.ingredients (
+	id varchar(100) NOT NULL,
 	name varchar(30) NOT NULL,
 	CONSTRAINT ingredient_pk PRIMARY KEY (id)
+);
+
+-- --------------------------------------------------------
+-- Table structure for table 'PHOTOS'
+-- --------------------------------------------------------
+CREATE TABLE basileus.photos (
+	id varchar(100) NOT NULL,
+	path text NOT NULL,
+	CONSTRAINT photo_pk PRIMARY KEY (id)
 );
