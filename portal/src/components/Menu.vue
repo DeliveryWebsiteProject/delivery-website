@@ -1,6 +1,6 @@
 <template>
-  <div class="menu">
-    <div class="menu_inner">
+  <div class="menu_component">
+    <div class="menu_component_inner">
       <slot />
     </div>
   </div>
@@ -13,7 +13,7 @@ export default defineComponent({})
 </script>
 
 <style lang="scss">
-.menu {
+.menu_component {
   position: absolute;
   top: 100%;
   right: 0;
