@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
-import ApiError from "../utils/ApiError"
+import ApiError from "../../utils/ApiError";
 
-export default function erroMiddlewares(error: Error, request: Request, response: Response, next: NextFunction) {
+export default function errorMiddleware(error: Error, request: Request, response: Response, next: NextFunction) {
   if (error instanceof ApiError) {
     const { status, message } = error;
 

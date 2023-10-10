@@ -101,6 +101,17 @@ export default defineComponent({
       outline: none;
       border-bottom: 1px solid $primary-color;
     }
+
+    // Remove arrows em Inputs de type Number
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    &[type=number] {
+      appearance: textfield;
+    }
   }
 }
 </style>

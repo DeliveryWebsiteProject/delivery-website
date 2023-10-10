@@ -59,7 +59,14 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('@/views/AdminView.vue'),
     meta: {
       auth: true
-    }
+    },
+    children: [
+      {
+        path: '/admin/pizzas',
+        name: 'Pizzas',
+        component: () => import('@/components/admin/PizzaAdmin.vue')
+      }
+    ]
   },
 
   {

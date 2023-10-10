@@ -9,7 +9,7 @@
           Perfil
         </router-link>
 
-        <router-link to="/admin">
+        <router-link to="/admin/pizzas">
           Administrador
         </router-link>
 

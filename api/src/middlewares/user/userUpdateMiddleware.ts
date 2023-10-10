@@ -1,10 +1,10 @@
 import { NextFunction, Request, Response } from "express";
-import { User } from "../models";
-import ApiError from "../utils/ApiError";
-import { HttpStatus } from "../utils/HttpStatus";
-import UserRepositoryTransaction from "../repositories/user/UserRepositoryTransaction";
+import ApiError from "../../utils/ApiError";
+import { User } from "../../models";
+import { HttpStatus } from "../../utils/HttpStatus";
+import UserRepositoryTransaction from "../../repositories/user/UserRepositoryTransaction";
 
-export default async function userUpdateMiddlewares(
+export default async function userUpdateMiddleware(
   req: Request, res: Response, next: NextFunction
 ) {
   const value = req.body as any;
