@@ -62,6 +62,15 @@ const routes: Array<RouteRecordRaw> = [
     }
   },
 
+  {
+    path: '/speciale-mes',
+    name: 'Especial do Mês',
+    component: () => import('@/views/HomeView.vue'), 
+    meta: {
+      auth: false
+    }
+  },
+
   // Deixar como último
   {
     path: '/:catchAll(.*)*',

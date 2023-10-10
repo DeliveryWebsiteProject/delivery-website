@@ -5,8 +5,9 @@
       <div class="links_content">
         <div class="links_content_line" />
         <ul>
-          <li v-for="item in items" :key="item" class="links_content_item">
-            {{ item }}
+          <li v-for="item in items" :key="item.name">
+            <a class="links_content_item" :href="item.url.startsWith('/') ? '#' + item.url.slice(1) : item.url" 
+               :target="isInternalLink(item.url) ? '' : '_blank'">{{ item.name }}</a>
           </li>
         </ul>
       </div>
@@ -27,11 +28,17 @@ export default defineComponent({
       type: Array as PropType<string[]>,
       required: true
     }
+  },
+  methods: {
+    isInternalLink(url: string): boolean {
+      return url.startsWith('/');
+    }
   }
 })
 </script>
 
 <style scoped lang="scss">
+
 .links {
   &_title {
     color: #378c3b;
@@ -39,9 +46,14 @@ export default defineComponent({
     font-size: 20pt;
   }
 
+  &_subtitle {
+    white-space: nowrap;
+  }
+
   &_content {
     display: flex;
     flex-direction: row;
+    margin-top: 10px;
 
     &_line {
       width: 2px;
@@ -50,13 +62,17 @@ export default defineComponent({
       background-color: #378c3b;
     }
 
+    ul {
+      list-style-type: none;
+    }
+
     &_item {
       color: #fff;
-
       font-size: 16px;
       margin: 5px;
-
+      margin-top: 50px;
       list-style: none;
+      text-decoration: none;
     }
 
     &_item:hover {

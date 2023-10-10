@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="connect">
-      <p class="connect_title">Conecte-se pelas nossas redes:</p>
+      <p class="connect_title"></p>
       <div class="connect_medias">
         <v-btn class="connect_medias_btn" color="#fff" large icon>
           <font-awesome-icon class="fa-2x" icon="fa-brands fa-whatsapp" />
@@ -21,7 +21,7 @@
       </div>
     </div>
     <div class="footer">
-      <img class="footer_logo" src="../assets/footer_logo.svg" alt="logo" />
+      <img class="footer_logo" src="../assets/icons/footer_logo.svg" alt="logo" />
       <div class="footer_topics">
         <FooterTopic
           class="footer_topics_items"
@@ -46,25 +46,41 @@ export default defineComponent({
   data() {
     return {
       topics: [
-        {
+      {
           id: 0,
-          title: 'Menu',
+          title: 'Redes sociais',
           items: [
-            'Pizzas Salgadas',
-            'Pizzas Doces',
-            'Especial do mês',
-            'Bebidas'
-          ]
+          { name: 'Instagram', url: 'https://www.instagram.com/basileuspizzaartesanal/'},
+          { name: 'Facebook', url: 'https://www.facebook.com/'},
+        ]
         },
         {
           id: 1,
-          title: 'Sobre',
-          items: ['A Basileus', 'Nossa história', 'Quem somos', 'Faça parte']
+          title: 'Menu',
+          items: [
+            {name: 'Pizzas Salgadas', url: '/cardapio'},
+            {name: 'Pizzas Doces', url: '/cardapio'},
+            {name: 'Especial do mês', url: '/speciale-mes' },
+          ]
         },
         {
           id: 2,
+          title: 'Sobre',
+          items: [
+            {name: 'A Basileus', url: '/about'},
+            {name: 'Nossa história', url: '/about'},
+            {name: 'Quem somos', url: '/about'},
+            {name: 'Faça parte', url: '/about'},
+          ]
+        },
+        {
+          id: 3,
           title: 'Contato',
-          items: ['+55 51 3751-9999', '+55 51 99365-3061', 'email@basileus.com']
+          items: [
+            {name: '+55 51 3751-9999', url: '/about'},
+            {name: '+55 51 99365-3061', url: '/about'},
+            {name: 'email@basileus.com', url: '/about'},
+          ]
         }
       ]
     }
@@ -74,6 +90,7 @@ export default defineComponent({
 
 <style scoped lang="scss">
 .connect {
+  margin-top: 60px;
   background-color: #378c3b;
   box-shadow: 0px 0px 5px 2px #00000099;
   width: 100%;
@@ -120,10 +137,10 @@ export default defineComponent({
   flex-direction: row;
 
   position: absolute;
-  left: 20%;
+  left: 30%;
 
   &_items {
-    margin-right: 50px;
+    margin-right: 100px;
   }
 }
 </style>

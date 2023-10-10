@@ -5,17 +5,15 @@
       <img class="banner" :src="$getImage('home_background.png')" />
     </div>
     <div class="contents">
-      <Speciale />
+      <div id="speciale-mes" class="speciale-container">
+        <Speciale />
+      </div>
       <MostRequested />
-
-      <iframe
-        class="contents_map"
+      <iframe class="contents_map"
         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3481.510523146946!2d-51.87744902367386!3d-29.23794879434963!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x951c5b633ed1cc6f%3A0x75529132793ed673!2sBasileus%20Pizza%20Artesanal!5e0!3m2!1spt-BR!2sbr!4v1693683292011!5m2!1spt-BR!2sbr"
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade"
-      />
+        loading="lazy" referrerpolicy="no-referrer-when-downgrade" />
     </div>
-    <!-- <Footer /> -->
+    <Footer />
   </div>
 </template>
 
@@ -24,14 +22,14 @@ import { defineComponent } from 'vue'
 import Header from '@/components/Header.vue'
 import MostRequested from '@/views/parts/MostRequested.vue'
 import Speciale from '@/views/parts/Speciale.vue'
-// import Footer from '@/components/Footer.vue'
+import Footer from '@/components/Footer.vue'
 
 export default defineComponent({
   components: {
     Header,
     Speciale,
     MostRequested,
-    // Footer
+    Footer
   }
 })
 </script>
@@ -45,6 +43,9 @@ export default defineComponent({
   max-height: 756px;
 }
 
+.speciale-container {
+    width: 100%;
+  }
 .contents {
   display: flex;
   flex-direction: column;

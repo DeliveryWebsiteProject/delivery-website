@@ -1,4 +1,7 @@
 <template>
+   <div class="background-image">
+      <img class="banner" :src="$getImage('login_background.png')" />
+    </div>
   <div class="form_container">
     <form class="login_form" @submit.prevent="doLogin">
       <BaseTextField
@@ -16,7 +19,6 @@
         <router-link class="signup__link" to="/signup" @click="$scrollToTop">
           Crie uma conta
         </router-link>
-        .
       </span>
     </div>
   </div>
@@ -67,11 +69,30 @@ export default defineComponent({
 
 <style scoped lang="scss">
 .form_container {
-  padding: 3em 3em 1em 3em;
-  background: #c4c4c420;
-  border-radius: 12px;
+  position: relative;
   width: 400px;
-  margin: 10% auto;
+  height: 100vh; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-left: 65%;
+}
+
+.background-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-height: 100%;
+  width: 100%;
+  height: 100%;
+  z-index: -1; 
+}
+
+.banner {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
 }
 
 .login_form {
@@ -83,7 +104,7 @@ export default defineComponent({
   width: 100%;
 
   &__btn {
-    width: 50%;
+    width: 100%;
     margin-top: 1em;
   }
 }
@@ -98,7 +119,7 @@ export default defineComponent({
   justify-content: center;
 
   &__link {
-    color: #316dca;
+    color: $primary-color;
   }
 }
 </style>
