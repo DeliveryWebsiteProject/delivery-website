@@ -7,7 +7,7 @@ export class IngredientRepositoryTransaction implements IngredientRepository {
   async findAll(): Promise<Ingredient[]> {
     const conn = await Database.getInstance().connect();
 
-    const [rows] = await conn.execute<Ingredient[]>('SELECT * FROM ingredient');
+    const [rows] = await conn.execute<Ingredient[]>('SELECT * FROM ingredients');
 
     conn.end()
 
@@ -19,7 +19,7 @@ export class IngredientRepositoryTransaction implements IngredientRepository {
 
     const conn = await Database.getInstance().connect();
 
-    await conn.execute('INSERT INTO ingredient (id, name) VALUES (?, ?)', [data.id, data.name]);
+    await conn.execute('INSERT INTO ingredients (id, name) VALUES (?, ?)', [data.id, data.name]);
 
     conn.end();
 
@@ -29,7 +29,7 @@ export class IngredientRepositoryTransaction implements IngredientRepository {
   async update(data: Ingredient): Promise<Ingredient> {
     const conn = await Database.getInstance().connect();
 
-    await conn.execute('UPDATE ingredient SET name = ? WHERE id = ?', [data.name, data.id]);
+    await conn.execute('UPDATE ingredients SET name = ? WHERE id = ?', [data.name, data.id]);
 
     conn.end();
 
@@ -39,7 +39,7 @@ export class IngredientRepositoryTransaction implements IngredientRepository {
   async delete(id: string): Promise<void> {
     const conn = await Database.getInstance().connect();
 
-    await conn.execute<Ingredient[]>('DELETE FROM ingredient WHERE id = ?', [id]);
+    await conn.execute<Ingredient[]>('DELETE FROM ingredients WHERE id = ?', [id]);
 
     conn.end();
   }
@@ -47,7 +47,7 @@ export class IngredientRepositoryTransaction implements IngredientRepository {
   async getById(id: string): Promise<Ingredient> {
     const conn = await Database.getInstance().connect();
 
-    const [rows] = await conn.execute<Ingredient[]>('SELECT * FROM ingredient WHERE id = ?', [id]);
+    const [rows] = await conn.execute<Ingredient[]>('SELECT * FROM ingredients WHERE id = ?', [id]);
 
     conn.end()
 
