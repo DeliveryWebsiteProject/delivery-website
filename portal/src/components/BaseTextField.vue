@@ -49,8 +49,6 @@ export default defineComponent({
       default: true
     },
     modelValue: {
-      type: String,
-      default: ''
     },
     pattern: {
       type: String

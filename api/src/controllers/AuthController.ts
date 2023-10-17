@@ -3,6 +3,8 @@ import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import UserRepositoryTransaction from "../repositories/user/UserRepositoryTransaction";
 import { State } from '../models/User';
+import { HttpStatus } from "../utils/HttpStatus";
+import ApiError from "../utils/ApiError";
 
 class AuthController {
   public async authenticate(req: Request, res: Response): Promise<Response> {
@@ -13,17 +15,23 @@ class AuthController {
     const user = await new UserRepositoryTransaction().getUserByCpf(cpf);
 
     if (!user) {
-      return res.sendStatus(401)
+      return res.status(HttpStatus.UNAUTHORIZED).json({
+        error: 'Usuário ou senha inválidos',
+      });
     }
 
     if (user.state === State.INACTIVE) {
-      return res.sendStatus(401);
+      return res.status(HttpStatus.UNAUTHORIZED).json({
+        error: 'Usuário ou senha inválidos',
+      });
     }
 
     const isValidPassword = await bcrypt.compare(password, user.password);
 
     if (!isValidPassword) {
-      return res.sendStatus(401)
+      return res.status(HttpStatus.UNAUTHORIZED).json({
+        error: 'Usuário ou senha inválidos',
+      });
     }
 
     const expirationTime = new Date(Date.now() + 1 * 60 * 60 * 1000).getTime() // 1 Hour

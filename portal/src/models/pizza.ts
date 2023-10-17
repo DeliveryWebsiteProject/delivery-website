@@ -12,10 +12,10 @@ export enum State {
 
 interface Pizza {
   id?: string,
+  ref_photo?: string,
   name: string,
   price: Number,
   category: Category,
-  photo: string,
   state: State,
   // ingredients?: Ingredient[],
 }

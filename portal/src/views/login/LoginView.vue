@@ -1,7 +1,7 @@
 <template>
-   <div class="background-image">
-      <img class="banner" :src="$getImage('login_background.png')" />
-    </div>
+  <div class="background-image">
+    <img class="banner" :src="$getImage('login_background.png')" />
+  </div>
   <div class="form_container">
     <form class="login_form" @submit.prevent="doLogin">
       <BaseTextField
@@ -11,6 +11,7 @@
         v-model="cpf"
       />
       <BaseTextField name="Senha" type="password" v-model="password" />
+      <span class="login_form__error">{{ error }}</span>
       <Button class="login_form__btn" type="submit" text="Login" />
     </form>
     <div class="signup">
@@ -41,7 +42,7 @@ export default defineComponent({
       cpf: undefined,
       password: undefined,
       loading: false,
-      showError: false
+      error: ''
     }
   },
   methods: {
@@ -50,16 +51,14 @@ export default defineComponent({
       this.loading = true
 
       if (this.cpf && this.password) {
-        await this.login(this.cpf, this.password)
-        .then(() => {
-          this.$router.push('/')
+        this.login(this.cpf, this.password, (err) => {
+          if (err) {
+            this.error = err.response.data.error
+          } else {
+            this.$router.push('/')
+          }
         })
-        .catch((err) => {
-          this.showError = true
-
-          throw err
-        })
-      } 
+      }
 
       this.loading = false
     }
@@ -71,7 +70,7 @@ export default defineComponent({
 .form_container {
   position: relative;
   width: 400px;
-  height: 100vh; 
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -86,13 +85,13 @@ export default defineComponent({
   min-height: 100%;
   width: 100%;
   height: 100%;
-  z-index: -1; 
+  z-index: -1;
 }
 
 .banner {
   width: 100%;
   height: 100%;
-  object-fit: cover; 
+  object-fit: cover;
 }
 
 .login_form {
@@ -106,6 +105,12 @@ export default defineComponent({
   &__btn {
     width: 100%;
     margin-top: 1em;
+  }
+
+  &__error {
+    color: rgb(253, 120, 120);
+    height: 15px;
+    font-size: 11px;
   }
 }
 

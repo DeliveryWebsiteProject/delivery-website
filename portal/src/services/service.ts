@@ -1,5 +1,7 @@
 import axios from 'axios'
 
+const authorizationHeader = { 'Authorization': 'Bearer ' + localStorage.getItem('token') }
+
 const instance = axios.create({
   baseURL: process.env.VUE_APP_API_URL,
 })
@@ -14,8 +16,13 @@ export default {
     return data
   },
 
-  async post<T>(url: string, data: object): Promise<T | undefined> {
-    const { data: returnedData } = await instance.post(url, data)
+  async post<T>(url: string, data: object, headers?: {}): Promise<T | undefined> {
+    const { data: returnedData } = await instance.post(url, data, {
+      headers: {
+        ...authorizationHeader,
+        ...headers
+      }
+    })
 
     return returnedData
   },

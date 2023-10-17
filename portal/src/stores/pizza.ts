@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { Pizza } from '@/models'
 import { PizzaService } from '@/services'
+import PhotoService from "@/services/PhotoService"
 
 export const usePizzaStore = defineStore('pizza', {
   state: () => ({
@@ -22,7 +23,17 @@ export const usePizzaStore = defineStore('pizza', {
     clearSelectedPizza() {
       this.selectedPizza = undefined
     },
-    async addPizza(pizza: Pizza) {
+    async addPizza(files: File[], pizza: Pizza) {
+      if (files.length > 0) {
+        const formData = new FormData()
+
+        formData.append('photo', files[0])
+
+        const data = await PhotoService.addPhoto(formData)
+
+        pizza.ref_photo = data?.id;
+      }
+
       await PizzaService.addPizza(pizza)
     },
     async editPizza(pizza: Pizza) {

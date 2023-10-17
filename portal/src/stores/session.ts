@@ -23,11 +23,15 @@ export const useSessionStore = defineStore('session', {
     }
   },
   actions: {
-    async login(cpf: string, password: string) {
+    async login(cpf: string, password: string, callback: (error?: any) => any): Promise<void> {
       SessionService.login(cpf, password)
         .then(async (result) => {
           this.setToken(result?.token ?? '')
           await this.updateActualUser()
+          callback();
+        })
+        .catch((error) => {
+          callback(error);
         })
     },
     setToken(token: string) {

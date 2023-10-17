@@ -16,13 +16,21 @@
               </div>
             </div>
             <div class="pizza_actions">
-              <img :src="$getIcon('edit')" @click="openEdit(pizza)">
-              <img :src="$getIcon('delete')" @click="openDelete(pizza)">
+              <img :src="$getIcon('edit')" @click="openEdit(pizza)" />
+              <img :src="$getIcon('delete')" @click="openDelete(pizza)" />
             </div>
-            <PizzaEditor v-if="toggleMenu" :edit="true" :toggle-popup="toggleMenuPopup"  />
-            <Confirm v-if="toggleConfirm" :confirm="confirmDelete" :toggle-popup="toggleConfirmPopup" />
+            <PizzaEditor
+              v-if="toggleMenu"
+              :edit="true"
+              :toggle-popup="toggleMenuPopup"
+            />
+            <Confirm
+              v-if="toggleConfirm"
+              :confirm="confirmDelete"
+              :toggle-popup="toggleConfirmPopup"
+            />
           </div>
-          <img class="pizza_photo" :src="$getImage(pizza.photo, 'default.png')">
+          <img class="pizza_photo" :src="$getPizzaPhoto(pizza.ref_photo)" />
         </div>
       </li>
     </ul>
@@ -30,28 +38,33 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import { usePizzaStore } from '@/stores/pizza';
-import { mapGetters, mapActions } from 'pinia';
-import { Pizza } from '@/models';
-import PizzaEditor from '@/components/PizzaEditor.vue';
-import Confirm from '@/components/Confirm.vue';
+import { defineComponent } from 'vue'
+import { usePizzaStore } from '@/stores/pizza'
+import { mapGetters, mapActions } from 'pinia'
+import { Pizza } from '@/models'
+import PizzaEditor from '@/components/PizzaEditor.vue'
+import Confirm from '@/components/Confirm.vue'
 
-export default defineComponent ({
+export default defineComponent({
   components: {
     PizzaEditor,
-    Confirm,
+    Confirm
   },
   data: () => ({
     toggleMenu: false,
-    toggleConfirm: false,
+    toggleConfirm: false
   }),
   methods: {
-    ...mapGetters( usePizzaStore, ['getPizzas']),
-    ...mapActions( usePizzaStore, ['setSelectedPizza', 'clearSelectedPizza', 'editPizza', 'deletePizza']),
+    ...mapGetters(usePizzaStore, ['getPizzas']),
+    ...mapActions(usePizzaStore, [
+      'setSelectedPizza',
+      'clearSelectedPizza',
+      'editPizza',
+      'deletePizza'
+    ]),
 
     openEdit(pizza: Pizza) {
-      this.setSelectedPizza(pizza) 
+      this.setSelectedPizza(pizza)
       this.toggleMenuPopup()
     },
     openDelete(pizza: Pizza) {
@@ -79,9 +92,9 @@ ul {
 }
 
 .pizzas {
-  display: grid; 
+  display: grid;
   justify-items: center;
-  grid-template-columns: repeat(2, minmax(200px, 1fr)); 
+  grid-template-columns: repeat(2, minmax(200px, 1fr));
   column-gap: 15px;
   row-gap: 15px;
   padding: 0 20px;

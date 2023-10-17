@@ -7,9 +7,20 @@
     <h2>{{ title }} Pizza</h2>
 
     <BaseTextField name="Nome" v-model="name" :required="false" />
-    <BaseTextField name="Preço" v-model="price" type="number" :required="false" />
+    <BaseTextField
+      name="Preço"
+      v-model="price"
+      type="number"
+      :required="false"
+    />
     <PizzaCategorySelector v-model="category" :required="false" />
-    <BaseTextField name="Foto" v-model="photo" :required="false" />
+    <BaseTextField
+      name="Foto"
+      type="file"
+      @change="changeFiles"
+      v-model="files"
+      :required="false"
+    />
     <span class="error">{{ error }}</span>
   </Popup>
 </template>
@@ -19,7 +30,7 @@ import { defineComponent } from 'vue'
 import Popup from '@/components/Popup.vue'
 import BaseTextField from '@/components/BaseTextField.vue'
 import { usePizzaStore } from '@/stores/pizza'
-import { mapGetters, mapActions } from 'pinia'
+import { mapState, mapActions } from 'pinia'
 import { Pizza, Category, State } from '@/models'
 import PizzaCategorySelector from '@/components/PizzaCategorySelector.vue'
 
@@ -45,8 +56,8 @@ export default defineComponent({
     name: '',
     price: '',
     category: 0,
-    photo: '',
-    error: ''
+    error: '',
+    files: []
   }),
   mounted() {
     if (this.edit) {
@@ -59,20 +70,20 @@ export default defineComponent({
         this.name = pizza.name
         this.price = pizza.price.toString()
         this.category = pizza.category
-        this.photo = pizza.photo
       }
     } else {
       this.title = 'Adicionar'
-
       this.name = ''
       this.price = ''
       this.category = 0
-      this.photo = ''
     }
   },
   methods: {
-    ...mapGetters(usePizzaStore, ['getSelectedPizza']),
+    ...mapState(usePizzaStore, ['getSelectedPizza']),
     ...mapActions(usePizzaStore, ['addPizza', 'editPizza', 'fetch']),
+    changeFiles(event: any) {
+      this.files = event.target.files
+    },
     async createPizza() {
       const category = Number(this.category) ? Category.SWEET : Category.SALTY
 
@@ -80,11 +91,10 @@ export default defineComponent({
         name: this.name,
         price: Number(this.price),
         category: category,
-        photo: this.photo,
         state: State.ACTIVE
       }
 
-      await this.addPizza(pizza)
+      await this.addPizza(this.files, pizza)
         .then((res) => {
           this.fetch()
           this.togglePopup()
@@ -101,7 +111,6 @@ export default defineComponent({
         name: this.name,
         price: Number(this.price),
         category: category,
-        photo: this.photo,
         state: State.ACTIVE
       }
 

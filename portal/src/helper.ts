@@ -1,5 +1,9 @@
 import { App, ImgHTMLAttributes, ReservedProps } from 'vue'
 
+const getPizzaPhoto = (photoId: string): string => {
+  return `${process.env.VUE_APP_API_URL}/photos/${photoId}`;
+}
+
 const getImage = (url: string, defImage?: string): ImgHTMLAttributes & ReservedProps => {
   try {
     return require(`@/assets/images/${url}`);
@@ -15,5 +19,6 @@ const getIcon = (url: string): ImgHTMLAttributes & ReservedProps => {
 export default (Vue: App<Element>) => {
   Vue.config.globalProperties.$getImage = getImage,
     Vue.config.globalProperties.$getIcon = getIcon,
+    Vue.config.globalProperties.$getPizzaPhoto = getPizzaPhoto,
     Vue.config.globalProperties.$scrollToTop = () => window.scrollTo(0, 0)
 }

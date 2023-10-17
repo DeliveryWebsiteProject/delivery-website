@@ -1,5 +1,6 @@
 import { RowDataPacket } from "mysql2"
 import Ingredient from "./Ingredient"
+import { Photo } from "./Photo"
 
 export enum Category {
   SALTY,

@@ -8,7 +8,7 @@ export default class PizzaRepositoryTransaction implements PizzaRepository {
   async findAll(): Promise<Pizza[]> {
     const conn = await Database.getInstance().connect();
 
-    const [rows] = await conn.execute<Pizza[]>('SELECT * FROM pizzas where state = ?', [State.ACTIVE]);
+    const [rows] = await conn.execute<Pizza[]>('SELECT pizzas.*, photos.path FROM pizzas inner join photos on photos.id = pizzas.ref_photo where state = ?', [State.ACTIVE]);
 
     conn.end()
 
@@ -38,8 +38,8 @@ export default class PizzaRepositoryTransaction implements PizzaRepository {
     const conn = await Database.getInstance().connect();
 
     await conn.execute(
-      'INSERT INTO pizzas (id, name, price, category, photo, state) values ( ?, ?, ?, ?, ?, ? )',
-      [data.id, data.name, data.price, data.category, data.photo, data.state]);
+      'INSERT INTO pizzas (id, ref_photo, name, price, category, state) values ( ?, ?, ?, ?, ?, ? )',
+      [data.id, data.ref_photo, data.name, data.price, data.category, data.state]);
 
     conn.end()
 
