@@ -2,7 +2,7 @@
   <div>
     <div class="top">
       <Header />
-      <img class="banner" :src="$getImage('home_background.png')" />
+      <img class="banner" :src="getImage('home_background.png')" />
     </div>
     <div class="contents">
       <div id="speciale-mes" class="speciale-container">
@@ -23,6 +23,7 @@ import Header from '@/components/Header.vue'
 import MostRequested from '@/views/parts/MostRequested.vue'
 import Speciale from '@/views/parts/Speciale.vue'
 import Footer from '@/components/Footer.vue'
+import helper from '@/helper'
 
 export default defineComponent({
   components: {
@@ -30,6 +31,11 @@ export default defineComponent({
     Speciale,
     MostRequested,
     Footer
+  },
+  methods: {
+    getImage(url: string) {
+      return helper.getImage(url)
+    }
   }
 })
 </script>

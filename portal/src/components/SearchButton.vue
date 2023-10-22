@@ -1,7 +1,7 @@
 <template>
   <div class="search-button">
     <div class="search-icon">
-      <img :src="$getIcon('search')" />
+      <img :src="getIcon('search')" />
     </div>
     <input
       type="text"
@@ -14,6 +14,8 @@
 </template>
 
 <script lang="ts">
+import helper from '@/helper';
+
 export default {
   name: 'SearchButton',
   props: {
@@ -22,6 +24,11 @@ export default {
   data() {
     return {
       searchQuery: (this as any).value || ''
+    }
+  },
+  methods: {
+    getIcon(url: string) {
+      return helper.getIcon(url)
     }
   }
 }

@@ -1,15 +1,15 @@
 <template>
   <header :class="{ change_color: scrollPosition > 50 }">
     <div class="logo">
-      <router-link to="/" @click="$scrollToTop">
-        <img :src="$getIcon('logo')" />
+      <router-link to="/" @click="scrollToTop">
+        <img :src="getIcon('logo')" />
       </router-link>
     </div>
     <div>
       <nav class="nav">
         <ul>
           <li v-for="item in navItems" :key="item.name">
-            <router-link class="nav_item" :to="item.route" @click="$scrollToTop">
+            <router-link class="nav_item" :to="item.route" @click="scrollToTop">
               {{ item.name }}
             </router-link>
           </li>
@@ -18,7 +18,7 @@
     </div>
     <div class="buttons">
       <button class="buttons_card">
-        <img :src="$getIcon('card_colorful')" />
+        <img :src="getIcon('card_colorful')" />
       </button>
 
       <UserButton />
@@ -30,6 +30,7 @@
 import { mapGetters } from 'pinia'
 import { useSessionStore } from '@/stores/session'
 import { defineComponent } from 'vue'
+import helper from '@/helper'
 import UserButton from '@/components/UserButton.vue'
 
 export default defineComponent({
@@ -52,6 +53,12 @@ export default defineComponent({
     ...mapGetters(useSessionStore, ['getToken', 'isLogged']),
     updateScroll() {
       this.scrollPosition = window.scrollY
+    },
+    scrollToTop() {
+      helper.scrollToTop()
+    },
+    getIcon(url: string) {
+      return helper.getIcon(url)
     }
   }
 })

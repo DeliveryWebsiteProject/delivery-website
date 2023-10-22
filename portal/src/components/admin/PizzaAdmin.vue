@@ -3,7 +3,7 @@
     <div class="content_top">
       <h1>Pizzas Cadastradas</h1>
       <button @click="togglePopup" class="add_button">
-        <img :src="$getIcon('plus_light')">
+        <img :src="getIcon('plus_light')">
       </button>
       <PizzaEditor v-if="toggleMenu" :edit="false" :toggle-popup="togglePopup" />
     </div>
@@ -16,6 +16,7 @@
 <script lang="ts">
 import PizzaEditor from '@/components/editors/PizzaEditor.vue';
 import PizzaList from '@/components/admin/PizzaList.vue';
+import helper from '@/helper';
 
 import { defineComponent } from 'vue';
 
@@ -30,6 +31,9 @@ export default defineComponent({
   methods: {
     togglePopup() {
       this.toggleMenu = !this.toggleMenu
+    },
+    getIcon(url: string) {
+      return helper.getIcon(url)
     }
   }
 })

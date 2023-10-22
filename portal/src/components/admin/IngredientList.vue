@@ -6,8 +6,8 @@
           <div class="ingredient_content">
             <p class="ingredient_name">{{ ingredient.name }}</p>
             <div class="ingredient_actions">
-              <img :src="$getIcon('edit')" @click="openEdit(ingredient)">
-              <img :src="$getIcon('delete')" @click="openDelete(ingredient)">
+              <img :src="getIcon('edit')" @click="openEdit(ingredient)">
+              <img :src="getIcon('delete')" @click="openDelete(ingredient)">
             </div>
             <IngredientEditor v-if="toggleMenu" :edit="true" :toggle-popup="toggleMenuPopup"  />
             <Confirm v-if="toggleConfirm" :confirm="confirmDelete" :toggle-popup="toggleConfirmPopup" />
@@ -25,6 +25,7 @@ import { mapGetters, mapActions } from 'pinia';
 import { Ingredient } from '@/models';
 import IngredientEditor from '@/components/editors/IngredientEditor.vue';
 import Confirm from '@/components/Confirm.vue';
+import helper from '@/helper';
 
 export default defineComponent ({
   components: {
@@ -57,6 +58,9 @@ export default defineComponent ({
     },
     toggleConfirmPopup() {
       this.toggleConfirm = !this.toggleConfirm
+    },
+    getIcon(url: string) {
+      return helper.getIcon(url)
     }
   }
 })

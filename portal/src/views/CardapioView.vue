@@ -1,7 +1,7 @@
 <template>
   <Header />
   <div class="cardapio">
-    <img :src="$getImage('cardapio.svg')" alt="As mais pedidas" />
+    <img :src="getImage('cardapio.svg')" alt="As mais pedidas" />
   </div>
   <div class="button-group">
     <Button v-for="(text, index) in filtrosTexts" :key="index" :text="text" class="button-item"
@@ -21,6 +21,7 @@ import Button from '@/components/Button.vue'
 import Card from '@/components/Card.vue'
 import { PizzaCard } from '@/models'
 import { defineComponent } from 'vue'
+import helper from '@/helper'
 
 export default defineComponent({
   components: {
@@ -34,7 +35,7 @@ export default defineComponent({
   },
   data: () => ({
     filtrosTexts: ['Salgadas', 'Doces'],
-    selectedButton: null,
+    selectedButton: '',
     pizzas: [
       { name: 'Margherita', price: 50, photo: 'margherita.png' },
       { name: 'Capricchosa', price: 68, photo: 'capricchosa.png' },
@@ -56,6 +57,9 @@ export default defineComponent({
       } else {
         this.filteredPizzas = this.pizzas
       }
+    },
+    getImage(url: string) {
+      return helper.getImage(url)
     }
   }
 })

@@ -1,6 +1,6 @@
 <template>
   <div class="card">
-    <img :src="$getImage(pizza.photo)" class="photo" />
+    <img :src="getImage(pizza.photo)" class="photo" />
     <div class="info">
       <span class="info_name">{{ pizza.name }}</span>
       <!-- TO-DO: Implementar botão de Info -->
@@ -14,17 +14,17 @@
           <img
             @click="minusCounter"
             :class="blocked ? 'counter_button_block' : 'counter_button'"
-            :src="$getIcon('minus')"
+            :src="getIcon('minus')"
           />
           <p class="counter_text">{{ counter }}</p>
           <img
             @click="plusCounter"
             class="counter_button"
-            :src="$getIcon('plus')"
+            :src="getIcon('plus')"
           />
         </div>
         <button>
-          <img :src="$getIcon('card')" />
+          <img :src="getIcon('card')" />
           Carrinho
         </button>
       </div>
@@ -34,6 +34,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import helper from '@/helper'
 
 interface PizzaCard {
   name: string
@@ -69,6 +70,12 @@ export default defineComponent({
       if (this.counter == 1) {
         this.blocked = true
       }
+    },
+    getImage(url: string) {
+      return helper.getImage(url)
+    },
+    getIcon(url: string) {
+      return helper.getIcon(url)
     }
   }
 })

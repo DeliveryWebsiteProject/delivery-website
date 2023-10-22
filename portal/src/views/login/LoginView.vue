@@ -1,6 +1,6 @@
 <template>
   <div class="background-image">
-    <img class="banner" :src="$getImage('login_background.png')" />
+    <img class="banner" :src="getImage('login_background.png')" />
   </div>
   <div class="form_container">
     <form class="login_form" @submit.prevent="doLogin">
@@ -17,7 +17,7 @@
     <div class="signup">
       <span>
         Ainda não se registrou?
-        <router-link class="signup__link" to="/signup" @click="$scrollToTop">
+        <router-link class="signup__link" to="/signup" @click="scrollToTop">
           Crie uma conta
         </router-link>
       </span>
@@ -31,6 +31,7 @@ import Button from '@/components/Button.vue'
 import { mapActions } from 'pinia'
 import { useSessionStore } from '@/stores/session'
 import { defineComponent } from 'vue'
+import helper from '@/helper'
 
 export default defineComponent({
   components: {
@@ -61,6 +62,12 @@ export default defineComponent({
       }
 
       this.loading = false
+    },
+    getImage(url: string) {
+      return helper.getImage(url)
+    },
+    scrollToTop() {
+      helper.scrollToTop()
     }
   }
 })

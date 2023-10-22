@@ -1,24 +1,19 @@
-import { App, ImgHTMLAttributes, ReservedProps } from 'vue'
+export default {
+  scrollToTop: () => window.scrollTo(0, 0),
 
-const getPizzaPhoto = (photoId: string): string => {
-  return `${process.env.VUE_APP_API_URL}/photos/${photoId}`;
-}
+  getImage: (url: string, defImage?: string): string => {
+    try {
+      return require(`@/assets/images/${url}`);
+    } catch (err) {
+      return require(`@/assets/images/${defImage}`);
+    }
+  },
 
-const getImage = (url: string, defImage?: string): ImgHTMLAttributes & ReservedProps => {
-  try {
-    return require(`@/assets/images/${url}`);
-  } catch (err) {
-    return require(`@/assets/images/${defImage}`);
-  }
-}
+  getPizzaPhoto: (photoId: string): string => {
+    return `${process.env.VUE_APP_API_URL}/photos/${photoId}`;
+  },
 
-const getIcon = (url: string): ImgHTMLAttributes & ReservedProps => {
-  return require(`@/assets/icons/${url}.svg`)
-}
-
-export default (Vue: App<Element>) => {
-  Vue.config.globalProperties.$getImage = getImage,
-    Vue.config.globalProperties.$getIcon = getIcon,
-    Vue.config.globalProperties.$getPizzaPhoto = getPizzaPhoto,
-    Vue.config.globalProperties.$scrollToTop = () => window.scrollTo(0, 0)
+  getIcon: (url: string): string => {
+    return require(`@/assets/icons/${url}.svg`)
+  },
 }

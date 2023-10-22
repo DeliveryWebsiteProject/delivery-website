@@ -2,7 +2,7 @@
   <div>
     <div v-if="isLogged()" @click="toggleMenu" class="user_button">
       <p class="user_button_name">{{ getActualUser()?.name }}</p>
-      <img :src="$getIcon('user')" />
+      <img :src="getIcon('user')" />
       
       <Menu v-if="showMenu">
         <router-link to="/profile">
@@ -23,7 +23,7 @@
       v-else
       to="/login"
       class="login_button"
-      @click="$scrollToTop"
+      @click="scrollToTop"
     >
       Login
     </router-link>
@@ -35,6 +35,7 @@ import { defineComponent } from 'vue'
 import { useSessionStore } from '@/stores/session';
 import { mapGetters, mapActions } from 'pinia';
 import Menu from '@/components/Menu.vue';
+import helper from '@/helper';
 
 export default defineComponent({
   components: {
@@ -57,6 +58,12 @@ export default defineComponent({
     },
     doLogout() {
       this.clearSession()
+    },
+    scrollToTop() {
+      helper.scrollToTop()
+    },
+    getIcon(url: string) {
+      return helper.getIcon(url)
     }
   },
   mounted () {

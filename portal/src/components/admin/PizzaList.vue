@@ -16,8 +16,8 @@
               </div>
             </div>
             <div class="pizza_actions">
-              <img :src="$getIcon('edit')" @click="openEdit(pizza)" />
-              <img :src="$getIcon('delete')" @click="openDelete(pizza)" />
+              <img :src="getIcon('edit')" @click="openEdit(pizza)" />
+              <img :src="getIcon('delete')" @click="openDelete(pizza)" />
             </div>
             <PizzaEditor
               v-if="toggleMenu"
@@ -30,7 +30,7 @@
               :toggle-popup="toggleConfirmPopup"
             />
           </div>
-          <img class="pizza_photo" :src="$getPizzaPhoto(pizza.ref_photo)" />
+          <img class="pizza_photo" :src="getPizzaPhoto(pizza.ref_photo)" />
         </div>
       </li>
     </ul>
@@ -42,6 +42,7 @@ import { defineComponent } from 'vue';
 import { usePizzaStore } from '@/stores/pizza';
 import { mapGetters, mapActions } from 'pinia';
 import { Pizza } from '@/models';
+import helper from '@/helper';
 import PizzaEditor from '@/components/editors/PizzaEditor.vue';
 import Confirm from '@/components/Confirm.vue';
 
@@ -81,6 +82,14 @@ export default defineComponent({
     },
     toggleConfirmPopup() {
       this.toggleConfirm = !this.toggleConfirm
+    },
+    getIcon(url: string) {
+      return helper.getIcon(url)
+    },
+    getPizzaPhoto(url: string | undefined) {
+      if (url) {
+        return helper.getPizzaPhoto(url)
+      }
     }
   }
 })

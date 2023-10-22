@@ -3,7 +3,7 @@
     <div class="content_top">
       <h1>Ingredientes Cadastrados</h1>
       <button @click="togglePopup" class="add_button">
-        <img :src="$getIcon('plus_light')">
+        <img :src="getIcon('plus_light')">
       </button>
       <IngredientEditor v-if="toggleMenu" :edit="false" :toggle-popup="togglePopup" />
     </div>
@@ -16,6 +16,7 @@
 <script lang="ts">
 import IngredientList from './IngredientList.vue';
 import IngredientEditor from '@/components/editors/IngredientEditor.vue';
+import helper from '@/helper';
 
 import { defineComponent } from 'vue';
 
@@ -30,6 +31,9 @@ export default defineComponent({
   methods: {
     togglePopup() {
       this.toggleMenu = !this.toggleMenu
+    },
+    getIcon(url: string) {
+      return helper.getIcon(url)
     }
   }
 })

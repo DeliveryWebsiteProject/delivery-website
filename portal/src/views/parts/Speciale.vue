@@ -20,17 +20,23 @@
       </div>
     </div>
 
-    <img class="speciale_img" :src="$getImage('speciale.png')">
+    <img class="speciale_img" :src="getImage('speciale.png')">
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
 import Button from '@/components/Button.vue'
+import helper from '@/helper';
 
 export default defineComponent({
   components: {
     Button
+  },
+  methods: {
+    getImage(url: string) {
+      return helper.getImage(url)
+    }
   }
 })
 </script>

@@ -1,12 +1,12 @@
 <template>
   <div class="most_requested">
     <div>
-      <img :src="$getImage('most_requested.svg')" alt="As mais pedidas" />
+      <img :src="getImage('most_requested.svg')" alt="As mais pedidas" />
       <div class="options">
         <div class="cards">
           <Card v-for="pizza in pizzas" :key="pizza.name" :pizza="pizza" />
         </div>
-        <router-link class="button" to="/cardapio" @click="$scrollToTop">
+        <router-link class="button" to="/cardapio" @click="scrollToTop">
           <Button text="VER MAIS"  />
         </router-link>
       </div>
@@ -18,6 +18,7 @@
 import { defineComponent } from 'vue'
 import Card from '@/components/Card.vue'
 import Button from '@/components/Button.vue';
+import helper from '@/helper';
 
 export default defineComponent({
   components: {
@@ -30,7 +31,15 @@ export default defineComponent({
       { name: 'Capricchosa', price: 68, photo: 'capricchosa.png' },
       { name: 'Basileus', price: 52, photo: 'basileus.png' }
     ]
-  })
+  }),
+  methods: {
+    getImage(url: string) {
+      return helper.getImage(url)
+    },
+    scrollToTop() {
+      helper.scrollToTop()
+    }
+  }
 })
 </script>
 
