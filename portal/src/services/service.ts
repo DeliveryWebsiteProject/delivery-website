@@ -11,6 +11,7 @@ export default {
     const { data } = await instance.get(url, {
       params,
       ...options,
+      headers: authorizationHeader,
     })
 
     return data
@@ -28,13 +29,17 @@ export default {
   },
 
   async put<T>(url: string, data: object): Promise<T | undefined> {
-    const { data: returnedData } = await instance.put(url, data)
+    const { data: returnedData } = await instance.put(url, data, {
+      headers: authorizationHeader,
+    })
 
     return returnedData
   },
 
   async delete<T>(url: string): Promise<T | undefined> {
-    const { data: returnedData } = await instance.delete(url)
+    const { data: returnedData } = await instance.delete(url, {
+      headers: authorizationHeader,
+    })
 
     return returnedData
   },

@@ -7,32 +7,21 @@
     <h2>{{ title }} Pizza</h2>
 
     <BaseTextField name="Nome" v-model="name" :required="false" />
-    <BaseTextField
-      name="Preço"
-      v-model="price"
-      type="number"
-      :required="false"
-    />
+    <BaseTextField name="Preço" v-model="price" type="number" :required="false" />
     <PizzaCategorySelector v-model="category" :required="false" />
-    <BaseTextField
-      name="Foto"
-      type="file"
-      @change="changeFiles"
-      v-model="files"
-      :required="false"
-    />
+    <BaseTextField name="Foto" v-model="photo" :required="false" />
     <span class="error">{{ error }}</span>
   </Popup>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import Popup from '@/components/Popup.vue'
-import BaseTextField from '@/components/BaseTextField.vue'
-import { usePizzaStore } from '@/stores/pizza'
-import { mapState, mapActions } from 'pinia'
+import { usePizzaStore } from '@/stores'
+import { mapGetters, mapActions } from 'pinia'
 import { Pizza, Category, State } from '@/models'
 import PizzaCategorySelector from '@/components/PizzaCategorySelector.vue'
+import Popup from '@/components/Popup.vue'
+import BaseTextField from '@/components/BaseTextField.vue'
 
 export default defineComponent({
   components: {
@@ -56,8 +45,8 @@ export default defineComponent({
     name: '',
     price: '',
     category: 0,
-    error: '',
-    files: []
+    ref_photo: '',
+    error: ''
   }),
   mounted() {
     if (this.edit) {
@@ -70,20 +59,20 @@ export default defineComponent({
         this.name = pizza.name
         this.price = pizza.price.toString()
         this.category = pizza.category
+        this.ref_photo = pizza.ref_photo ?? ''
       }
     } else {
       this.title = 'Adicionar'
+
       this.name = ''
       this.price = ''
       this.category = 0
+      this.ref_photo = ''
     }
   },
   methods: {
-    ...mapState(usePizzaStore, ['getSelectedPizza']),
+    ...mapGetters(usePizzaStore, ['getSelectedPizza']),
     ...mapActions(usePizzaStore, ['addPizza', 'editPizza', 'fetch']),
-    changeFiles(event: any) {
-      this.files = event.target.files
-    },
     async createPizza() {
       const category = Number(this.category) ? Category.SWEET : Category.SALTY
 
@@ -91,10 +80,11 @@ export default defineComponent({
         name: this.name,
         price: Number(this.price),
         category: category,
+        ref_photo: this.ref_photo,
         state: State.ACTIVE
       }
 
-      await this.addPizza(this.files, pizza)
+      await this.addPizza(pizza)
         .then((res) => {
           this.fetch()
           this.togglePopup()
@@ -111,6 +101,7 @@ export default defineComponent({
         name: this.name,
         price: Number(this.price),
         category: category,
+        ref_photo: this.ref_photo,
         state: State.ACTIVE
       }
 
@@ -124,7 +115,7 @@ export default defineComponent({
 
 <style scoped lang="scss">
 .error {
-  color: rgb(253, 120, 120);
+  color: $error;
   height: 15px;
   font-size: 11px;
 }

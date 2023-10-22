@@ -1,5 +1,5 @@
 import { Pizza } from '@/models'
-import service from './service'
+import service from '@/services/service'
 
 export default {
   async getPizzaById(data: string): Promise<Pizza | undefined> {

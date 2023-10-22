@@ -65,6 +65,11 @@ const routes: Array<RouteRecordRaw> = [
         path: '/admin/pizzas',
         name: 'Pizzas',
         component: () => import('@/components/admin/PizzaAdmin.vue')
+      },
+      {
+        path: '/admin/ingredients',
+        name: 'Ingredientes',
+        component: () => import('@/components/admin/IngredientAdmin.vue')
       }
     ]
   },
@@ -72,7 +77,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/speciale-mes',
     name: 'Especial do Mês',
-    component: () => import('@/views/HomeView.vue'), 
+    component: () => import('@/views/HomeView.vue'),
     meta: {
       auth: false
     }

@@ -1,28 +1,28 @@
 <template>
   <div class="content">
     <div class="content_top">
-      <h1>Pizzas Cadastradas</h1>
+      <h1>Ingredientes Cadastrados</h1>
       <button @click="togglePopup" class="add_button">
         <img :src="$getIcon('plus_light')">
       </button>
-      <PizzaEditor v-if="toggleMenu" :edit="false" :toggle-popup="togglePopup" />
+      <IngredientEditor v-if="toggleMenu" :edit="false" :toggle-popup="togglePopup" />
     </div>
     <div class="list">
-      <PizzaList />
+      <IngredientList />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import PizzaEditor from '@/components/editors/PizzaEditor.vue';
-import PizzaList from '@/components/admin/PizzaList.vue';
+import IngredientList from './IngredientList.vue';
+import IngredientEditor from '@/components/editors/IngredientEditor.vue';
 
 import { defineComponent } from 'vue';
 
 export default defineComponent({
   components: {
-    PizzaEditor,
-    PizzaList
+    IngredientList,
+    IngredientEditor,
   },
   data: () => ({
     toggleMenu: false,

@@ -23,15 +23,17 @@ export const usePizzaStore = defineStore('pizza', {
     clearSelectedPizza() {
       this.selectedPizza = undefined
     },
-    async addPizza(files: File[], pizza: Pizza) {
-      if (files.length > 0) {
-        const formData = new FormData()
+    async addPizza(pizza: Pizza, files?: File[],) {
+      if (files) {
+        if (files.length > 0) {
+          const formData = new FormData()
 
-        formData.append('photo', files[0])
+          formData.append('photo', files[0])
 
-        const data = await PhotoService.addPhoto(formData)
+          const data = await PhotoService.addPhoto(formData)
 
-        pizza.ref_photo = data?.id;
+          pizza.ref_photo = data?.id;
+        }
       }
 
       await PizzaService.addPizza(pizza)

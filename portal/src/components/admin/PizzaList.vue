@@ -38,12 +38,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import { usePizzaStore } from '@/stores/pizza'
-import { mapGetters, mapActions } from 'pinia'
-import { Pizza } from '@/models'
-import PizzaEditor from '@/components/PizzaEditor.vue'
-import Confirm from '@/components/Confirm.vue'
+import { defineComponent } from 'vue';
+import { usePizzaStore } from '@/stores/pizza';
+import { mapGetters, mapActions } from 'pinia';
+import { Pizza } from '@/models';
+import PizzaEditor from '@/components/editors/PizzaEditor.vue';
+import Confirm from '@/components/Confirm.vue';
 
 export default defineComponent({
   components: {

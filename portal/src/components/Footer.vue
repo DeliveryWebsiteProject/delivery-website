@@ -3,7 +3,7 @@
     <div class="connect">
       <p class="connect_title"></p>
       <div class="connect_medias">
-        <v-btn class="connect_medias_btn" color="#fff" large icon>
+        <!-- <v-btn class="connect_medias_btn" color="#fff" large icon>
           <font-awesome-icon class="fa-2x" icon="fa-brands fa-whatsapp" />
         </v-btn>
         <v-btn class="connect_medias_btn" color="#fff" large icon>
@@ -17,7 +17,7 @@
         </v-btn>
         <v-btn class="connect_medias_btn" color="#fff" large icon>
           <font-awesome-icon class="fa-2x" icon="fa-brands fa-twitter" />
-        </v-btn>
+        </v-btn> -->
       </div>
     </div>
     <div class="footer">

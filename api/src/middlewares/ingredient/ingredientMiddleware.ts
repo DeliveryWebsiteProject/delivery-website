@@ -11,11 +11,12 @@ export default async function ingredientMiddleware(
     if (value) {
         let { name } = value as Ingredient;
 
-        if (name.length > 30) return next(new ApiError('Nome do ingrediente deve ter no máximo 30 caracteres', HttpStatus.BAD_REQUEST));
+        if (name) {
+            if (name.length > 30) return next(new ApiError('Nome do ingrediente deve ter no máximo 30 caracteres', HttpStatus.BAD_REQUEST));
 
-        next();
-    } else {
-        return next(new ApiError('Nenhum valor apresentado', HttpStatus.NOT_FOUND));
+            next();
+        } else {
+            return next(new ApiError('Nenhum valor apresentado', HttpStatus.NOT_FOUND));
+        }
     }
-
 }

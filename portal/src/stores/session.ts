@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import jwt from '@/plugins/jwt'
-import { User, Role } from '@/models'
+import { User } from '@/models'
+import { Role } from '@/models/user'
 import SessionService from '@/services/SessionService'
 
 export const useSessionStore = defineStore('session', {

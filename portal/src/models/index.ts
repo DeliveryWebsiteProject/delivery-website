@@ -1,6 +1,7 @@
 import User, { Role } from '@/models/user'
 import Pizza, { Category, State } from '@/models/pizza'
 import PizzaCard from '@/models/pizzaCard'
+import Ingredient from '@/models/ingredient'
 
 export {
   User,
@@ -8,5 +9,6 @@ export {
   Pizza,
   Category,
   State,
-  PizzaCard
+  PizzaCard,
+  Ingredient
 }
