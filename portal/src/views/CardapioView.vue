@@ -6,7 +6,9 @@
   <div class="button-group">
     <Button v-for="(text, index) in filtrosTexts" :key="index" :text="text" class="button-item"
       :class="{ 'button-black': selectedButton !== text, 'button-green': selectedButton === text }"
-      @click="selectedButton = text" />
+      @click="filterPizzas(text, index)"
+    />
+
     <SearchButton @pesquisa="searchPizza" />
   </div>
   <div class="cards">
@@ -19,9 +21,10 @@ import Header from '@/components/Header.vue'
 import SearchButton from '@/components/SearchButton.vue'
 import Button from '@/components/Button.vue'
 import Card from '@/components/Card.vue'
-import { PizzaCard } from '@/models'
-import { defineComponent } from 'vue'
 import helper from '@/helper'
+import { defineComponent } from 'vue'
+import { mapGetters } from 'pinia'
+import { usePizzaStore } from '@/stores'
 
 export default defineComponent({
   components: {
@@ -31,31 +34,29 @@ export default defineComponent({
     Card
   },
   mounted() {
-    this.filteredPizzas = this.pizzas  
+    this.filteredPizzas = this.getPizzas()  
   },
   data: () => ({
     filtrosTexts: ['Salgadas', 'Doces'],
     selectedButton: '',
-    pizzas: [
-      { name: 'Margherita', price: 50, photo: 'margherita.png' },
-      { name: 'Capricchosa', price: 68, photo: 'capricchosa.png' },
-      { name: 'Basileus', price: 52, photo: 'basileus.png' },
-      { name: 'Basileus', price: 52, photo: 'basileus.png' },
-      { name: 'Basileus', price: 52, photo: 'basileus.png' },
-      { name: 'Basileus', price: 52, photo: 'basileus.png' },
-      { name: 'Capricchosa', price: 68, photo: 'capricchosa.png' },
-      { name: 'Margherita', price: 50, photo: 'margherita.png' },
-    ] as PizzaCard[],
-    filteredPizzas: [] as PizzaCard[]
+    filteredPizzas: [] as any[]
   }),
   methods: {
+    ...mapGetters( usePizzaStore, ['getPizzas']),
     searchPizza(data: string) {
-      // TO-DO: Arrumar busca quando houver consulta da API
+      this.filteredPizzas = this.getPizzas()
 
       if (data.length > 0) {
-        this.filteredPizzas = this.pizzas.filter( p => p.name.toLowerCase().includes(data.toLowerCase()));
+        this.filteredPizzas = this.getPizzas().filter( p => p.name.toLowerCase().includes(data.toLowerCase()))
+      }
+    },
+    filterPizzas(text: string, index: number) {
+      if (this.selectedButton === text) {
+        this.selectedButton = ''
+        this.filteredPizzas = this.getPizzas()
       } else {
-        this.filteredPizzas = this.pizzas
+        this.selectedButton = text;
+        this.filteredPizzas = this.getPizzas().filter( p => p.category == index )
       }
     },
     getImage(url: string) {

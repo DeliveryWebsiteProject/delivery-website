@@ -41,9 +41,9 @@ export default defineComponent({
     scrollPosition: 0,
 
     navItems: [
-      { name: 'HOME', route: '/' },
+      { name: 'HOME',     route: '/'         },
       { name: 'CARDÁPIO', route: '/cardapio' },
-      { name: 'SOBRE', route: '/about' }
+      { name: 'SOBRE',    route: '/about'    }
     ]
   }),
   mounted() {

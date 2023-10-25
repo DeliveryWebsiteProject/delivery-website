@@ -1,25 +1,6 @@
 <template>
   <div>
-    <div class="connect">
-      <p class="connect_title"></p>
-      <div class="connect_medias">
-        <!-- <v-btn class="connect_medias_btn" color="#fff" large icon>
-          <font-awesome-icon class="fa-2x" icon="fa-brands fa-whatsapp" />
-        </v-btn>
-        <v-btn class="connect_medias_btn" color="#fff" large icon>
-          <font-awesome-icon class="fa-2x" icon="fa-brands fa-instagram" />
-        </v-btn>
-        <v-btn class="connect_medias_btn" color="#fff" large icon>
-          <font-awesome-icon class="fa-2x" icon="fa-brands fa-tiktok" />
-        </v-btn>
-        <v-btn class="connect_medias_btn" color="#fff" large icon>
-          <font-awesome-icon class="fa-2x" icon="fa-brands fa-facebook" />
-        </v-btn>
-        <v-btn class="connect_medias_btn" color="#fff" large icon>
-          <font-awesome-icon class="fa-2x" icon="fa-brands fa-twitter" />
-        </v-btn> -->
-      </div>
-    </div>
+    <div class="connect" />
     <div class="footer">
       <img class="footer_logo" src="../assets/icons/footer_logo.svg" alt="logo" />
       <div class="footer_topics">
@@ -91,7 +72,7 @@ export default defineComponent({
 <style scoped lang="scss">
 .connect {
   margin-top: 60px;
-  background-color: #378c3b;
+  background-color: $primary-color;
   box-shadow: 0px 0px 5px 2px #00000099;
   width: 100%;
   height: 75px;
@@ -101,7 +82,7 @@ export default defineComponent({
   align-items: center;
 
   &_title {
-    color: #fff;
+    color: $text-light;
     font-size: 18pt;
     font-weight: bold;
   }

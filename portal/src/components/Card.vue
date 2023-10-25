@@ -1,6 +1,6 @@
 <template>
   <div class="card">
-    <img :src="getImage(pizza.photo)" class="photo" />
+    <img :src="getImage(pizza.ref_photo)" class="photo" />
     <div class="info">
       <span class="info_name">{{ pizza.name }}</span>
       <!-- TO-DO: Implementar botão de Info -->
@@ -34,18 +34,13 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import { Pizza } from '@/models'
 import helper from '@/helper'
-
-interface PizzaCard {
-  name: string
-  price: number
-  photo: string
-}
 
 export default defineComponent({
   props: {
     pizza: {
-      type: Object as () => PizzaCard,
+      type: Object as () => Pizza,
       required: true
     }
   },
@@ -71,8 +66,10 @@ export default defineComponent({
         this.blocked = true
       }
     },
-    getImage(url: string) {
-      return helper.getImage(url)
+    getImage(url: string | undefined) {
+      if (url) {
+        return helper.getImage(url)
+      }
     },
     getIcon(url: string) {
       return helper.getIcon(url)
