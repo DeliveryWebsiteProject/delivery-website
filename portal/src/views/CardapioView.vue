@@ -1,5 +1,6 @@
 <template>
   <Header />
+  <Cart :is-cart-open="isCartOpen" @close-cart="closeCart" />
   <div class="cardapio">
     <img :src="getImage('cardapio.svg')" alt="As mais pedidas" />
   </div>
@@ -12,12 +13,13 @@
     <SearchButton @pesquisa="searchPizza" />
   </div>
   <div class="cards">
-    <Card v-for="pizza in filteredPizzas" :key="pizza.name" :pizza="pizza" class="card"/>
-  </div>
+  <Card v-for="pizza in filteredPizzas" :key="pizza.name" :pizza="pizza" class="card" @open-cart="openCart" />
+</div>
 </template>
 
 <script lang="ts">
 import Header from '@/components/Header.vue'
+import Cart from '@/views/CartView.vue'; 
 import SearchButton from '@/components/SearchButton.vue'
 import Button from '@/components/Button.vue'
 import Card from '@/components/Card.vue'
@@ -29,6 +31,7 @@ import { usePizzaStore } from '@/stores'
 export default defineComponent({
   components: {
     Header,
+    Cart,
     SearchButton,
     Button,
     Card
@@ -36,12 +39,21 @@ export default defineComponent({
   mounted() {
     this.filteredPizzas = this.getPizzas()  
   },
-  data: () => ({
-    filtrosTexts: ['Salgadas', 'Doces'],
-    selectedButton: '',
-    filteredPizzas: [] as any[]
-  }),
+  data() {
+    return {
+      isCartOpen: false,
+      filtrosTexts: ['Salgadas', 'Doces'],
+      selectedButton: '',
+      filteredPizzas: [] as any[],
+    };
+  },
   methods: {
+    openCart() {
+      this.isCartOpen = true;
+    },
+    closeCart() {
+      this.isCartOpen = false;
+    },
     ...mapGetters( usePizzaStore, ['getPizzas']),
     searchPizza(data: string) {
       this.filteredPizzas = this.getPizzas()
@@ -67,7 +79,6 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-
 .cardapio {
   display: flex;
   justify-content: center;

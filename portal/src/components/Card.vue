@@ -23,7 +23,7 @@
             :src="getIcon('plus')"
           />
         </div>
-        <button>
+        <button @click="openCart">
           <img :src="getIcon('card')" />
           Carrinho
         </button>
@@ -33,49 +33,52 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import { Pizza } from '@/models'
-import helper from '@/helper'
+import { defineComponent } from 'vue';
+import { Pizza } from '@/models';
+import helper from '@/helper';
 
 export default defineComponent({
   props: {
     pizza: {
       type: Object as () => Pizza,
-      required: true
-    }
+      required: true,
+    },
   },
   data: () => ({
     name: 'Margherita',
     price: 50,
     counter: 1,
-
-    blocked: true
+    blocked: true,
   }),
   methods: {
+    openCart() {
+      this.$emit('open-cart');
+    },
     plusCounter() {
-      this.blocked = false
-
-      this.counter++
+      this.blocked = false;
+      this.counter++;
     },
     minusCounter() {
       if (this.counter > 1) {
-        this.counter--
+        this.counter--;
       }
-
-      if (this.counter == 1) {
-        this.blocked = true
+      if (this.counter === 1) {
+        this.blocked = true;
       }
     },
     getImage(url: string | undefined) {
       if (url) {
-        return helper.getImage(url)
+        return helper.getImage(url);
       }
     },
     getIcon(url: string) {
-      return helper.getIcon(url)
-    }
-  }
-})
+      return helper.getIcon(url);
+    },
+    addToCart() {
+      this.$emit('add-to-cart', this.pizza);
+    },
+  },
+});
 </script>
 
 <style scoped lang="scss">
@@ -150,9 +153,9 @@ export default defineComponent({
 
     &_block {
       cursor: not-allowed;
-      filter: invert(72%) sepia(0%) saturate(4165%) hue-rotate(314deg)
-        brightness(97%) contrast(119%);
-    }
+      /*filter: invert(72%) sepia(0%) saturate(4165%) hue-rotate(314deg)
+        brightness(97%) contrast(119%);*/
+    } 
   }
 
   &_text {
