@@ -5,9 +5,9 @@
     <img :src="getImage('cardapio.svg')" alt="As mais pedidas" />
   </div>
   <div class="button-group">
-    <Button v-for="(text, index) in filtrosTexts" :key="index" :text="text" class="button-item"
-      :class="{ 'button-black': selectedButton !== text, 'button-green': selectedButton === text }"
-      @click="filterPizzas(text, index)"
+    <Button v-for="(text, index) in filterTexts" :key="index" :text="text" class="button-item"
+      :class="{ 'button-black': selectedFilter !== index, 'button-green': selectedFilter == index }"
+      @click="filterPizzas(index)"
     />
 
     <SearchButton @pesquisa="searchPizza" />
@@ -42,8 +42,8 @@ export default defineComponent({
   data() {
     return {
       isCartOpen: false,
-      filtrosTexts: ['Salgadas', 'Doces'],
-      selectedButton: '',
+      filterTexts: ['Salgadas', 'Doces'],
+      selectedFilter: -1,
       filteredPizzas: [] as any[],
     };
   },
@@ -58,16 +58,22 @@ export default defineComponent({
     searchPizza(data: string) {
       this.filteredPizzas = this.getPizzas()
 
-      if (data.length > 0) {
-        this.filteredPizzas = this.getPizzas().filter( p => p.name.toLowerCase().includes(data.toLowerCase()))
+      const input = data.toLowerCase()
+
+      if (this.selectedFilter === -1) {
+        this.filteredPizzas = this.getPizzas().filter( p => p.name.toLowerCase().includes(input))
+      } else {
+        this.filteredPizzas = this.getPizzas().filter( p => {
+          return p.name.toLowerCase().includes(input) && p.category == this.selectedFilter
+        })
       }
     },
-    filterPizzas(text: string, index: number) {
-      if (this.selectedButton === text) {
-        this.selectedButton = ''
+    filterPizzas(index: number) {
+      if (this.selectedFilter === index) {
+        this.selectedFilter = -1
         this.filteredPizzas = this.getPizzas()
       } else {
-        this.selectedButton = text;
+        this.selectedFilter = index;
         this.filteredPizzas = this.getPizzas().filter( p => p.category == index )
       }
     },
