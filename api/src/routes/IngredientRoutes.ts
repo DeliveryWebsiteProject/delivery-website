@@ -6,7 +6,7 @@ import ingredientDeleteMiddleware from "../middlewares/ingredient/ingredientDele
 
 const ingredientRoutes = Router();
 
-ingredientRoutes.get('/ingredients', authMiddleware, IngredientController.index);
+ingredientRoutes.get('/ingredients', authMiddleware, IngredientController.findAll);
 ingredientRoutes.get('/ingredients/:id', authMiddleware, IngredientController.getById);
 ingredientRoutes.post('/ingredients', authMiddleware, ingredientMiddleware, IngredientController.add);
 ingredientRoutes.put('/ingredients/:id', authMiddleware, ingredientMiddleware, IngredientController.update);

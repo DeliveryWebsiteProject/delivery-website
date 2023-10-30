@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import ApiError from "../../utils/ApiError";
 import { HttpStatus } from "../../utils/HttpStatus";
-import PizzaMappingRepositoryTransaction from "../../repositories/pizzaMapping/PizzaMappingRepositoryTransaction";
+import { PizzaMappingRepositoryTransaction } from "../../repositories/pizzaMapping/PizzaMappingRepositoryTransaction";
 
 export default async function ingredientDeleteMiddleware(
   req: Request, res: Response, next: NextFunction

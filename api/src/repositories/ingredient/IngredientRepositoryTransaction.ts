@@ -14,6 +14,16 @@ export class IngredientRepositoryTransaction implements IngredientRepository {
     return rows;
   }
 
+  async getById(id: string): Promise<Ingredient> {
+    const conn = await Database.getInstance().connect();
+
+    const [rows] = await conn.execute<Ingredient[]>('SELECT * FROM ingredients WHERE id = ?', [id]);
+
+    conn.end()
+
+    return rows[0] ?? undefined;
+  }
+
   async add(data: Ingredient): Promise<Ingredient> {
     data.id = crypto.randomUUID();
 
@@ -26,10 +36,10 @@ export class IngredientRepositoryTransaction implements IngredientRepository {
     return data;
   }
 
-  async update(data: Ingredient): Promise<Ingredient> {
+  async update(id: string, data: Ingredient): Promise<Ingredient> {
     const conn = await Database.getInstance().connect();
 
-    await conn.execute('UPDATE ingredients SET name = ? WHERE id = ?', [data.name, data.id]);
+    await conn.execute('UPDATE ingredients SET name = ? WHERE id = ?', [data.name, id]);
 
     conn.end();
 
@@ -42,15 +52,5 @@ export class IngredientRepositoryTransaction implements IngredientRepository {
     await conn.execute<Ingredient[]>('DELETE FROM ingredients WHERE id = ?', [id]);
 
     conn.end();
-  }
-
-  async getById(id: string): Promise<Ingredient> {
-    const conn = await Database.getInstance().connect();
-
-    const [rows] = await conn.execute<Ingredient[]>('SELECT * FROM ingredients WHERE id = ?', [id]);
-
-    conn.end()
-
-    return rows[0] ?? undefined;
   }
 }

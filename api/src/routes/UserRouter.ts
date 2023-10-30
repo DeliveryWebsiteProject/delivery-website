@@ -6,9 +6,9 @@ import userUpdateMiddleware from "../middlewares/user/userUpdateMiddleware";
 
 const userRoutes = Router();
 
-userRoutes.get('/users', authMiddleware, UserController.index)
+userRoutes.get('/users', authMiddleware, UserController.findAll)
 userRoutes.post("/users", userValidationMiddleware, UserController.add);
-userRoutes.get("/users/:id", UserController.getUserById);
+userRoutes.get("/users/:id", UserController.getById);
 userRoutes.put("/users/:id", userUpdateMiddleware, UserController.update);
 userRoutes.delete("/users/:id", UserController.delete);
 

@@ -9,19 +9,19 @@ export default class PizzaRepositoryTransaction implements PizzaRepository {
     const conn = await Database.getInstance().connect();
 
     const [rows] = await conn.execute<Pizza[]>('SELECT pizzas.*, photos.path FROM pizzas inner join photos on photos.id = pizzas.ref_photo where state = ?', [State.ACTIVE]);
+    // const [rows] = await conn.execute<Pizza[]>('SELECT * FROM pizzas WHERE state = ?', [State.ACTIVE]);
 
     conn.end()
 
     return rows;
   }
 
-  async getPizzaById(id: string): Promise<Pizza> {
+  async getById(id: string): Promise<Pizza> {
     const conn = await Database.getInstance().connect();
 
     let pizza: Pizza | undefined = undefined;
 
-    let [rows] = await conn.execute<Pizza[]>(
-      'SELECT * FROM users WHERE id = ?', [id]);
+    let [rows] = await conn.execute<Pizza[]>('SELECT * FROM pizzas WHERE id = ?', [id]);
 
     conn.end();
 
@@ -30,7 +30,7 @@ export default class PizzaRepositoryTransaction implements PizzaRepository {
     return pizza;
   }
 
-  async store(data: Pizza): Promise<Pizza> {
+  async add(data: Pizza): Promise<Pizza> {
     Object.assign(data, { state: data.state ?? State.ACTIVE });
 
     data.id = crypto.randomUUID();
@@ -50,12 +50,12 @@ export default class PizzaRepositoryTransaction implements PizzaRepository {
     const conn = await Database.getInstance().connect();
 
     await conn.execute<Pizza[]>(
-      'UPDATE pizzas SET name = ?, price = ?, category = ?, photo = ?, state = ? WHERE id = ?',
-      [data.name, data.price, data.category, data.photo, data.state, id]);
+      'UPDATE pizzas SET name = ?, price = ?, category = ?, ref_photo = ?, state = ? WHERE id = ?',
+      [data.name, data.price, data.category, data.ref_photo, data.state, id]);
 
     conn.end();
 
-    data = await this.getPizzaById(id);
+    data = await this.getById(id);
 
     return data;
   }
@@ -67,9 +67,5 @@ export default class PizzaRepositoryTransaction implements PizzaRepository {
       'UPDATE pizzas SET state = ? WHERE id = ?', [State.INACTIVE, id]);
 
     conn.end();
-  }
-
-  show(id: string): Promise<Pizza> {
-    throw new Error("Method not implemented.");
   }
 }

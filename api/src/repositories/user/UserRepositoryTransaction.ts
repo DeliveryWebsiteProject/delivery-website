@@ -17,7 +17,37 @@ export default class UserRepositoryTransaction implements UserRepository {
     return rows;
   }
 
-  async store(data: User): Promise<User> {
+  async getUserByCpf(cpf: string): Promise<User> {
+    const conn = await Database.getInstance().connect();
+
+    let user: User | undefined = undefined;
+
+    let [rows] = await conn.execute<User[]>(
+      'SELECT * FROM users WHERE cpf = ?', [cpf]);
+
+    conn.end()
+
+    user = rows[0];
+
+    return user;
+  }
+
+  async getById(id: string): Promise<User> {
+    const conn = await Database.getInstance().connect();
+
+    let user: User | undefined = undefined;
+
+    let [rows] = await conn.execute<User[]>(
+      'SELECT * FROM users WHERE id = ?', [id]);
+
+    conn.end();
+
+    user = rows[0];
+
+    return user;
+  }
+
+  async add(data: User): Promise<User> {
     Object.assign(data, {
       cpf: data.cpf.replace(/\W/g, ''),
       phone: data.phone.replace(/\W/g, ''),
@@ -43,36 +73,6 @@ export default class UserRepositoryTransaction implements UserRepository {
     return data;
   }
 
-  async getUserByCpf(cpf: string): Promise<User> {
-    const conn = await Database.getInstance().connect();
-
-    let user: User | undefined = undefined;
-
-    let [rows] = await conn.execute<User[]>(
-      'SELECT * FROM users WHERE cpf = ?', [cpf]);
-
-    conn.end()
-
-    user = rows[0];
-
-    return user;
-  }
-
-  async getUserById(id: string): Promise<User> {
-    const conn = await Database.getInstance().connect();
-
-    let user: User | undefined = undefined;
-
-    let [rows] = await conn.execute<User[]>(
-      'SELECT * FROM users WHERE id = ?', [id]);
-
-    conn.end();
-
-    user = rows[0];
-
-    return user;
-  }
-
   async update(id: string, data: User): Promise<User> {
     Object.assign(data, {
       phone: data.phone.replace(/\W/g, ''),
@@ -87,7 +87,7 @@ export default class UserRepositoryTransaction implements UserRepository {
 
     conn.end();
 
-    data = await this.getUserById(id);
+    data = await this.getById(id);
 
     return data;
   }
@@ -101,4 +101,3 @@ export default class UserRepositoryTransaction implements UserRepository {
     conn.end();
   }
 }
-

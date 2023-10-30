@@ -3,23 +3,31 @@ import Database from "../../database";
 import { PizzaMapping } from "../../models";
 import PizzaMappingRepository from "./PizzaMappingRepository";
 
-export default class PizzaMappingRepositoryTransaction implements PizzaMappingRepository {
-  async store(data: PizzaMapping[]): Promise<PizzaMapping[]> {
+export class PizzaMappingRepositoryTransaction implements PizzaMappingRepository {
+  async findAll(): Promise<PizzaMapping[]> {
     const conn = await Database.getInstance().connect();
 
-    let values = '';
+    const [rows] = await conn.execute<PizzaMapping[]>(`SELECT * FROM pizza_mapping`);
 
-    for (let i = 0; i < data.length; i++) {
-      values += '(?, ?)';
+    conn.end();
 
-      if (i !== data.length - 1) {
-        values += ', ';
-      }
-    }
+    return rows;
+  }
 
-    await conn.execute(
-      `INSERT INTO pizza_mapping (ref_pizza, ref_ingredient) values ( ${values} )`,
-      data);
+  async getByPizzaId(pizzaId: string): Promise<PizzaMapping[]> {
+    const conn = await Database.getInstance().connect();
+
+    const [rows] = await conn.execute<PizzaMapping[]>(`SELECT * FROM pizza_mapping WHERE ref_pizza = ${pizzaId}`);
+
+    conn.end();
+
+    return rows;
+  }
+
+  async add(data: PizzaMapping): Promise<PizzaMapping> {
+    const conn = await Database.getInstance().connect();
+
+    await conn.execute(`INSERT INTO pizza_mapping (ref_pizza, ref_ingredient) values ( ?, ? )`, [data.ref_pizza, data.ref_ingredient]);
 
     conn.end();
 
@@ -30,6 +38,8 @@ export default class PizzaMappingRepositoryTransaction implements PizzaMappingRe
     const conn = await Database.getInstance().connect();
 
     const [rows] = await conn.execute<RowDataPacket[]>('SELECT count(*) as maps FROM pizza_mapping WHERE ref_ingredient = ?', [ingredientId]);
+
+    conn.end();
 
     return rows[0].maps > 0;
   }

@@ -18,7 +18,7 @@ export default async function userUpdateMiddleware(
 
     if (!name || !phone) return next(new ApiError('Campos obrigatórios não preenchidos', HttpStatus.BAD_REQUEST))
 
-    const user = await new UserRepositoryTransaction().getUserById(id);
+    const user = await new UserRepositoryTransaction().getById(id);
 
     if (user) {
       if (name.length > 120) return next(new ApiError('Nome inválido', HttpStatus.BAD_REQUEST));

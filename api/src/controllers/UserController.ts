@@ -3,28 +3,28 @@ import { User } from "../models";
 import jwt from 'jsonwebtoken'
 import UserRepositoryTransaction from "../repositories/user/UserRepositoryTransaction";
 
-class UserController {
-  public async index(req: Request, res: Response): Promise<Response<User[]>> {
+export default class UserController {
+  public static async findAll(req: Request, res: Response): Promise<Response<User[]>> {
     const users = await new UserRepositoryTransaction().findAll();
 
     return res.json(users)
   }
 
-  public async add(req: Request, res: Response): Promise<Response<User>> {
-    const user = await new UserRepositoryTransaction().store(req.body);
-
-    return res.json(user)
-  }
-
-  public async getUserById(req: Request, res: Response): Promise<Response<User>> {
+  public static async getById(req: Request, res: Response): Promise<Response<User>> {
     const { id } = req.params;
 
-    const user = await new UserRepositoryTransaction().getUserById(id);
+    const user = await new UserRepositoryTransaction().getById(id);
 
     return res.json(user)
   }
 
-  public async update(req: Request, res: Response): Promise<Response<User>> {
+  public static async add(req: Request, res: Response): Promise<Response<User>> {
+    const user = await new UserRepositoryTransaction().add(req.body);
+
+    return res.json(user)
+  }
+
+  public static async update(req: Request, res: Response): Promise<Response<User>> {
     const { id } = req.params;
 
     const user = await new UserRepositoryTransaction().update(id, req.body);
@@ -38,7 +38,7 @@ class UserController {
     return res.json(jsonUser)
   }
 
-  public async delete(req: Request, res: Response): Promise<void> {
+  public static async delete(req: Request, res: Response): Promise<void> {
     const { id } = req.params;
 
     await new UserRepositoryTransaction().delete(id);
@@ -46,5 +46,3 @@ class UserController {
     res.status(200).end();
   }
 }
-
-export default new UserController()
