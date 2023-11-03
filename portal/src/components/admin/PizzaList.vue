@@ -38,13 +38,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import { usePizzaStore } from '@/stores/pizza';
-import { mapGetters, mapActions } from 'pinia';
-import { Pizza } from '@/models';
-import helper from '@/helper';
-import PizzaEditor from '@/components/editors/PizzaEditor.vue';
-import Confirm from '@/components/Confirm.vue';
+import { defineComponent } from 'vue'
+import { usePizzaStore } from '@/stores/pizza'
+import { mapState, mapActions } from 'pinia'
+import { Pizza } from '@/models'
+import PizzaEditor from '@/components/editors/PizzaEditor.vue'
+import Confirm from '@/components/Confirm.vue'
+import helper from "@/helper"
 
 export default defineComponent({
   components: {
@@ -56,7 +56,7 @@ export default defineComponent({
     toggleConfirm: false
   }),
   methods: {
-    ...mapGetters(usePizzaStore, ['getPizzas']),
+    ...mapState(usePizzaStore, ['getPizzas']),
     ...mapActions(usePizzaStore, [
       'setSelectedPizza',
       'clearSelectedPizza',

@@ -68,7 +68,7 @@ export default defineComponent({
     },
     getImage(url: string | undefined) {
       if (url) {
-        return helper.getImage(url);
+        return helper.getPizzaPhoto(url);
       }
     },
     getIcon(url: string) {
@@ -94,6 +94,8 @@ export default defineComponent({
 
 .photo {
   border-radius: 15px 15px 0 0;
+  width: 100%;
+  height: 55%;
 }
 
 .info {

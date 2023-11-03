@@ -27,6 +27,7 @@ import helper from '@/helper'
 import { defineComponent } from 'vue'
 import { mapGetters } from 'pinia'
 import { usePizzaStore } from '@/stores'
+import { Pizza } from "@/models";
 
 export default defineComponent({
   components: {
@@ -44,7 +45,7 @@ export default defineComponent({
       isCartOpen: false,
       filterTexts: ['Salgadas', 'Doces'],
       selectedFilter: -1,
-      filteredPizzas: [] as any[],
+      filteredPizzas: [] as Pizza[],
     };
   },
   methods: {
@@ -118,7 +119,7 @@ export default defineComponent({
 }
 
 .cards {
-  display: grid; 
+  display: grid;
   grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
   column-gap: 30px;
   padding: 50px 20px;

@@ -7,9 +7,14 @@
     <h2>{{ title }} Pizza</h2>
 
     <BaseTextField name="Nome" v-model="name" :required="false" />
-    <BaseTextField name="Preço" v-model="price" type="number" :required="false" />
+    <BaseTextField
+      name="Preço"
+      v-model="price"
+      type="number"
+      :required="false"
+    />
     <PizzaCategorySelector v-model="category" :required="false" />
-    <BaseTextField name="Foto" v-model="photo" :required="false" />
+    <FilePicker @changeFiles="changeFiles" />
     <span class="error">{{ error }}</span>
   </Popup>
 </template>
@@ -17,17 +22,19 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { usePizzaStore } from '@/stores'
-import { mapGetters, mapActions } from 'pinia'
+import { mapState, mapActions } from 'pinia'
 import { Pizza, Category, State } from '@/models'
 import PizzaCategorySelector from '@/components/PizzaCategorySelector.vue'
 import Popup from '@/components/Popup.vue'
 import BaseTextField from '@/components/BaseTextField.vue'
+import FilePicker from '../FilePicker.vue'
 
 export default defineComponent({
   components: {
     Popup,
     BaseTextField,
-    PizzaCategorySelector
+    PizzaCategorySelector,
+    FilePicker
   },
   props: {
     edit: {
@@ -46,7 +53,8 @@ export default defineComponent({
     price: '',
     category: 0,
     ref_photo: '',
-    error: ''
+    error: '',
+    files: [] as File[]
   }),
   mounted() {
     if (this.edit) {
@@ -59,7 +67,9 @@ export default defineComponent({
         this.name = pizza.name
         this.price = pizza.price.toString()
         this.category = pizza.category
-        this.ref_photo = pizza.ref_photo ?? ''
+        if (pizza.path && pizza.ref_photo) {
+          this.ref_photo = pizza.ref_photo
+        }
       }
     } else {
       this.title = 'Adicionar'
@@ -71,8 +81,11 @@ export default defineComponent({
     }
   },
   methods: {
-    ...mapGetters(usePizzaStore, ['getSelectedPizza']),
+    ...mapState(usePizzaStore, ['getSelectedPizza']),
     ...mapActions(usePizzaStore, ['addPizza', 'editPizza', 'fetch']),
+    changeFiles(files: []) {
+      this.files = files ?? []
+    },
     async createPizza() {
       const category = Number(this.category) ? Category.SWEET : Category.SALTY
 
@@ -84,7 +97,7 @@ export default defineComponent({
         state: State.ACTIVE
       }
 
-      await this.addPizza(pizza)
+      await this.addPizza(pizza, this.files)
         .then((res) => {
           this.fetch()
           this.togglePopup()
@@ -105,9 +118,18 @@ export default defineComponent({
         state: State.ACTIVE
       }
 
-      await this.editPizza(pizza)
-      this.fetch()
-      this.togglePopup()
+      this.files = this.$el.querySelector('input[type="file"]')?.files
+
+      console.log(this.files)
+
+      await this.editPizza(pizza, this.files)
+        .then((res) => {
+          this.fetch()
+          this.togglePopup()
+        })
+        .catch((err) => {
+          this.error = err.response.data.error
+        })
     }
   }
 })

@@ -29,7 +29,8 @@ const storage = multer.diskStorage({
 
 const uploader = multer({ storage: storage });
 
-photoRoutes.get('/photos/:id', PhotoController.getById);
+photoRoutes.get('/photos/:id', PhotoController.getFileByPhotoId);
 photoRoutes.post('/photos', uploader.single('photo') as RequestHandler, PhotoController.add);
+photoRoutes.post('/photos/:id', uploader.single('photo') as RequestHandler, PhotoController.update);
 
 export default photoRoutes;

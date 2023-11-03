@@ -21,7 +21,8 @@ export default class PizzaRepositoryTransaction implements PizzaRepository {
 
     let pizza: Pizza | undefined = undefined;
 
-    let [rows] = await conn.execute<Pizza[]>('SELECT * FROM pizzas WHERE id = ?', [id]);
+    let [rows] = await conn.execute<Pizza[]>(
+      'SELECT * FROM pizzas WHERE id = ?', [id]);
 
     conn.end();
 
@@ -31,7 +32,7 @@ export default class PizzaRepositoryTransaction implements PizzaRepository {
   }
 
   async add(data: Pizza): Promise<Pizza> {
-    Object.assign(data, { state: data.state ?? State.ACTIVE });
+    Object.assign(data, { ref_photo: data.ref_photo ?? '', state: data.state ?? State.ACTIVE });
 
     data.id = crypto.randomUUID();
 

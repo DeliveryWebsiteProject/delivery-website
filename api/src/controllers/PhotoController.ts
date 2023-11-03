@@ -3,7 +3,7 @@ import PhotoRepositoryTransaction from "../repositories/photo/PhotoRepositoryTra
 import { HttpStatus } from "../utils/HttpStatus";
 
 export default class PhotoController {
-  public static async getById(req: Request, res: Response) {
+  public static async getFileByPhotoId(req: Request, res: Response) {
     const { id } = req.params;
 
     const photo = await new PhotoRepositoryTransaction().getPhotoById(id);
@@ -17,6 +17,16 @@ export default class PhotoController {
     const path = req.file?.path;
 
     const photo = await new PhotoRepositoryTransaction().add(path ?? '');
+
+    return res.status(HttpStatus.OK).json(photo);
+  }
+
+  public static async update(req: Request, res: Response) {
+    const { id } = req.params;
+
+    const path = req.file?.path;
+
+    const photo = await new PhotoRepositoryTransaction().update(id, path ?? '');
 
     return res.status(HttpStatus.OK).json(photo);
   }
