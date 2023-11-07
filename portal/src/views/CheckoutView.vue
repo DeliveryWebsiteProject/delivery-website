@@ -198,8 +198,8 @@ export default defineComponent({
     height: 20px;
     border-radius: 50%;
     vertical-align: middle;
-    background-color: $text_light;
-    border: 2px solid $primary-color;
+    background-color: $card-color-secondary;
+    border: 2px solid $text_grey;
 }
 
 .option_entrega input[type="radio"]:checked {
@@ -246,7 +246,7 @@ export default defineComponent({
 }
 
 .option_payment input[type="radio"]:checked {
-    background-color: #008000;
+    background-color: $primary-color;
 }
 
 .option_payment label {
