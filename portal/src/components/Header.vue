@@ -1,4 +1,5 @@
 <template>
+  <Cart :is-cart-open="isCartOpen" @close-cart="isCartOpen = false" />
   <header :class="{ change_color: scrollPosition > 50 }">
     <div class="logo">
       <router-link to="/" @click="scrollToTop">
@@ -17,7 +18,7 @@
       </nav>
     </div>
     <div class="buttons">
-      <button class="buttons_card">
+      <button class="buttons_card" @click="toggleCart">
         <img :src="getIcon('card_colorful')" />
       </button>
 
@@ -32,18 +33,21 @@ import { useSessionStore } from '@/stores/session'
 import { defineComponent } from 'vue'
 import helper from '@/helper'
 import UserButton from '@/components/UserButton.vue'
+import Cart from '@/views/CartView.vue'; 
 
 export default defineComponent({
   components: {
-    UserButton
+    UserButton,
+    Cart,
   },
   data: () => ({
     scrollPosition: 0,
+    isCartOpen: false,
 
     navItems: [
-      { name: 'HOME',     route: '/'         },
+      { name: 'HOME', route: '/' },
       { name: 'CARDÁPIO', route: '/cardapio' },
-      { name: 'SOBRE',    route: '/about'    }
+      { name: 'SOBRE', route: '/about' }
     ]
   }),
   mounted() {
@@ -59,6 +63,9 @@ export default defineComponent({
     },
     getIcon(url: string) {
       return helper.getIcon(url)
+    },
+    toggleCart() {
+      this.isCartOpen = !this.isCartOpen;
     }
   }
 })

@@ -9,7 +9,7 @@
       :class="{ 'button-black': selectedFilter !== index, 'button-green': selectedFilter == index }"
       @click="filterPizzas(index)"
     />
-
+    
     <SearchButton @pesquisa="searchPizza" />
   </div>
   <div class="cards">

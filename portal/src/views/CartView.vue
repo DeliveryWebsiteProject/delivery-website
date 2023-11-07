@@ -16,7 +16,9 @@
         <div class="total_amount"><b>R$00,00</b></div>
       </div>
       <div class="checkout">
-        <Button text="Finalizar Pedido" class="checkout_button" />
+        <router-link to="/checkout" class="checkout_link">
+          <Button text="Continuar pedido" class="checkout_button" />
+        </router-link>
       </div>
     </div>
   </div>
@@ -86,6 +88,7 @@ export default defineComponent({
   transition: right 0.3s ease-in-out;
   display: flex;
   flex-direction: column;
+  z-index: 2;
 
   &_header {
     margin-top: 5%;
@@ -141,8 +144,12 @@ export default defineComponent({
     align-items: center;
     margin-top: 20px;
 
+    &_link {
+      width: 100%;
+    }
+
     &_button {
-      width: 90%;
+      width: 100%;
     }
   }
 }

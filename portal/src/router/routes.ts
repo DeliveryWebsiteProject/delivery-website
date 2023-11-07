@@ -26,6 +26,14 @@ const routes: Array<RouteRecordRaw> = [
     }
   },
   {
+    path: '/checkout',
+    name: 'Finalizar pedido',
+    component: () => import('@/views/CheckoutView.vue'),
+    meta: {
+      auth: true
+    }
+  },
+  {
     path: '/profile',
     name: 'Perfil',
     component: () => import('@/views/ProfileView.vue'),

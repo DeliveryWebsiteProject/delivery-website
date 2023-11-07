@@ -16,7 +16,7 @@
                     <img @click="plusCounter" class="bottom-section_counter_button_plus" :src="getIcon('plus')" />
                 </div>
                 <div class="delete-button">
-                    <img :src="getIcon('delete')" class="delete-icon" />
+                    <img @click="deleteItem" :src="getIcon('delete')" class="delete-icon" />
                 </div>
             </div>
         </div>
@@ -40,6 +40,7 @@ export default defineComponent({
     }),
     methods: {
         deleteItem() {
+            this.$emit('delete-item', this.title);
         },
         plusCounter() {
             this.blocked = false;
@@ -155,7 +156,6 @@ export default defineComponent({
     }
 
     .delete-icon {
-        cursor: pointer;
         width: 10px;
         filter: invert(100%);
     }
@@ -168,6 +168,7 @@ export default defineComponent({
         align-items: center;
         justify-content: center;
         display: flex;
+        cursor: pointer;
     }
 }
 </style>
