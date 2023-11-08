@@ -17,7 +17,7 @@ export class PizzaMappingRepositoryTransaction implements PizzaMappingRepository
   async getByPizzaId(pizzaId: string): Promise<PizzaMapping[]> {
     const conn = await Database.getInstance().connect();
 
-    const [rows] = await conn.execute<PizzaMapping[]>(`SELECT * FROM pizza_mapping WHERE ref_pizza = ${pizzaId}`);
+    const [rows] = await conn.execute<PizzaMapping[]>(`SELECT * FROM pizza_mapping WHERE ref_pizza = '${pizzaId}'`);
 
     conn.end();
 

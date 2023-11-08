@@ -36,7 +36,7 @@ export const usePizzaStore = defineStore('pizza', {
         }
       }
 
-      await PizzaService.addPizza(pizza)
+      return PizzaService.addPizza(pizza)
     },
     async editPizza(pizza: Pizza, files?: File[]) {
       console.log(files);

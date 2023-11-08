@@ -9,7 +9,7 @@ export default class PizzaMappingController {
     return res.json(mappings);
   }
 
-  public static async getByPizzaId(req: Request, res: Response): Promise<Response<PizzaMapping>> {
+  public static async getByPizzaId(req: Request, res: Response): Promise<Response<PizzaMapping[]>> {
     const { ref_pizza } = req.params
 
     const mapping = await new PizzaMappingRepositoryTransaction().getByPizzaId(ref_pizza)
