@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { Ingredient, Pizza, PizzaMapping } from "../models";
+import { Pizza } from "../models";
 import PizzaRepositoryTransaction from "../repositories/pizza/PizzaRepositoryTransaction";
 import PhotoRepositoryTransaction from "../repositories/photo/PhotoRepositoryTransaction";
 
@@ -11,15 +11,7 @@ export default class PizzaController {
   }
 
   public static async add(req: Request, res: Response): Promise<any> {
-    const { ingredients } = req.body;
-
     const pizza = await new PizzaRepositoryTransaction().add(req.body);
-
-    const mappings: PizzaMapping[] = [];
-
-    // ingredients.forEach((ingredient: Ingredient) => mappings.push({ 'ref_pizza': pizza.id, 'ref_ingredient': ingredient.id } as PizzaMapping));
-
-    // await new PizzaMappingRepositoryTransaction().add(mappings);
 
     return res.json(pizza);
   }
@@ -52,7 +44,7 @@ export default class PizzaController {
 
     const photo = await photoRepo.getPhotoById(pizza.ref_photo ?? '');
 
-    if (photo) { 
+    if (photo) {
       await photoRepo.delete(photo);
     }
 

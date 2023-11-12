@@ -13,7 +13,6 @@
       </div>
       <div class="col">
         <PizzaCategorySelector v-model="category" :required="true" />
-        <IngredientSelector v-model="ingredients" :required="true" />
       </div>
       <FilePicker @changeFiles="changeFiles" />
     </form>
@@ -23,11 +22,10 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { usePizzaStore, usePizzaMappingStore } from '@/stores'
+import { usePizzaStore } from '@/stores'
 import { mapState, mapActions } from 'pinia'
-import { Pizza, Category, State, PizzaMapping } from '@/models'
+import { Pizza, Category, State } from '@/models'
 import PizzaCategorySelector from '@/components/PizzaCategorySelector.vue'
-import IngredientSelector from '@/components/IngredientSelector.vue'
 import Popup from '@/components/Popup.vue'
 import BaseTextField from '@/components/BaseTextField.vue'
 import FilePicker from '@/components/FilePicker.vue'
@@ -38,7 +36,6 @@ export default defineComponent({
     BaseTextField,
     PizzaCategorySelector,
     FilePicker,
-    IngredientSelector
   },
   props: {
     edit: {
@@ -56,7 +53,6 @@ export default defineComponent({
     name: '',
     price: '',
     category: 0,
-    ingredients: [] as string[],
     ref_photo: '',
     error: '',
     files: [] as File[]
@@ -66,7 +62,6 @@ export default defineComponent({
       this.title = 'Editar'
 
       const pizza = this.getSelectedPizza()
-      const ingredients = this.getSelectedPizzaMap()
 
       if (pizza) {
         this.id = pizza.id?.toString() ?? ''
@@ -77,12 +72,6 @@ export default defineComponent({
         if (pizza.path && pizza.ref_photo) {
           this.ref_photo = pizza.ref_photo
         }
-      }
-
-      if (ingredients) {
-        ingredients.forEach((i) => {
-          this.ingredients.push(i.ref_ingredient)
-        })
       }
     } else {
       this.title = 'Adicionar'
@@ -95,9 +84,7 @@ export default defineComponent({
   },
   methods: {
     ...mapState(usePizzaStore, ['getSelectedPizza']),
-    ...mapState(usePizzaMappingStore, ['getSelectedPizzaMap']),
     ...mapActions(usePizzaStore, ['addPizza', 'editPizza', 'fetch']),
-    ...mapActions(usePizzaMappingStore, ['addPizzaMap']),
     changeFiles(files: []) {
       this.files = files ?? []
     },
@@ -115,7 +102,6 @@ export default defineComponent({
       await this.addPizza(pizza, this.files)
         .then((res) => {
           this.fetch()
-          this.mapIngredients(res)
           this.togglePopup()
         })
         .catch((err) => {
@@ -145,20 +131,6 @@ export default defineComponent({
           this.error = err.response.data.error
         })
     },
-    mapIngredients(pizza?: Pizza) {
-      const pizza_id = pizza ? pizza.id : this.id
-
-      if (pizza_id) {
-        this.ingredients.forEach((i) => {
-          const map: PizzaMapping = {
-            ref_pizza: pizza_id,
-            ref_ingredient: i
-          }
-  
-          this.addPizzaMap(map)
-        })
-      }
-    }
   }
 })
 </script>

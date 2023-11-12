@@ -39,7 +39,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { usePizzaStore, usePizzaMappingStore } from '@/stores'
+import { usePizzaStore } from '@/stores'
 import { mapState, mapActions } from 'pinia'
 import { Pizza } from '@/models'
 import PizzaEditor from '@/components/editors/PizzaEditor.vue'
@@ -63,17 +63,14 @@ export default defineComponent({
       'editPizza',
       'deletePizza'
     ]),
-    ...mapActions(usePizzaMappingStore, ['setSelectedPizzaMap']),
 
     openEdit(pizza: Pizza) {
       this.setSelectedPizza(pizza)
-      this.setSelectedPizzaMap(pizza.id)
       this.toggleMenuPopup()
     },
     openDelete(pizza: Pizza) {
       this.toggleConfirmPopup()
       this.setSelectedPizza(pizza)
-      this.setSelectedPizzaMap(pizza.id)
     },
     confirmDelete() {
       this.deletePizza()

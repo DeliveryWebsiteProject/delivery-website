@@ -37,11 +37,10 @@ export default defineComponent({
   data: () => ({
     selectedOption: 'pizzas',
     menuItems: [
-      { label: 'Pedidos',      option: 'requests'    },
-      { label: 'Pizzas',       option: 'pizzas'      },
-      { label: 'Ingredientes', option: 'ingredients' },
-      { label: 'Usuários',     option: 'users'       },
-      { label: 'Relatórios',   option: 'reports'     },
+      { label: 'Pedidos',      option: 'requests' },
+      { label: 'Pizzas',       option: 'pizzas'   },
+      { label: 'Usuários',     option: 'users'    },
+      { label: 'Relatórios',   option: 'reports'  },
     ]
   }),
   methods: {

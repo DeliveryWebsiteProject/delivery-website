@@ -74,11 +74,6 @@ const routes: Array<RouteRecordRaw> = [
         name: 'Pizzas',
         component: () => import('@/components/admin/PizzaAdmin.vue')
       },
-      {
-        path: '/admin/ingredients',
-        name: 'Ingredientes',
-        component: () => import('@/components/admin/IngredientAdmin.vue')
-      }
     ]
   },
 

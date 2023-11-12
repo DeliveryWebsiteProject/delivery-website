@@ -1,6 +1,4 @@
 import { RowDataPacket } from "mysql2"
-import Ingredient from "./Ingredient"
-import { Photo } from "./Photo"
 
 export enum Category {
   SALTY,
@@ -19,7 +17,6 @@ interface Pizza extends RowDataPacket {
   price: Number,
   category: Category,
   state: State,
-  ingredients?: Ingredient[],
 }
 
 export default Pizza
