@@ -25,6 +25,7 @@ CREATE TABLE basileus.pizzas (
 	price DOUBLE NOT NULL,
 	category smallint NOT NULL,
 	state smallint NOT NULL,
+	description varchar(250) NOT NULL,
   CONSTRAINT pizz_pk PRIMARY KEY (id)
 );
 
@@ -35,4 +36,24 @@ CREATE TABLE basileus.photos (
 	id varchar(100) NOT NULL,
 	path text NOT NULL,
 	CONSTRAINT photo_pk PRIMARY KEY (id)
+);
+
+-- --------------------------------------------------------
+-- Table structure for table 'ITEMS'
+-- --------------------------------------------------------
+CREATE TABLE basileus.items (
+	id varchar(100) NOT NULL,
+	ref_pizza varchar(100) NOT NULL,
+	ref_cart varchar(100) NOT NULL,
+	quantity int NOT NULL,
+	CONSTRAINT item_pk PRIMARY KEY (id)
+);
+
+-- --------------------------------------------------------
+-- Table structure for table 'CARTS'
+-- --------------------------------------------------------
+CREATE TABLE basileus.carts (
+	ref_user varchar(100) NOT NULL,
+	ref_item varchar(100) NOT NULL,
+	CONSTRAINT carts_pk PRIMARY KEY (ref_user, ref_item)
 );

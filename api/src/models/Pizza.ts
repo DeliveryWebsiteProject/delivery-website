@@ -17,6 +17,7 @@ interface Pizza extends RowDataPacket {
   price: Number,
   category: Category,
   state: State,
+  description: string
 }
 
 export default Pizza

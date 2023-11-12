@@ -24,11 +24,9 @@ import { defineComponent } from 'vue'
 
 export default defineComponent({
   name: 'BaseTextField',
-  data() {
-    return {
-      focus: false
-    }
-  },
+  data: () => ({
+    focus: false
+  }),
   props: {
     name: {
       type: String,
@@ -89,7 +87,6 @@ export default defineComponent({
     font-size: 1em;
     font-family: 'Open Sans';
     letter-spacing: 0.025em;
-    padding-left: 10px;
     border: none;
     border-bottom: 1px solid #fff;
     transition: border-bottom 0.2s;
@@ -105,6 +102,15 @@ export default defineComponent({
     &::-webkit-inner-spin-button {
       -webkit-appearance: none;
       margin: 0;
+    }
+
+    // Remove autofill style
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus,
+    &:-webkit-autofill:active {
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: $text-light;
     }
 
     &[type=number] {

@@ -9,11 +9,17 @@
     <form>
       <div class="col">
         <BaseTextField name="Nome" v-model="name" :required="true" />
+        <PizzaCategorySelector v-model="category" :required="true" />
         <BaseTextField name="Preço" v-model="price" type="number" :required="true" />
       </div>
-      <div class="col">
-        <PizzaCategorySelector v-model="category" :required="true" />
-      </div>
+
+      <TextAreaField
+        name="Descrição"
+        v-model="description"
+        :placeholder="'Digite aqui...'"
+        :required="true"
+      />
+
       <FilePicker @changeFiles="changeFiles" />
     </form>
     <span class="error">{{ error }}</span>
@@ -28,6 +34,7 @@ import { Pizza, Category, State } from '@/models'
 import PizzaCategorySelector from '@/components/PizzaCategorySelector.vue'
 import Popup from '@/components/Popup.vue'
 import BaseTextField from '@/components/BaseTextField.vue'
+import TextAreaField from '@/components/TextAreaField.vue'
 import FilePicker from '@/components/FilePicker.vue'
 
 export default defineComponent({
@@ -35,6 +42,7 @@ export default defineComponent({
     Popup,
     BaseTextField,
     PizzaCategorySelector,
+    TextAreaField,
     FilePicker,
   },
   props: {
@@ -53,6 +61,7 @@ export default defineComponent({
     name: '',
     price: '',
     category: 0,
+    description: '',
     ref_photo: '',
     error: '',
     files: [] as File[]
@@ -68,6 +77,7 @@ export default defineComponent({
         this.name = pizza.name
         this.price = pizza.price.toString()
         this.category = pizza.category
+        this.description = pizza.description
         
         if (pizza.path && pizza.ref_photo) {
           this.ref_photo = pizza.ref_photo
@@ -79,6 +89,7 @@ export default defineComponent({
       this.name = ''
       this.price = ''
       this.category = 0
+      this.description = ''
       this.ref_photo = ''
     }
   },
@@ -95,6 +106,7 @@ export default defineComponent({
         name: this.name,
         price: Number(this.price),
         category: category,
+        description: this.description,
         ref_photo: this.ref_photo,
         state: State.ACTIVE,
       }
@@ -116,6 +128,7 @@ export default defineComponent({
         name: this.name,
         price: Number(this.price),
         category: category,
+        description: this.description,
         ref_photo: this.ref_photo,
         state: State.ACTIVE
       }
@@ -136,11 +149,20 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  // gap: 15px;
+}
+
 .col {
   display: flex;
   flex-direction: row;
-  gap: 45px;
-  margin: 30px 0;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  margin: 15px 0;
 }
 
 .error {

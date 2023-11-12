@@ -39,8 +39,6 @@ export const usePizzaStore = defineStore('pizza', {
       return PizzaService.addPizza(pizza)
     },
     async editPizza(pizza: Pizza, files?: File[]) {
-      console.log(files);
-
       if (files) {
         if (files.length > 0 && files[0] as File) {
           const formData = new FormData()

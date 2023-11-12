@@ -39,33 +39,31 @@ export default defineComponent({
     isCartOpen: Boolean,
     cartItems: Array
   },
-  data() {
-    return {
-      cartItems: [
-        {
-          id: 1,
-          imageSrc: 'basileus.png',
-          title: 'Margherita',
-          subtitle: 'Queijo, Manjericão, Tomate',
-          price: 'R$15.99',
-        },
-        {
-          id: 2,
-          imageSrc: 'margherita.png',
-          title: 'Pepperoni',
-          subtitle: 'Queijo, Pepperoni, Tomate',
-          price: 'R$17.99',
-        },
-        {
-          id: 3,
-          imageSrc: 'basileus.png',
-          title: 'Basileus',
-          subtitle: 'Queijo, Pepperoni, Tomate',
-          price: 'R$17.99',
-        },
-      ],
-    };
-  },
+  data: () => ({
+    cartItems: [
+      {
+        id: 1,
+        imageSrc: 'basileus.png',
+        title: 'Margherita',
+        subtitle: 'Queijo, Manjericão, Tomate',
+        price: 'R$15.99',
+      },
+      {
+        id: 2,
+        imageSrc: 'margherita.png',
+        title: 'Pepperoni',
+        subtitle: 'Queijo, Pepperoni, Tomate',
+        price: 'R$17.99',
+      },
+      {
+        id: 3,
+        imageSrc: 'basileus.png',
+        title: 'Basileus',
+        subtitle: 'Queijo, Pepperoni, Tomate',
+        price: 'R$17.99',
+      },
+    ],
+  }),
   methods: {
     closeCart() {
       this.$emit('close-cart');
@@ -146,6 +144,7 @@ export default defineComponent({
 
     &_link {
       width: 100%;
+      text-decoration: none;
     }
 
     &_button {

@@ -1,13 +1,14 @@
 <template>
   <div class="field">
     <label :class="focus ? 'field__label field__label__focus' : 'field__label'">
-      {{ 'Categoria' + (required ? ' *' : '') }}
-      <SelectorField
+      {{ name + (required ? ' *' : '') }}
+      <textarea 
+        rows="5"
+        cols="95"
         @focus="focus = true"
         @blur="focus = false"
         @input="updateValue"
-        :name="name"
-        :options="options"
+        :placeholder="placeholder"
         :value="modelValue"
       />
     </label>
@@ -15,35 +16,34 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import SelectorField from './SelectorField.vue';
-import { Category } from '@/models';
+import { defineComponent } from 'vue'
 
 export default defineComponent({
-  components: {
-    SelectorField
-  },
+  name: 'BaseTextField',
+  data: () => ({
+    focus: false
+  }),
   props: {
+    name: {
+      type: String,
+      required: true
+    },
+    placeholder: {
+      type: String,
+      default: ''
+    },
     required: {
       type: Boolean,
       default: true
     },
     modelValue: {
-      type: Number,
+      type: String,
       default: ''
     },
   },
-  data: () => ({
-    name: 'categories',
-    options: [
-      { value: Category.SALTY, label: 'Salgada' },
-      { value: Category.SWEET, label: 'Doce' },
-    ],
-    focus: false
-  }),
   methods: {
     updateValue(event: any) {
-      this.$emit('update:modelValue', Number(event.target.value))
+      this.$emit('update:modelValue', event.target.value)
     }
   }
 })
@@ -64,8 +64,28 @@ export default defineComponent({
     color: #fff;
     transition: color 0.2s;
 
+    display: flex;
+    flex-direction: column;
+
+    gap: 10px;
+
     &__focus {
       color: $primary-color;
+    }
+  }
+
+  & textarea {
+    background-color: $background-dark;
+    color: $text-light;
+    font-family: 'Open Sans';
+    font-size: 14px;
+    resize: none;
+
+    padding: 10px;
+
+    &:focus {
+      outline: none;
+      border: 1px solid $primary-color;
     }
   }
 }

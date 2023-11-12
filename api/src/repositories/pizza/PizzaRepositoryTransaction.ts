@@ -39,8 +39,8 @@ export default class PizzaRepositoryTransaction implements PizzaRepository {
     const conn = await Database.getInstance().connect();
 
     await conn.execute(
-      'INSERT INTO pizzas (id, ref_photo, name, price, category, state) values ( ?, ?, ?, ?, ?, ? )',
-      [data.id, data.ref_photo, data.name, data.price, data.category, data.state]);
+      'INSERT INTO pizzas (id, ref_photo, name, price, category, state, description) values ( ?, ?, ?, ?, ?, ?, ? )',
+      [data.id, data.ref_photo, data.name, data.price, data.category, data.state, data.description]);
 
     conn.end()
 
@@ -51,8 +51,8 @@ export default class PizzaRepositoryTransaction implements PizzaRepository {
     const conn = await Database.getInstance().connect();
 
     await conn.execute<Pizza[]>(
-      'UPDATE pizzas SET name = ?, price = ?, category = ?, ref_photo = ?, state = ? WHERE id = ?',
-      [data.name, data.price, data.category, data.ref_photo, data.state, id]);
+      'UPDATE pizzas SET name = ?, price = ?, category = ?, ref_photo = ?, state = ?, description = ? WHERE id = ?',
+      [data.name, data.price, data.category, data.ref_photo, data.state, data.description, id]);
 
     conn.end();
 
