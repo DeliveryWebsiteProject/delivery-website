@@ -3,25 +3,14 @@
     <img :src="getImage(pizza.ref_photo)" class="photo" />
     <div class="info">
       <span class="info_name">{{ pizza.name }}</span>
-      <!-- TO-DO: Implementar botão de Info -->
-      <div class="info_price">
-        <span class="info_price_high">R${{ pizza.price }},</span>
-        <span class="info_price_low">00</span>
+      <div class="info_description">
+        <span class="info_description_pizza">{{ pizza.description }}</span>
       </div>
-
+      <!-- TO-DO: Implementar botão popup para descrição -->
       <div class="buttons">
-        <div class="counter">
-          <img
-            @click="minusCounter"
-            :class="blocked ? 'counter_button_block' : 'counter_button'"
-            :src="getIcon('minus')"
-          />
-          <p class="counter_text">{{ counter }}</p>
-          <img
-            @click="plusCounter"
-            class="counter_button"
-            :src="getIcon('plus')"
-          />
+        <div class="info_price">
+          <span class="info_price_high">R${{ pizza.price }},</span>
+          <span class="info_price_low">00</span>
         </div>
         <button @click="openCart">
           <img :src="getIcon('card')" />
@@ -46,25 +35,11 @@ export default defineComponent({
   },
   data: () => ({
     name: 'Margherita',
-    price: 50,
-    counter: 1,
-    blocked: true,
+    price: 50
   }),
   methods: {
     openCart() {
       this.$emit('open-cart');
-    },
-    plusCounter() {
-      this.blocked = false;
-      this.counter++;
-    },
-    minusCounter() {
-      if (this.counter > 1) {
-        this.counter--;
-      }
-      if (this.counter === 1) {
-        this.blocked = true;
-      }
     },
     getImage(url: string | undefined) {
       if (url) {
@@ -104,6 +79,24 @@ export default defineComponent({
   justify-content: center;
   align-items: center;
 
+  &_description {
+    margin-top: 5px;
+    width: 80%;
+    height: 50px;
+    text-align: center;
+
+    &_pizza {
+      color: #747474;
+      font-size: 16px;
+      font-weight: 600;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+  }
+
   &_name {
     color: $text-light;
     font-weight: 500;
@@ -111,15 +104,16 @@ export default defineComponent({
   }
 
   &_price {
+    margin-left: 10%;
     color: $primary-color;
     font-weight: 700;
 
     &_high {
-      font-size: 48px;
+      font-size: 32px;
     }
 
     &_low {
-      font-size: 32px;
+      font-size: 24px;
     }
   }
 }
@@ -127,56 +121,24 @@ export default defineComponent({
 .buttons {
   width: 100%;
 
-  margin: 25px 0;
+  margin-top: 25px;
 
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
 
-.counter {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-
-  width: 100px;
-  height: 45px;
-
-  border-radius: 10px;
-
-  gap: 10px;
-  margin-left: 30px;
-
-  background-color: #fff;
-
-  &_button {
-    cursor: pointer;
-
-    &_block {
-      cursor: not-allowed;
-      /*filter: invert(72%) sepia(0%) saturate(4165%) hue-rotate(314deg)
-        brightness(97%) contrast(119%);*/
-    } 
-  }
-
-  &_text {
-    font-size: 18px;
-    font-weight: 600;
-  }
-}
-
 button {
-  width: 160px;
+  width: 130px;
   height: 45px;
 
   background-color: $primary-color;
   transition: background-color 0.2s ease-in-out;
 
-  margin-right: 30px;
+  margin-right: 10%;
 
   color: #fff;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
 
   gap: 10px;
