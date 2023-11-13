@@ -87,9 +87,7 @@ export default defineComponent({
       return helper.getIcon(url)
     },
     getPizzaPhoto(url: string | undefined) {
-      if (url) {
-        return helper.getPizzaPhoto(url)
-      }
+      return helper.getPizzaPhoto(url)
     }
   }
 })

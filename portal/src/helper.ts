@@ -9,8 +9,10 @@ export default {
     }
   },
 
-  getPizzaPhoto: (photoId: string): string => {
-    return `${process.env.VUE_APP_API_URL}/photos/${photoId}`;
+  getPizzaPhoto: (photoId?: string): string => {
+    let id = photoId != null && photoId.length > 0 ? photoId : '0';
+
+    return `${process.env.VUE_APP_API_URL}/photos/${id}`;
   },
 
   getIcon: (url: string): string => {
