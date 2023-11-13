@@ -1,7 +1,6 @@
-import { RowDataPacket } from "mysql2";
 import Database from "../../database";
 import { Cart } from "../../models";
-import CartRepository from "./CartRepository";
+import CartRepository from './CartRepository';
 
 export class CartRepositoryTransaction implements CartRepository {
   async findAll(): Promise<Cart[]> {
@@ -32,15 +31,5 @@ export class CartRepositoryTransaction implements CartRepository {
     conn.end();
 
     return data;
-  }
-
-  async hasItemMapping(ref_item: string): Promise<boolean> {
-    const conn = await Database.getInstance().connect();
-
-    const [rows] = await conn.execute<RowDataPacket[]>('SELECT count(*) as maps FROM carts WHERE ref_item = ?', [ref_item]);
-
-    conn.end();
-
-    return rows[0].maps > 0;
   }
 }

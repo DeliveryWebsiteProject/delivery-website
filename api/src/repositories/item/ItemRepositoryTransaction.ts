@@ -24,10 +24,10 @@ export class ItemRepositoryTransaction implements ItemRepository {
     return rows[0] ?? undefined;
   }
 
-  async getByCartId(ref_card: string): Promise<Item> {
+  async getByCartId(ref_cart: string): Promise<Item> {
     const conn = await Database.getInstance().connect();
 
-    const [rows] = await conn.execute<Item[]>('SELECT * FROM items WHERE ref_cart = ?', [ref_card]);
+    const [rows] = await conn.execute<Item[]>('SELECT * FROM items WHERE ref_cart = ?', [ref_cart]);
 
     conn.end()
 
@@ -51,7 +51,9 @@ export class ItemRepositoryTransaction implements ItemRepository {
   async update(id: string, data: Item): Promise<Item> {
     const conn = await Database.getInstance().connect();
 
-    await conn.execute<Item[]>('UPDATE pizzas SET quantity = ? WHERE id = ?', [data.quantity, id]);
+    await conn.execute<Item[]>('UPDATE items SET quantity = ?, ref_cart = ?, ref_pizza = ? WHERE id = ?',
+      [data.quantity, data.ref_cart, data.ref_pizza, id]
+    );
 
     conn.end();
 
