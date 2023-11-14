@@ -16,7 +16,8 @@ interface Pizza {
   price: Number,
   category: Category,
   state: State,
-  description: string
+  description: string,
+  requests?: Number
 }
 
 export default Pizza

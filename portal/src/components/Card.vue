@@ -29,7 +29,7 @@ import helper from '@/helper';
 export default defineComponent({
   props: {
     pizza: {
-      type: Object as () => Pizza,
+      type: Object as () => any,
       required: true,
     },
   },
@@ -42,9 +42,7 @@ export default defineComponent({
       this.$emit('open-cart');
     },
     getImage(url: string | undefined) {
-      if (url) {
-        return helper.getPizzaPhoto(url);
-      }
+      return helper.getPizzaPhoto(url);
     },
     getIcon(url: string) {
       return helper.getIcon(url);

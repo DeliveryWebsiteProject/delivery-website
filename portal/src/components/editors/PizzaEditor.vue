@@ -130,7 +130,7 @@ export default defineComponent({
         category: category,
         description: this.description,
         ref_photo: this.ref_photo,
-        state: State.ACTIVE
+        state: State.ACTIVE,
       }
 
       this.files = this.$el.querySelector('input[type="file"]')?.files
@@ -153,7 +153,6 @@ form {
   display: flex;
   flex-direction: column;
   align-items: center;
-  // gap: 15px;
 }
 
 .col {

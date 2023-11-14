@@ -26,6 +26,7 @@ CREATE TABLE basileus.pizzas (
 	category smallint NOT NULL,
 	state smallint NOT NULL,
 	description varchar(250) NOT NULL,
+  requests int DEFAULT 0 NOT NULL,
   CONSTRAINT pizz_pk PRIMARY KEY (id)
 );
 
