@@ -45,7 +45,6 @@ CREATE TABLE basileus.photos (
 CREATE TABLE basileus.items (
 	id varchar(100) NOT NULL,
 	ref_pizza varchar(100) NOT NULL,
-	ref_cart varchar(100) NOT NULL,
 	quantity int NOT NULL,
 	CONSTRAINT item_pk PRIMARY KEY (id)
 );

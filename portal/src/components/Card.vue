@@ -12,7 +12,7 @@
           <span class="info_price_high">R${{ pizza.price }},</span>
           <span class="info_price_low">00</span>
         </div>
-        <button @click="openCart">
+        <button @click="addToCart">
           <img :src="getIcon('card')" />
           Carrinho
         </button>
@@ -23,7 +23,6 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { Pizza } from '@/models';
 import helper from '@/helper';
 
 export default defineComponent({
@@ -49,6 +48,8 @@ export default defineComponent({
     },
     addToCart() {
       this.$emit('add-to-cart', this.pizza);
+
+      this.openCart();
     },
   },
 });

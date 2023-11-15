@@ -3,8 +3,10 @@ import { Item } from "../models";
 import { ItemRepositoryTransaction } from '../repositories/item/ItemRepositoryTransaction';
 
 export default class ItemController {
+  private static itemRepo = new ItemRepositoryTransaction();
+
   public static async findAll(req: Request, res: Response): Promise<Response<Item[]>> {
-    const items = await new ItemRepositoryTransaction().findAll();
+    const items = await ItemController.itemRepo.findAll();
 
     return res.json(items);
   }
@@ -12,21 +14,21 @@ export default class ItemController {
   public static async getById(req: Request, res: Response): Promise<Response<Item>> {
     const { id } = req.params;
 
-    const item = await new ItemRepositoryTransaction().getById(id);
+    const item = await ItemController.itemRepo.getById(id);
 
     return res.json(item);
   }
 
-  public static async getByCartId(req: Request, res: Response): Promise<Response<Item>> {
-    const { ref_cart } = req.params;
+  public static async getItemsByUserId(req: Request, res: Response): Promise<Response<Item[]>> {
+    const { userId } = req.params;
 
-    const item = await new ItemRepositoryTransaction().getByCartId(ref_cart);
+    const item = await ItemController.itemRepo.getByUserId(userId);
 
     return res.json(item);
   }
 
   public static async add(req: Request, res: Response): Promise<any> {
-    const item = await new ItemRepositoryTransaction().add(req.body);
+    const item = await ItemController.itemRepo.add(req.body);
 
     return res.json(item);
   }
@@ -34,7 +36,7 @@ export default class ItemController {
   public static async update(req: Request, res: Response): Promise<Response<Item>> {
     const { id } = req.params;
 
-    const item = await new ItemRepositoryTransaction().update(id, req.body);
+    const item = await ItemController.itemRepo.update(id, req.body);
 
     return res.json(item)
   }
@@ -42,11 +44,9 @@ export default class ItemController {
   public static async delete(req: Request, res: Response): Promise<void> {
     const { id } = req.params;
 
-    let itemRepo = new ItemRepositoryTransaction();
+    const item = await ItemController.itemRepo.getById(id);
 
-    const item = await itemRepo.getById(id);
-
-    await itemRepo.delete(item.id);
+    await ItemController.itemRepo.delete(item.id);
 
     res.status(200).end();
   }

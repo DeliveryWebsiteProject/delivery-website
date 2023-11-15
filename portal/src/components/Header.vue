@@ -19,6 +19,9 @@
     </div>
     <div class="buttons">
       <button class="buttons_card" @click="toggleCart">
+        <div class="buttons_card-count" v-if="getItemsQuantity() > 0">
+          {{ formatCartCount(getItemsQuantity()) }}
+        </div>
         <img :src="getIcon('card_colorful')" />
       </button>
 
@@ -28,17 +31,18 @@
 </template>
 
 <script lang="ts">
-import { mapGetters } from 'pinia'
+import { mapState } from 'pinia'
 import { useSessionStore } from '@/stores/session'
 import { defineComponent } from 'vue'
 import helper from '@/helper'
 import UserButton from '@/components/UserButton.vue'
-import Cart from '@/views/CartView.vue'; 
+import Cart from '@/views/CartView.vue'
+import { useCartStore } from "@/stores"
 
 export default defineComponent({
   components: {
     UserButton,
-    Cart,
+    Cart
   },
   data: () => ({
     scrollPosition: 0,
@@ -54,7 +58,8 @@ export default defineComponent({
     window.addEventListener('scroll', this.updateScroll)
   },
   methods: {
-    ...mapGetters(useSessionStore, ['getToken', 'isLogged']),
+    ...mapState(useSessionStore, ['getToken', 'isLogged']),
+    ...mapState(useCartStore, ['getItemsQuantity']),
     updateScroll() {
       this.scrollPosition = window.scrollY
     },
@@ -65,7 +70,10 @@ export default defineComponent({
       return helper.getIcon(url)
     },
     toggleCart() {
-      this.isCartOpen = !this.isCartOpen;
+      this.isCartOpen = !this.isCartOpen
+    },
+    formatCartCount(value: number) {
+      return value > 9 ? '9+' : value;
     }
   }
 })
@@ -153,9 +161,30 @@ header {
     height: 50px;
     width: 50px;
 
+    position: relative;
+
     border-radius: 100%;
 
     background-color: $text-light;
+
+    &-count {
+      width: 18px;
+      height: 18px;
+      
+      background-color: $primary-color;
+      
+      border-radius: 50%;
+      
+      transform: translate(100%, -100%);
+      position: absolute;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      font-size: 10px;
+      color: $text-light;
+    }
   }
 }
 </style>

@@ -6,12 +6,12 @@ export default {
     return service.get<Item[]>('/items');
   },
 
-  async getItemById(id: string): Promise<Item | undefined> {
-    return service.get<Item>(`/items/${id}`)
+  async getItemsByUser(userId: string): Promise<Item[] | undefined> {
+    return service.get<Item[]>(`/items/user/${userId}`);
   },
 
-  async getItemByCartId(ref_cart: string): Promise<Item | undefined> {
-    return service.get<Item>(`/items/cart/${ref_cart}`)
+  async getItemById(id: string): Promise<Item | undefined> {
+    return service.get<Item>(`/items/${id}`)
   },
 
   async addItem(data: Item): Promise<Item | undefined> {

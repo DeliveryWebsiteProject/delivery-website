@@ -7,11 +7,11 @@ export default async function pizzaMiddleware(req: Request, res: Response, next:
   const value = req.body as any;
 
   if (value) {
-    let { quantity, ref_cart, ref_pizza } = value as Item;
+    let { quantity, ref_pizza } = value as Item;
 
     if (quantity <= 0) return next(new ApiError('Quantidade inválida', HttpStatus.BAD_REQUEST));
 
-    if (!ref_cart || !ref_pizza) return next(new ApiError('Valores inválidos', HttpStatus.BAD_REQUEST))
+    if (!ref_pizza) return next(new ApiError('Valores inválidos', HttpStatus.BAD_REQUEST))
 
     next();
   } else {

@@ -5,29 +5,43 @@
     <img :src="getImage('cardapio.svg')" alt="As mais pedidas" />
   </div>
   <div class="button-group">
-    <Button v-for="(text, index) in filterTexts" :key="index" :text="text" class="button-item"
-      :class="{ 'button-black': selectedFilter !== index, 'button-green': selectedFilter == index }"
+    <Button
+      v-for="(text, index) in filterTexts"
+      :key="index"
+      :text="text"
+      class="button-item"
+      :class="{
+        'button-black': selectedFilter !== index,
+        'button-green': selectedFilter == index
+      }"
       @click="filterPizzas(index)"
     />
-    
+
     <SearchButton @pesquisa="searchPizza" />
   </div>
   <div class="cards">
-  <Card v-for="pizza in filteredPizzas" :key="pizza.name" :pizza="pizza" class="card" @open-cart="openCart" />
-</div>
+    <Card
+      v-for="pizza in filteredPizzas"
+      :key="pizza.name"
+      :pizza="pizza"
+      class="card"
+      @open-cart="openCart"
+      @add-to-cart="addToCart(pizza)"
+    />
+  </div>
 </template>
 
 <script lang="ts">
 import Header from '@/components/Header.vue'
-import Cart from '@/views/CartView.vue'; 
+import Cart from '@/views/CartView.vue'
 import SearchButton from '@/components/SearchButton.vue'
 import Button from '@/components/Button.vue'
 import Card from '@/components/Card.vue'
 import helper from '@/helper'
 import { defineComponent } from 'vue'
-import { mapGetters } from 'pinia'
-import { usePizzaStore } from '@/stores'
-import { Pizza } from "@/models";
+import { mapState, mapActions } from 'pinia'
+import { useCartStore, usePizzaStore } from '@/stores'
+import { Pizza } from '@/models'
 
 export default defineComponent({
   components: {
@@ -38,34 +52,43 @@ export default defineComponent({
     Card
   },
   mounted() {
-    this.filteredPizzas = this.getPizzas()  
+    this.filteredPizzas = this.getPizzas()
   },
   data() {
     return {
       isCartOpen: false,
       filterTexts: ['Salgadas', 'Doces'],
       selectedFilter: -1,
-      filteredPizzas: [] as Pizza[],
-    };
+      filteredPizzas: [] as Pizza[]
+    }
   },
   methods: {
+    ...mapState(usePizzaStore, ['getPizzas']),
+    ...mapActions(useCartStore, ['addCartItem', 'fetchCart']),
     openCart() {
-      this.isCartOpen = true;
+      this.isCartOpen = true
     },
     closeCart() {
-      this.isCartOpen = false;
+      this.isCartOpen = false
     },
-    ...mapGetters( usePizzaStore, ['getPizzas']),
+    async addToCart(pizza: Pizza) {
+      await this.addCartItem(pizza)
+    },
     searchPizza(data: string) {
       this.filteredPizzas = this.getPizzas()
 
       const input = data.toLowerCase()
 
       if (this.selectedFilter === -1) {
-        this.filteredPizzas = this.getPizzas().filter( p => p.name.toLowerCase().includes(input))
+        this.filteredPizzas = this.getPizzas().filter((p) =>
+          p.name.toLowerCase().includes(input)
+        )
       } else {
-        this.filteredPizzas = this.getPizzas().filter( p => {
-          return p.name.toLowerCase().includes(input) && p.category == this.selectedFilter
+        this.filteredPizzas = this.getPizzas().filter((p) => {
+          return (
+            p.name.toLowerCase().includes(input) &&
+            p.category == this.selectedFilter
+          )
         })
       }
     },
@@ -74,8 +97,10 @@ export default defineComponent({
         this.selectedFilter = -1
         this.filteredPizzas = this.getPizzas()
       } else {
-        this.selectedFilter = index;
-        this.filteredPizzas = this.getPizzas().filter( p => p.category == index )
+        this.selectedFilter = index
+        this.filteredPizzas = this.getPizzas().filter(
+          (p) => p.category == index
+        )
       }
     },
     getImage(url: string) {

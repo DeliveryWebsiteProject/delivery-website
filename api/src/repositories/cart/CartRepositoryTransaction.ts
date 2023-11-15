@@ -1,3 +1,4 @@
+import { RowDataPacket } from "mysql2";
 import Database from "../../database";
 import { Cart } from "../../models";
 import CartRepository from './CartRepository';
@@ -23,6 +24,20 @@ export class CartRepositoryTransaction implements CartRepository {
     return rows;
   }
 
+  async getByUserIdAndItemId(ref_user: string, ref_item: string): Promise<Cart | undefined> {
+    const conn = await Database.getInstance().connect();
+
+    const [rows] = await conn.execute<Cart[]>('SELECT * FROM carts WHERE ref_user = ? AND ref_item = ?', [ref_user, ref_item]);
+
+    conn.end();
+
+    if (rows.length === 0) {
+      return undefined;
+    }
+
+    return rows[0];
+  }
+
   async add(data: Cart): Promise<Cart> {
     const conn = await Database.getInstance().connect();
 
@@ -31,5 +46,15 @@ export class CartRepositoryTransaction implements CartRepository {
     conn.end();
 
     return data;
+  }
+
+  async countItems(userId: string): Promise<number> {
+    const conn = await Database.getInstance().connect();
+
+    const [result] = await conn.execute<RowDataPacket[]>(`SELECT COUNT(*) as itemsCount FROM carts WHERE ref_user = ?`, [userId]);
+
+    conn.end();
+
+    return result[0]['itemsCount'] ?? 0;
   }
 }
