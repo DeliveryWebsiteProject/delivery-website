@@ -1,7 +1,8 @@
 import { Item } from "@/models";
-import { ItemService } from "@/services";
+import { CartService, ItemService } from "@/services";
 import { defineStore } from 'pinia';
 import { useSessionStore } from "./session";
+import { CartItemWrapper } from "@/models";
 
 export const useCartItemStore = defineStore('item', {
   state: () => ({
@@ -10,6 +11,9 @@ export const useCartItemStore = defineStore('item', {
   getters: {
     getCartItems(): Item[] {
       return this.cartItems;
+    },
+    async getCartItemsWrapper(): Promise<CartItemWrapper[]> {
+      return await CartService.getCartItemsWrapper(useSessionStore().actualUser?.id ?? '') ?? [];
     }
   },
   actions: {
@@ -19,6 +23,6 @@ export const useCartItemStore = defineStore('item', {
       if (userId) {
         this.cartItems = await ItemService.getItemsByUser(userId) ?? [];
       }
-    }
+    },
   }
 });

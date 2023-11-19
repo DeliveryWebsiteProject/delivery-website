@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { Cart } from "../models";
 import { CartRepositoryTransaction } from '../repositories/cart/CartRepositoryTransaction';
+import CartItemWrapper from "../models/CartItemWrapper";
 
 export default class CartController {
   private static cartRepo = new CartRepositoryTransaction();
@@ -39,5 +40,13 @@ export default class CartController {
     const count = await CartController.cartRepo.countItems(ref_user);
 
     return res.json(count)
+  }
+
+  public static async getCartItemsWrapper(req: Request, res: Response): Promise<Response<CartItemWrapper[]>> {
+    const { ref_user } = req.params;
+
+    const cartItemsWrapper = await CartController.cartRepo.getCartItemsWrapper(ref_user);
+
+    return res.json(cartItemsWrapper);
   }
 }

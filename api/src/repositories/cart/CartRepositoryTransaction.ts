@@ -1,7 +1,8 @@
-import { RowDataPacket } from "mysql2";
+import { ResultSetHeader, RowDataPacket } from "mysql2";
 import Database from "../../database";
 import { Cart } from "../../models";
 import CartRepository from './CartRepository';
+import CartItemWrapper from "../../models/CartItemWrapper";
 
 export class CartRepositoryTransaction implements CartRepository {
   async findAll(): Promise<Cart[]> {
@@ -56,5 +57,36 @@ export class CartRepositoryTransaction implements CartRepository {
     conn.end();
 
     return result[0]['itemsCount'] ?? 0;
+  }
+
+  async getCartItemsWrapper(userId: string): Promise<CartItemWrapper[]> {
+    const conn = await Database.getInstance().connect();
+
+    const [result] = await conn.execute<ResultSetHeader[]>(`SELECT i.*, p.* FROM pizzas p INNER JOIN items i ON i.ref_pizza = p.id INNER JOIN carts c ON c.ref_item = i.id WHERE c.ref_user = ?`, [userId]);
+
+    conn.end();
+
+    let items = [] as any;
+
+    result.forEach((row: any) => {
+      const pizza = {
+        id: row['id'],
+        name: row['name'],
+        description: row['description'],
+        price: row['price'],
+        ref_photo: row['ref_photo'],
+        category: row['category'],
+        state: row['state'],
+      };
+
+      const cartItem = {
+        ref_pizza: row['ref_pizza'],
+        quantity: row['quantity'],
+      };
+
+      items.push({ cartItem, pizza });
+    });
+
+    return items as CartItemWrapper[];
   }
 }

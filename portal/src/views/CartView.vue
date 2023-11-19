@@ -6,10 +6,18 @@
         <img :src="getIcon('close')" />
       </button>
     </div>
-    <div class="items">
-      <CartItem v-for="item in cartItems" :key="item.id" :imageSrc="item.imageSrc" :title="item.title"
-        :subtitle="item.subtitle" :price="item.price" />
+    <div class="items" v-if="!loading">
+      <CartItem
+        v-for="item in cartItems"
+        :key="item.cartItem.ref_pizza"
+        :imageSrc="item.pizza.ref_photo"
+        :title="item.pizza.name"
+        :subtitle="item.pizza.description"
+        :price="item.pizza.price.toString()"
+        :quantity="item.cartItem.quantity"
+      />
     </div>
+    <p v-if="loading">CARREGANDO...</p>
     <div class="footer">
       <div class="total">
         <div class="total_label">Total do pedido</div>
@@ -25,10 +33,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent } from 'vue'
+import { mapState } from 'pinia'
 import Button from '@/components/Button.vue'
 import CartItem from '@/components/CartItem.vue'
 import helper from '@/helper'
+import { useCartItemStore } from '@/stores'
+import { CartItemWrapper } from '@/models'
 
 export default defineComponent({
   components: {
@@ -36,43 +47,30 @@ export default defineComponent({
     Button
   },
   props: {
-    isCartOpen: Boolean,
-    cartItems: Array
+    isCartOpen: Boolean
   },
   data: () => ({
-    cartItems: [
-      {
-        id: 1,
-        imageSrc: 'basileus.png',
-        title: 'Margherita',
-        subtitle: 'Queijo, Manjericão, Tomate',
-        price: 'R$15.99',
-      },
-      {
-        id: 2,
-        imageSrc: 'margherita.png',
-        title: 'Pepperoni',
-        subtitle: 'Queijo, Pepperoni, Tomate',
-        price: 'R$17.99',
-      },
-      {
-        id: 3,
-        imageSrc: 'basileus.png',
-        title: 'Basileus',
-        subtitle: 'Queijo, Pepperoni, Tomate',
-        price: 'R$17.99',
-      },
-    ],
+    loading: false,
+    cartItems: [] as CartItemWrapper[]
   }),
+  async mounted() {
+    this.loading = true
+    try {
+      this.cartItems = await this.getCartItemsWrapper()
+    } finally {
+      this.loading = false
+    }
+  },
   methods: {
+    ...mapState(useCartItemStore, ['getCartItemsWrapper']),
     closeCart() {
-      this.$emit('close-cart');
+      this.$emit('close-cart')
     },
     getIcon(url: string) {
       return helper.getIcon(url)
-    },
-  },
-});
+    }
+  }
+})
 </script>
 <style scoped lang="scss">
 .side-cart {
