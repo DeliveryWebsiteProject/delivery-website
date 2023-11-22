@@ -7,13 +7,14 @@ import { CartItemWrapper } from "@/models";
 export const useCartItemStore = defineStore('item', {
   state: () => ({
     cartItems: [] as Item[],
+    cartItemsWrapper: [] as CartItemWrapper[]
   }),
   getters: {
     getCartItems(): Item[] {
       return this.cartItems;
     },
-    async getCartItemsWrapper(): Promise<CartItemWrapper[]> {
-      return await CartService.getCartItemsWrapper(useSessionStore().actualUser?.id ?? '') ?? [];
+    getCartItemsWrapper(): CartItemWrapper[] {
+      return this.cartItemsWrapper
     }
   },
   actions: {
@@ -22,7 +23,30 @@ export const useCartItemStore = defineStore('item', {
 
       if (userId) {
         this.cartItems = await ItemService.getItemsByUser(userId) ?? [];
+
+        await this.fetchCartItemsWrapper();
       }
     },
+    async updateItem(item: Item) {
+      await ItemService.updateItem(item);
+    },
+    async deleteItem(item: Item) {
+      let deletedItem = await ItemService.deleteItem(item.id ?? '');
+
+      if (deletedItem) {
+        let deletedCart = await CartService.deleteCart(useSessionStore().actualUser?.id ?? '', deletedItem.id ?? '');
+
+        if (deletedCart) {
+          return deletedItem;
+        }
+      }
+    },
+    async fetchCartItemsWrapper() {
+      let userId = useSessionStore().actualUser?.id;
+
+      if (userId) {
+        return this.cartItemsWrapper = await CartService.getCartItemsWrapper(userId) ?? [];
+      }
+    }
   }
 });

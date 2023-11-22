@@ -49,4 +49,14 @@ export default class CartController {
 
     return res.json(cartItemsWrapper);
   }
+
+  public static async deleteCart(req: Request, res: Response): Promise<Response<Cart>> {
+    const { ref_user, ref_item } = req.params;
+
+    let cart = { ref_user, ref_item } as Cart;
+
+    await CartController.cartRepo.deleteCart(cart);
+
+    return res.json(cart);
+  }
 }

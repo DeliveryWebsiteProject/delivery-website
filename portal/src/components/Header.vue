@@ -1,5 +1,9 @@
 <template>
-  <Cart :is-cart-open="isCartOpen" @close-cart="isCartOpen = false" />
+  <Cart
+    :is-cart-open="isCartOpen"
+    @close-cart="isCartOpen = false"
+    @update-cart="updateCart"
+  />
   <header :class="{ change_color: scrollPosition > 50 }">
     <div class="logo">
       <router-link to="/" @click="scrollToTop">
@@ -31,13 +35,13 @@
 </template>
 
 <script lang="ts">
-import { mapState } from 'pinia'
+import { mapState, mapActions } from 'pinia'
 import { useSessionStore } from '@/stores/session'
 import { defineComponent } from 'vue'
 import helper from '@/helper'
 import UserButton from '@/components/UserButton.vue'
 import Cart from '@/views/CartView.vue'
-import { useCartStore } from "@/stores"
+import { useCartStore } from '@/stores'
 
 export default defineComponent({
   components: {
@@ -60,6 +64,7 @@ export default defineComponent({
   methods: {
     ...mapState(useSessionStore, ['getToken', 'isLogged']),
     ...mapState(useCartStore, ['getItemsQuantity']),
+    ...mapActions(useCartStore, ['fetchCart']),
     updateScroll() {
       this.scrollPosition = window.scrollY
     },
@@ -73,7 +78,10 @@ export default defineComponent({
       this.isCartOpen = !this.isCartOpen
     },
     formatCartCount(value: number) {
-      return value > 9 ? '9+' : value;
+      return value > 9 ? '9+' : value
+    },
+    async updateCart() {
+      await this.fetchCart()
     }
   }
 })
@@ -170,11 +178,11 @@ header {
     &-count {
       width: 18px;
       height: 18px;
-      
+
       background-color: $primary-color;
-      
+
       border-radius: 50%;
-      
+
       transform: translate(100%, -100%);
       position: absolute;
 

@@ -1,14 +1,14 @@
 <template>
   <div class="item">
-    <img :src="getImage(imageSrc)" class="photo" />
+    <img :src="getImage(item.pizza.ref_photo)" class="photo" />
     <div class="content">
       <div class="content_top-section">
-        <h2 class="content_top-section_title">{{ title }}</h2>
-        <p class="content_top-section_subtitle">{{ subtitle }}</p>
+        <h2 class="content_top-section_title">{{ item.pizza.name }}</h2>
+        <p class="content_top-section_subtitle">{{ item.pizza.description }}</p>
       </div>
       <div class="bottom-section">
         <div class="bottom-section_price">
-          <b>{{ price }}</b>
+          <b>{{ item.pizza.price }}</b>
         </div>
         <div class="bottom-section_counter">
           <img
@@ -20,7 +20,9 @@
             "
             :src="getIcon('minus')"
           />
-          <p class="bottom-section_counter_text">{{ quantity }}</p>
+          <p class="bottom-section_counter_text">
+            {{ item.cartItem.quantity }}
+          </p>
           <img
             @click="plusCounter"
             class="bottom-section_counter_button_plus"
@@ -41,32 +43,45 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
+import { CartItemWrapper } from '@/models'
 import helper from '@/helper'
 
 export default defineComponent({
   props: {
-    imageSrc: String,
-    title: String,
-    subtitle: String,
-    price: String,
-    quantity: Number
+    item: {
+      type: Object as PropType<CartItemWrapper>,
+      required: true
+    }
   },
-  data: () => ({
-    blocked: true
-  }),
+  data() {
+    return {
+      blocked: false
+    }
+  },
+  mounted() {
+    if (this.item.cartItem.quantity === 1) {
+      this.blocked = true
+    }
+  },
   methods: {
     deleteItem() {
-      this.$emit('delete-item', this.title)
+      this.$emit('delete-item', this.item.cartItem)
     },
     plusCounter() {
       this.blocked = false
-    //   this.counter++
+      if (this.item.cartItem.quantity) {
+        this.item.cartItem.quantity++
+        this.$emit('plus-item', this.item.cartItem)
+      }
     },
     minusCounter() {
-    //   if (this.counter > 1) {
-    //     this.counter--
-    //   }
-      if (this.quantity === 1) {
+      if (this.item.cartItem.quantity !== 1) {
+        this.item.cartItem.quantity--
+        this.blocked = false
+        this.$emit('minus-item', this.item.cartItem)
+      }
+
+      if (this.item.cartItem.quantity === 1) {
         this.blocked = true
       }
     },

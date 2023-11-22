@@ -13,11 +13,11 @@ interface Pizza {
   ref_photo?: string,
   path?: string,
   name: string,
-  price: Number,
+  price: number,
   category: Category,
   state: State,
   description: string,
-  requests?: Number
+  requests?: number
 }
 
 export default Pizza

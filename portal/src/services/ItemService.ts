@@ -24,5 +24,5 @@ export default {
 
   async deleteItem(id: string): Promise<Item | undefined> {
     return service.delete<Item>(`/items/${id}`)
-  }
+  },
 }

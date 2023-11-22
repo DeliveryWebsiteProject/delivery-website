@@ -8,20 +8,21 @@
     </div>
     <div class="items" v-if="!loading">
       <CartItem
-        v-for="item in cartItems"
+        v-for="item in getCartItemsWrapper()"
         :key="item.cartItem.ref_pizza"
-        :imageSrc="item.pizza.ref_photo"
-        :title="item.pizza.name"
-        :subtitle="item.pizza.description"
-        :price="item.pizza.price.toString()"
-        :quantity="item.cartItem.quantity"
+        :item="item"
+        @plusItem="plusItemCart"
+        @minusItem="minusItemCart"
+        @deleteItem="deleteItemCart"
       />
     </div>
     <p v-if="loading">CARREGANDO...</p>
     <div class="footer">
       <div class="total">
         <div class="total_label">Total do pedido</div>
-        <div class="total_amount"><b>R$00,00</b></div>
+        <div class="total_amount">
+          <b>R${{ calculateAmount() }}</b>
+        </div>
       </div>
       <div class="checkout">
         <router-link to="/checkout" class="checkout_link">
@@ -34,12 +35,12 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { mapState } from 'pinia'
+import { mapState, mapActions } from 'pinia'
 import Button from '@/components/Button.vue'
 import CartItem from '@/components/CartItem.vue'
 import helper from '@/helper'
 import { useCartItemStore } from '@/stores'
-import { CartItemWrapper } from '@/models'
+import { CartItemWrapper, Item } from '@/models'
 
 export default defineComponent({
   components: {
@@ -53,21 +54,55 @@ export default defineComponent({
     loading: false,
     cartItems: [] as CartItemWrapper[]
   }),
-  async mounted() {
+  async beforeMount() {
     this.loading = true
     try {
-      this.cartItems = await this.getCartItemsWrapper()
+      await this.fetchCartItemsWrapper()
     } finally {
       this.loading = false
     }
   },
   methods: {
     ...mapState(useCartItemStore, ['getCartItemsWrapper']),
+    ...mapActions(useCartItemStore, [
+      'updateItem',
+      'deleteItem',
+      'fetchCartItems',
+      'fetchCartItemsWrapper'
+    ]),
     closeCart() {
       this.$emit('close-cart')
     },
+    async plusItemCart(cartItem: any) {
+      await this.updateItem(cartItem)
+    },
+    async minusItemCart(cartItem: Item) {
+      await this.updateItem(cartItem)
+    },
+    async deleteItemCart(cartItem: Item) {
+      let deletedItem: Item | undefined = await this.deleteItem(cartItem)
+
+      if (deletedItem) {
+        this.fetchCartItems().then(() => {
+          this.cartItems = this.cartItems.filter((item) => {
+            return item.cartItem.id !== deletedItem?.id
+          })
+
+          this.$emit('update-cart')
+        })
+      }
+    },
     getIcon(url: string) {
       return helper.getIcon(url)
+    },
+    calculateAmount() {
+      let amount = 0
+
+      this.cartItems.forEach((item) => {
+        amount += item.cartItem.quantity * item.pizza.price
+      })
+
+      return amount.toFixed(2).replace('.', ',')
     }
   }
 })

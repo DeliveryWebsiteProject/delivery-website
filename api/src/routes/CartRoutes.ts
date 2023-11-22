@@ -10,5 +10,6 @@ cartRoutes.get('/carts/:ref_user', authMiddleware, CartController.getByUserId);
 cartRoutes.post('/carts', authMiddleware, cartMiddleware, CartController.add);
 cartRoutes.get('/carts/:ref_user/count', authMiddleware, CartController.countItems);
 cartRoutes.get('/carts/:ref_user/items', authMiddleware, CartController.getCartItemsWrapper);
+cartRoutes.delete('/carts/:ref_user/:ref_item', authMiddleware, CartController.deleteCart);
 
 export default cartRoutes;

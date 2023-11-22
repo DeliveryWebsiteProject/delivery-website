@@ -41,13 +41,13 @@ export default class ItemController {
     return res.json(item)
   }
 
-  public static async delete(req: Request, res: Response): Promise<void> {
+  public static async delete(req: Request, res: Response): Promise<Response<Item>> {
     const { id } = req.params;
 
     const item = await ItemController.itemRepo.getById(id);
 
     await ItemController.itemRepo.delete(item.id);
 
-    res.status(200).end();
+    return res.json(item);
   }
 }

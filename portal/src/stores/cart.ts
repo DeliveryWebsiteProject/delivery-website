@@ -19,9 +19,11 @@ export const useCartStore = defineStore('cart', {
         quantity: 1,
       } as Item;
 
+      await useCartItemStore().fetchCartItems();
+
       const items = useCartItemStore().cartItems;
 
-      let quantity = items.filter((i: Item) => i.ref_pizza === pizza.id).length
+      let quantity = items.filter((i: Item) => i.ref_pizza === pizza.id)[0].quantity ?? 0;
 
       let item = null;
 

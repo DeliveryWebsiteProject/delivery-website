@@ -1,6 +1,6 @@
 <template>
   <Header />
-  <Cart :is-cart-open="isCartOpen" @close-cart="closeCart" />
+  <Cart :is-cart-open="isCartOpen" @close-cart="closeCart" @update-count="" />
   <div class="cardapio">
     <img :src="getImage('cardapio.svg')" alt="As mais pedidas" />
   </div>
@@ -105,6 +105,9 @@ export default defineComponent({
     },
     getImage(url: string) {
       return helper.getImage(url)
+    },
+    async updateItems() {
+      await this.fetchCart()
     }
   }
 })

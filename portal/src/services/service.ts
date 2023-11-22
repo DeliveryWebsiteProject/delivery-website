@@ -28,7 +28,7 @@ export default {
     return returnedData
   },
 
-  async put<T>(url: string, data: object): Promise<T | undefined> {
+  async put<T>(url: string, data?: object): Promise<T | undefined> {
     const { data: returnedData } = await instance.put(url, data, {
       headers: authorizationHeader,
     })
