@@ -46,6 +46,7 @@ CREATE TABLE basileus.items (
 	id varchar(100) NOT NULL,
 	ref_pizza varchar(100) NOT NULL,
 	quantity int NOT NULL,
+	state smallint NOT NULL,
 	CONSTRAINT item_pk PRIMARY KEY (id)
 );
 
@@ -56,4 +57,14 @@ CREATE TABLE basileus.carts (
 	ref_user varchar(100) NOT NULL,
 	ref_item varchar(100) NOT NULL,
 	CONSTRAINT carts_pk PRIMARY KEY (ref_user, ref_item)
+);
+
+-- --------------------------------------------------------
+-- Table structure for table 'ORDERS'
+-- --------------------------------------------------------
+CREATE TABLE basileus.orders (
+	id varchar(100) NOT NULL,
+	ref_user varchar(100) NOT NULL,
+	ref_item varchar(100) NOT NULL,
+	CONSTRAINT order_pk PRIMARY KEY (id)
 );
