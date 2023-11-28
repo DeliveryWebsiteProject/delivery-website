@@ -23,7 +23,13 @@ export const useCartStore = defineStore('cart', {
 
       const items = useCartItemStore().cartItems;
 
-      let quantity = items.filter((i: Item) => i.ref_pizza === pizza.id)[0].quantity ?? 0;
+      var cartItemAdded = items.filter((i: Item) => i.ref_pizza === pizza.id)[0];
+
+      let quantity = 0;
+
+      if (cartItemAdded) {
+        quantity = items.filter((i: Item) => i.ref_pizza === pizza.id)[0].quantity ?? 0;
+      }
 
       let item = null;
 
