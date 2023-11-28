@@ -21,6 +21,7 @@
       />
 
       <FilePicker @changeFiles="changeFiles" />
+      <p class="recomendation">Recomendadas imagens com tamanho de 340x238 pixels</p>
     </form>
     <span class="error">{{ error }}</span>
   </Popup>
@@ -162,6 +163,11 @@ form {
   justify-content: center;
   gap: 30px;
   margin: 15px 0;
+}
+
+.recomendation {
+  color: $text-grey;
+  margin-top: 10px;
 }
 
 .error {

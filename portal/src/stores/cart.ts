@@ -19,11 +19,9 @@ export const useCartStore = defineStore('cart', {
         quantity: 1,
       } as Item;
 
-      await useCartItemStore().fetchCartItems();
+      const items = useCartItemStore().getCartItems;
 
-      const items = useCartItemStore().cartItems;
-
-      var cartItemAdded = items.filter((i: Item) => i.ref_pizza === pizza.id)[0];
+      const cartItemAdded = items.filter((i: Item) => i.ref_pizza === pizza.id)[0];
 
       let quantity = 0;
 

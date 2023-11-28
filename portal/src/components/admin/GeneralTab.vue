@@ -35,7 +35,14 @@
         type="text"
         :required="true"
       />
-      <BaseTextField class="fields_input" name="Instagram" v-model="instagram" type="text" :required="true" />
+      <BaseTextField
+        class="fields_input"
+        name="Instagram"
+        placeholder="@username"
+        v-model="instagram"
+        type="text"
+        :required="true"
+      />
     </div>
   </form>
 </template>

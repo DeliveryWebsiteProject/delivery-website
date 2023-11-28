@@ -1,14 +1,23 @@
 <template>
-  <div class="most_requested">
-    <div>
-      <img :src="getImage('most_requested.svg')" alt="As mais pedidas" />
-      <div class="options">
-        <div class="cards">
-          <Card v-for="pizza in pizzas" :key="pizza.name" :pizza="pizza" />
+  <div>
+    <Cart :is-cart-open="isCartOpen" @close-cart="closeCart" @update-count="" />
+    <div class="most_requested">
+      <div>
+        <img :src="getImage('most_requested.svg')" alt="As mais pedidas" />
+        <div class="options">
+          <div class="cards">
+            <Card
+              v-for="pizza in pizzas"
+              :key="pizza.name"
+              :pizza="pizza"
+              @open-cart="openCart"
+              @add-to-cart="addToCart(pizza)"
+            />
+          </div>
+          <router-link class="button" to="/cardapio" @click="scrollToTop">
+            <Button text="VISUALIZAR CARDÁPIO" />
+          </router-link>
         </div>
-        <router-link class="button" to="/cardapio" @click="scrollToTop">
-          <Button text="VISUALIZAR CARDÁPIO" />
-        </router-link>
       </div>
     </div>
   </div>
@@ -18,15 +27,17 @@
 import { defineComponent } from 'vue'
 import Card from '@/components/Card.vue'
 import Button from '@/components/Button.vue';
+import Cart from '@/views/CartView.vue';
 import helper from '@/helper';
-import { usePizzaStore } from '@/stores';
-import { mapGetters } from 'pinia';
+import { usePizzaStore, useCartStore } from '@/stores';
+import { mapGetters, mapActions } from 'pinia';
 import { Pizza } from '@/models';
 
 export default defineComponent({
   components: {
     Card,
-    Button
+    Button,
+    Cart
   },
   mounted() {
     const allPizzas = this.getPizzas();
@@ -39,9 +50,20 @@ export default defineComponent({
   },
   data: () => ({
     pizzas: [] as Pizza[],
+    isCartOpen: false,
   }),
   methods: {
     ...mapGetters( usePizzaStore, ['getPizzas']),
+    ...mapActions(useCartStore, ['addCartItem', 'fetchCart']),
+    openCart() {
+      this.isCartOpen = true
+    },
+    closeCart() {
+      this.isCartOpen = false
+    },
+    async addToCart(pizza: Pizza) {
+      await this.addCartItem(pizza)
+    },
     getImage(url: string) {
       return helper.getImage(url)
     },

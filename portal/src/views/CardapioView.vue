@@ -1,33 +1,35 @@
 <template>
-  <Header />
-  <Cart :is-cart-open="isCartOpen" @close-cart="closeCart" @update-count="" />
-  <div class="cardapio">
-    <img :src="getImage('cardapio.svg')" alt="As mais pedidas" />
-  </div>
-  <div class="button-group">
-    <Button
-      v-for="(text, index) in filterTexts"
-      :key="index"
-      :text="text"
-      class="button-item"
-      :class="{
-        'button-black': selectedFilter !== index,
-        'button-green': selectedFilter == index
-      }"
-      @click="filterPizzas(index)"
-    />
-
-    <SearchButton @pesquisa="searchPizza" />
-  </div>
-  <div class="cards">
-    <Card
-      v-for="pizza in filteredPizzas"
-      :key="pizza.name"
-      :pizza="pizza"
-      class="card"
-      @open-cart="openCart"
-      @add-to-cart="addToCart(pizza)"
-    />
+  <div>
+    <Header />
+    <Cart :is-cart-open="isCartOpen" @close-cart="closeCart" @update-count="" />
+    <div class="cardapio">
+      <img :src="getImage('cardapio.svg')" alt="As mais pedidas" />
+    </div>
+    <div class="button-group">
+      <Button
+        v-for="(text, index) in filterTexts"
+        :key="index"
+        :text="text"
+        class="button-item"
+        :class="{
+          'button-black': selectedFilter !== index,
+          'button-green': selectedFilter == index
+        }"
+        @click="filterPizzas(index)"
+      />
+  
+      <SearchButton @pesquisa="searchPizza" />
+    </div>
+    <div class="cards">
+      <Card
+        v-for="pizza in filteredPizzas"
+        :key="pizza.name"
+        :pizza="pizza"
+        class="card"
+        @open-cart="openCart"
+        @add-to-cart="addToCart(pizza)"
+      />
+    </div>
   </div>
 </template>
 
@@ -39,7 +41,7 @@ import Button from '@/components/Button.vue'
 import Card from '@/components/Card.vue'
 import helper from '@/helper'
 import { defineComponent } from 'vue'
-import { mapState, mapActions } from 'pinia'
+import { mapGetters, mapActions } from 'pinia'
 import { useCartStore, usePizzaStore } from '@/stores'
 import { Pizza } from '@/models'
 
@@ -54,16 +56,14 @@ export default defineComponent({
   mounted() {
     this.filteredPizzas = this.getPizzas()
   },
-  data() {
-    return {
-      isCartOpen: false,
-      filterTexts: ['Salgadas', 'Doces'],
-      selectedFilter: -1,
-      filteredPizzas: [] as Pizza[]
-    }
-  },
+  data: () => ({
+    isCartOpen: false,
+    filterTexts: ['Salgadas', 'Doces'],
+    selectedFilter: -1,
+    filteredPizzas: [] as Pizza[]
+  }),
   methods: {
-    ...mapState(usePizzaStore, ['getPizzas']),
+    ...mapGetters(usePizzaStore, ['getPizzas']),
     ...mapActions(useCartStore, ['addCartItem', 'fetchCart']),
     openCart() {
       this.isCartOpen = true
