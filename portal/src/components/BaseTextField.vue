@@ -113,6 +113,11 @@ export default defineComponent({
       -webkit-text-fill-color: $text-light;
     }
 
+    // Change the color of time input's clock
+    &::-webkit-calendar-picker-indicator{
+      filter: invert(42%) sepia(78%) saturate(389%) hue-rotate(73deg) brightness(92%) contrast(89%);
+    }
+
     &[type=number] {
       appearance: textfield;
     }
