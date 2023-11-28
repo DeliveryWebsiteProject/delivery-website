@@ -2,6 +2,7 @@ import { defineStore } from 'pinia';
 import { Item, Pizza } from '@/models';
 import { CartService, ItemService } from "@/services";
 import { useCartItemStore, useSessionStore } from "@/stores";
+import { State } from "@/models/item";
 
 export const useCartStore = defineStore('cart', {
   state: () => ({
@@ -17,6 +18,7 @@ export const useCartStore = defineStore('cart', {
       const cartItem = {
         ref_pizza: pizza.id,
         quantity: 1,
+        state: State.PENDING
       } as Item;
 
       await useCartItemStore().fetchCartItems();

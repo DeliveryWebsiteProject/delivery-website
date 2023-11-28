@@ -2,6 +2,7 @@ import Database from "../../database";
 import crypto from 'crypto';
 import { Cart, Item } from "../../models"
 import { ItemRepository } from "./ItemRepository";
+import { State } from "../../models/Item";
 
 export class ItemRepositoryTransaction implements ItemRepository {
   async findAll(): Promise<Item[]> {
@@ -36,7 +37,7 @@ export class ItemRepositoryTransaction implements ItemRepository {
     if (itemsId.length > 0) {
       const values = itemsId.map(() => '?').join(',');
 
-      [items] = await conn.execute<Item[]>(`SELECT * FROM items WHERE id IN (${values})`, [...itemsId]);
+      [items] = await conn.execute<Item[]>(`SELECT * FROM items WHERE id IN (${values}) AND state NOT IN (?, ?)`, [...itemsId, State.DELIVERED, State.CANCELED]);
     }
 
     conn.end();
@@ -49,8 +50,8 @@ export class ItemRepositoryTransaction implements ItemRepository {
 
     const conn = await Database.getInstance().connect();
 
-    await conn.execute('INSERT INTO items (id, ref_pizza, quantity) VALUES (?, ?, ?)',
-      [data.id, data.ref_pizza, data.quantity]
+    await conn.execute('INSERT INTO items (id, ref_pizza, quantity, state) VALUES (?, ?, ?, ?)',
+      [data.id, data.ref_pizza, data.quantity, data.state]
     );
 
     conn.end();
@@ -61,8 +62,8 @@ export class ItemRepositoryTransaction implements ItemRepository {
   async update(id: string, data: Item): Promise<Item> {
     const conn = await Database.getInstance().connect();
 
-    await conn.execute<Item[]>('UPDATE items SET quantity = ?, ref_pizza = ? WHERE id = ?',
-      [data.quantity, data.ref_pizza, id]
+    await conn.execute<Item[]>('UPDATE items SET quantity = ?, ref_pizza = ?, state = ? WHERE id = ?',
+      [data.quantity, data.ref_pizza, data.state, id]
     );
 
     conn.end();
