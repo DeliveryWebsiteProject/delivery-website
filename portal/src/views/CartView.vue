@@ -63,7 +63,7 @@ export default defineComponent({
     }
   },
   methods: {
-    ...mapState(useCartItemStore, ['getCartItemsWrapper']),
+    ...mapState(useCartItemStore, ['getCartItemsWrapper', 'getCartItems']),
     ...mapActions(useCartItemStore, [
       'updateItem',
       'deleteItem',
@@ -98,7 +98,7 @@ export default defineComponent({
     calculateAmount() {
       let amount = 0
 
-      this.cartItems.forEach((item) => {
+      this.getCartItemsWrapper().forEach((item) => {
         amount += item.cartItem.quantity * item.pizza.price
       })
 
