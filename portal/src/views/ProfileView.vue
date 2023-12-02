@@ -1,62 +1,101 @@
 <template>
-  <div>
-    <Header />
-    <div class="form_container">
-      <form class="update_form">
-        <BaseTextField name="Nome" v-model="name" :initial-value="name" />
-        <BaseTextField
-          name="Telefone"
-          placeholder="(##) #####-####"
-          mask="(##) #####-####"
-          v-model="phone"
-        />
-        <BaseTextField name="Endereço" :required="false" v-model="address" />
-        <span class="update_form__error">{{ error }}</span>
-        <div class="button-container">
-          <Button
-            class="update_form__btn"
-            type="submit"
-            text="Atualizar dados"
-            @click="updateUser"
-          />
+  <Header />
+  <div class="profile">
+    <div class="profile_header">
+      <img :src="getIcon('profile')" />
+      <h2 class="profile_name">{{ name }}</h2>
+    </div>
+    <div class="profile_buttons">
+      <Button v-for="(text, index) in profileOptions" :key="index" :text="text" class="button-item" :class="{
+        'button-black': selectedOption !== index,
+        'button-green': selectedOption === index
+      }" @click="selectOption(index)" />
+    </div>
+    <div class="data-container">
+      <div class="profile_data" v-show="selectedOption === 0">
+        <div class="profile_data_column">
+          <CustomTextField name="Nome" v-model="name" :modelValue="name" :icon="getIcon('profile')"  />
+          <CustomTextField name="Telefone" v-model="phone" :modelValue="phone" :icon="getIcon('phone')" mask="(##) #####-####" />
         </div>
-      </form>
-
-      <button class="delete_account_btn" @click="toggleConfirmPopup">
-        Excluir conta
-      </button>
-
-      <Confirm v-if="toggleConfirm" :confirm="confirmDelete" :toggle-popup="toggleConfirmPopup" />
+        <div class="profile_data_column">
+          <CustomTextField name="Cpf" v-model="cpf" :modelValue="cpf" :icon="getIcon('cpf')" mask="###.###.###-##"  />
+          <CustomTextField name="Senha" v-model="password" :modelValue="password" :icon="getIcon('password')" />
+        </div>
+      </div>
+      <div class="address_data" v-show="selectedOption === 1">
+        <AddressCard v-for="address in addresses" :key="address.title" :address="address" class="address" />
+      </div>
+      <div class="order_data" v-show="selectedOption === 2">
+        <OrderCard v-for="order in orders" :key="order.date" :order="order" class="order" />
+      </div>
+    </div>
+    <div class="button_save" v-if="selectedOption !== 2">
+      <Button :text="selectedOption === 1 ? 'Adicionar endereço' : 'Salvar alterações'"
+        @click="selectedOption === 1 ? addAddress : updateUser" />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import BaseTextField from '@/components/BaseTextField.vue'
-import Button from '@/components/Button.vue'
 import Header from '@/components/Header.vue'
-import Confirm from '@/components/Confirm.vue'
-import { User } from '@/models'
-import { mapGetters, mapActions } from 'pinia'
+import Button from '@/components/Button.vue'
+import CustomTextField from '@/components/CustomTextField.vue'
+import AddressCard from '@/components/AddressCard.vue'
+import OrderCard from '@/components/OrderCard.vue'
+import helper from '@/helper'
 import { useSessionStore } from '@/stores/session'
 import { useUserStore } from '@/stores/user'
+import { User } from '@/models'
+import { mapGetters, mapActions } from 'pinia'
+import { defineComponent } from 'vue'
 
 export default defineComponent({
   components: {
-    BaseTextField,
+    CustomTextField,
+    AddressCard,
+    OrderCard,
     Header,
-    Button,
-    Confirm
+    Button
   },
-  data: () => ({
-    id: '',
-    name: '',
-    phone: '',
-    address: '',
-    error: '',
-    toggleConfirm: false,
-  }),
+  data() {
+    return {
+      profileOptions: ['Dados', 'Endereços', 'Pedidos'],
+      selectedOption: 0,
+      id: '',
+      name: '',
+      phone: '',
+      cpf: '',
+      password: '',
+      error: '',
+      toggleConfirm: false,
+      addresses: [
+        {
+          type: 'Casa',
+          title: 'Minha Casa',
+          street: 'Rua Exemplo, 123',
+          city: 'Cidade Exemplo',
+        },
+        {
+          type: 'Trabalho',
+          title: 'Meu Trabalho',
+          street: 'Avenida do Trabalho, 456',
+          city: 'Cidade do Trabalho',
+        }
+      ],
+      orders: [
+        {
+          date: '10/11',
+          state: 'Pedido em rota de entrega',
+          price: '57',
+        },
+        {
+          date: '04/11',
+          state: 'Pedido concluído',
+          price: '59',
+        }
+      ],
+    }
+  },
   mounted() {
     const user = this.getActualUser()
 
@@ -64,7 +103,8 @@ export default defineComponent({
       this.id = user.id ?? ''
       this.name = user.name ?? ''
       this.phone = user.phone ?? ''
-      this.address = user.address ?? ''
+      this.cpf = user.cpf ?? ''
+      this.password = user.password ?? ''
     }
   },
   methods: {
@@ -74,9 +114,10 @@ export default defineComponent({
     getUser() {
       const user: User = {
         id: this.id,
+        cpf: this.cpf,
         name: this.name,
         phone: this.phone,
-        address: this.address,
+        password: this.password,
       }
 
       return user
@@ -91,6 +132,10 @@ export default defineComponent({
         .catch((err) => {
           this.error = err.response.data.error
         })
+    },
+    addAddress(event: Event) {
+      event?.preventDefault();
+      console.log('Adicionando endereço...');
     },
     confirmDelete() {
       this.deleteUser(this.getUser())
@@ -107,56 +152,86 @@ export default defineComponent({
     },
     toggleConfirmPopup() {
       this.toggleConfirm = !this.toggleConfirm
-    }
+    },
+    selectOption(index: number) {
+      this.selectedOption = index;
+    },
+    getIcon(url: string) {
+      return helper.getIcon(url);
+    },
   }
 })
 </script>
 
 <style scoped lang="scss">
-.form_container {
-  padding: 3em 3em 1em 3em;
-  background: #c4c4c420;
-  border-radius: 12px;
-  width: 400px;
-  margin: 10% auto;
+.profile {
+  margin-top: 10%;
+  text-align: center;
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.update_form {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-
-  &__btn {
-    width: 100%;
-    margin-top: 1em;
+  &_header {
+    margin-bottom: 50px;
   }
 
-  &__error {
-    color: rgb(253, 120, 120);
-    height: 15px;
-    font-size: 11px;
+  &_name {
+    margin-top: 15px;
+    color: $text-light;
+    font-weight: 500;
   }
 
-  .button-container {
+  &_icon {
+    width: 100px;
+    height: 100px;
+  }
+
+  &_buttons {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 1em;
+    justify-content: center;
+    max-width: 100%;
+  }
+
+  &_data {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    margin: 3% 25% 0% 25%;
+
+    &_column {
+      width: 100%;
+    }
   }
 }
 
-.delete_account_btn {
-  background: none;
-  border: none;
-  color: #ac1010;
-  margin-top: 1.5em;
-  cursor: pointer;
+.button_save {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.button_save Button {
+  min-width: 50%;
+}
+
+.button-black {
+  background-color: $button-dark;
+  color: $text-light;
+}
+
+.button-green {
+  background-color: $primary-color;
+  color: $text-light;
+}
+
+.button-item {
+  min-width: 14%;
+  min-height: 4em;
+  margin: 0 2%;
+}
+
+.order_data {
+  margin: 3% 25% 0% 25%;
+}
+
+.address_data {
+  margin: 3% 25% 0% 25%;
 }
 </style>
