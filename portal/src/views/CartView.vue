@@ -73,7 +73,7 @@ export default defineComponent({
     closeCart() {
       this.$emit('close-cart')
     },
-    async plusItemCart(cartItem: any) {
+    async plusItemCart(cartItem: Item) {
       await this.updateItem(cartItem)
     },
     async minusItemCart(cartItem: Item) {

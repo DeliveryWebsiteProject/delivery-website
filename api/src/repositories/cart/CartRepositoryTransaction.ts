@@ -62,7 +62,7 @@ export class CartRepositoryTransaction implements CartRepository {
   async getCartItemsWrapper(userId: string): Promise<CartItemWrapper[]> {
     const conn = await Database.getInstance().connect();
 
-    const [result] = await conn.execute<ResultSetHeader[]>(`SELECT i.id as itemId, i.ref_pizza, i.quantity, p.* FROM pizzas p INNER JOIN items i ON i.ref_pizza = p.id INNER JOIN carts c ON c.ref_item = i.id WHERE c.ref_user = ?`, [userId]);
+    const [result] = await conn.execute<ResultSetHeader[]>(`SELECT i.id as itemId, i.ref_pizza, i.quantity, i.state, p.* FROM pizzas p INNER JOIN items i ON i.ref_pizza = p.id INNER JOIN carts c ON c.ref_item = i.id WHERE c.ref_user = ?`, [userId]);
 
     conn.end();
 
@@ -83,6 +83,7 @@ export class CartRepositoryTransaction implements CartRepository {
         id: row['itemId'],
         ref_pizza: row['ref_pizza'],
         quantity: row['quantity'],
+        state: row['state']
       };
 
       items.push({ cartItem, pizza });
