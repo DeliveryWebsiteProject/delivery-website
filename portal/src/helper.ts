@@ -18,4 +18,15 @@ export default {
   getIcon: (url: string): string => {
     return require(`@/assets/icons/${url}.svg`)
   },
+
+  convertTime: (time: string): Date => {
+    const split = time.split(':');
+
+    const convertedTime = new Date();
+    convertedTime.setHours(parseInt(split[0]));
+    convertedTime.setMinutes(parseInt(split[1]));
+    convertedTime.setSeconds(0);
+
+    return convertedTime
+  }
 }

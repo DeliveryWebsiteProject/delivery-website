@@ -3,6 +3,7 @@ import Pizza, { Category, State } from '@/models/pizza'
 import Item from '@/models/item'
 import Cart from '@/models/cart'
 import CartItemWrapper from "@/models/cartItemWrapper"
+import Settings from '@/models/settings'
 
 export {
   User,
@@ -12,5 +13,6 @@ export {
   State,
   Item,
   Cart,
-  CartItemWrapper
+  CartItemWrapper,
+  Settings
 }

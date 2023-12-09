@@ -3,6 +3,7 @@ import UserService from '@/services/UserService';
 import PizzaService from '@/services/PizzaService';
 import ItemService from '@/services/ItemService';
 import CartService from '@/services/CartService';
+import SettingsService from '@/services/SettingsService';
 
 export {
   SessionService,
@@ -10,4 +11,5 @@ export {
   PizzaService,
   ItemService,
   CartService,
+  SettingsService,
 }

@@ -9,8 +9,8 @@
           :text="label"
           class="button-item"
           :class="{
-            'button-black': !selecteds.includes(index),
-            'button-green': selecteds.includes(index)
+            'button-black': !selected.includes(index),
+            'button-green': selected.includes(index)
           }"
           @click="selectButton(index)"
         />
@@ -20,7 +20,7 @@
     <div class="time">
       <BaseTextField class="time_field" name="Início" v-model="begin" type="time" :required="true" />
       <BaseTextField class="time_field" name="Fim" v-model="end" type="time" :required="true" />
-      <Button class="time_close" text="Fechar loja" />
+      <Button class="time_close" text="Fechar loja" @click="closeStore" />
     </div>
 
     <hr class="separator">
@@ -31,7 +31,7 @@
         name="Celular"
         placeholder="(##) #####-####"
         mask="(##) #####-####"
-        v-model="cellphone"
+        v-model="phone"
         type="text"
         :required="true"
       />
@@ -44,21 +44,41 @@
         :required="true"
       />
     </div>
+
+    <Button text="Salvar" @click="save" />
   </form>
 </template>
 
 <script lang="ts">
+import { defineComponent } from 'vue';
 import BaseTextField from '@/components/BaseTextField.vue';
 import TextAreaField from '@/components/TextAreaField.vue';
 import Button from '@/components/Button.vue';
-
-import { defineComponent } from 'vue';
+import { Settings } from '@/models';
+import { State } from '@/models/settings'
+import { useSettingsStore } from '@/stores';
+import { mapGetters, mapActions } from 'pinia';
 
 export default defineComponent({
   components: {
     BaseTextField,
     TextAreaField,
     Button,
+  },
+  mounted() {
+    const settings = this.getSettings()
+
+    if (settings) {
+      settings.days.split(',').forEach(d => {
+        this.selected.push(Number(d))
+      })
+
+      this.begin = settings.begin
+      this.end = settings.end
+      this.state = settings.state
+      this.phone = settings.phone
+      this.instagram = settings.instagram
+    }
   },
   data: () => ({
     daysOfWeek: [
@@ -70,22 +90,39 @@ export default defineComponent({
       'Sexta',
       'Sábado',      
     ],
-    selecteds: [] as number[],
-    begin: 0,
-    end: 0,
-
-    cellphone: '',
+    selected: [] as number[],
+    begin: '00:00',
+    end: '00:00',
+    state: 0,
+    phone: '',
     instagram: '',
   }),
   methods: {
+    ...mapGetters(useSettingsStore, ['getSettings']),
+    ...mapActions(useSettingsStore, ['update']),
     selectButton(index: number) {
-      let hasIndex = this.selecteds.includes(index)
+      let hasIndex = this.selected.includes(index)
 
       if (!hasIndex) {
-        this.selecteds.push(index)
+        this.selected.push(index)
       } else {
-        this.selecteds.splice(this.selecteds.indexOf(index), 1)
+        this.selected.splice(this.selected.indexOf(index), 1)
       }
+    },
+    closeStore() {
+      this.state = State.CLOSE
+    },
+    async save() {
+      const settings: Settings = {
+        days: this.selected.join(', '),
+        begin: this.begin,
+        end: this.end,
+        state: this.state,
+        phone: this.phone,
+        instagram: this.instagram,
+      }
+
+      await this.update(settings)
     }
   }
 })

@@ -13,18 +13,15 @@
 
       <GeneralTab v-if="!selectedTab" />
       <MessagesTab v-else />
-
-      <Button text="Salvar" />
     </form>
   </div>
 </template>
 
 <script lang="ts">
+import { defineComponent } from 'vue';
 import GeneralTab from '@/components/admin/GeneralTab.vue';
 import MessagesTab from '@/components/admin/MessagesTab.vue';
 import Button from '@/components/Button.vue';
-
-import { defineComponent } from 'vue';
 
 export default defineComponent({
   components: {

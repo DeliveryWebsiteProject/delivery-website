@@ -68,3 +68,15 @@ CREATE TABLE basileus.orders (
 	ref_item varchar(100) NOT NULL,
 	CONSTRAINT order_pk PRIMARY KEY (id)
 );
+
+-- --------------------------------------------------------
+-- Table structure for table 'SETTINGS'
+-- --------------------------------------------------------
+CREATE TABLE basileus.settings (
+	days varchar(50) NULL,
+	`begin` varchar(5) NULL,
+	`end` varchar(5) NULL,
+	state SMALLINT NULL,
+	phone varchar(11) NULL,
+	instagram varchar(50) NULL
+)

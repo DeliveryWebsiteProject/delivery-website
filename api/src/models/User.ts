@@ -2,7 +2,7 @@ import { RowDataPacket } from "mysql2"
 
 export enum Role {
   USER,
-  ADMIN 
+  ADMIN
 }
 
 export enum State {
