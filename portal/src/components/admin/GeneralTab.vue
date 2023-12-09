@@ -45,7 +45,7 @@
       />
     </div>
 
-    <Button text="Salvar" @click="save" />
+    <Button text="Salvar" type="submit" @click="save" />
   </form>
 </template>
 

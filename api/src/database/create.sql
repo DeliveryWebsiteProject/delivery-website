@@ -79,4 +79,13 @@ CREATE TABLE basileus.settings (
 	state SMALLINT NULL,
 	phone varchar(11) NULL,
 	instagram varchar(50) NULL
-)
+);
+
+-- --------------------------------------------------------
+-- Table structure for table 'MESSAGES'
+-- --------------------------------------------------------
+CREATE TABLE basileus.messages (
+	welcome varchar(250) NULL,
+	start varchar(250) NULL,
+	finish varchar(250) NULL
+);

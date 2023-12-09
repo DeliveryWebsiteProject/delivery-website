@@ -4,6 +4,7 @@ import Item from '@/models/item'
 import Cart from '@/models/cart'
 import CartItemWrapper from "@/models/cartItemWrapper"
 import Settings from '@/models/settings'
+import Messages from '@/models/messages'
 
 export {
   User,
@@ -14,5 +15,6 @@ export {
   Item,
   Cart,
   CartItemWrapper,
-  Settings
+  Settings,
+  Messages
 }
