@@ -17,12 +17,12 @@
           >
             <input
               type="radio"
-              :id="option.id"
-              :name="option.name"
-              :value="option.value"
+              :id="option"
+              :name="option"
+              :value="option"
               v-model="selectedDelivery"
             />
-            <label :for="option.id">{{ option.label }}</label>
+            <label :for="option">{{ option.toString() }}</label>
           </div>
         </div>
         <div class="info card">
@@ -52,12 +52,12 @@
               >
                 <input
                   type="radio"
-                  :id="option.id"
-                  :name="option.name"
-                  :value="option.value"
+                  :id="option"
+                  :name="option"
+                  :value="option"
                   v-model="selectedPayment"
                 />
-                <label :for="option.id">{{ option.label }}</label>
+                <label :for="option">{{ option.toString() }}</label>
               </div>
             </div>
           </div>
@@ -73,24 +73,24 @@
             :key="index"
           >
             <span class="summary_order_item_quantity">{{
-              order.quantity
+              order.cartItem.quantity
             }}</span>
-            <span class="summary_order_item_name">{{ order.itemName }}</span>
+            <span class="summary_order_item_name">{{ order.pizza.name }}</span>
           </li>
         </ul>
         <hr />
         <div class="summary_subtotal_line">
-          <p class="summary_subtotal_line_title">
+          <!-- <p class="summary_subtotal_line_title">
             Entrega <span class="summary_subtotal_line_value">R$00,00</span>
           </p>
           <p class="summary_subtotal_line_title">
             Subtotal <span class="summary_subtotal_line_value">R$00,00</span>
-          </p>
+          </p> -->
           <p class="summary_total_line_title">
-            Valor total <span class="summary_total_line_value">R$00,00</span>
+            Valor total <span class="summary_total_line_value">R${{totalValue.toFixed(2).replace('.', ',')}}</span>
           </p>
         </div>
-        <Button text="Finalizar pedido" class="checkout_button" />
+        <Button text="Finalizar pedido" class="checkout_button" @click="onFinish" />
       </div>
     </div>
   </div>
@@ -100,49 +100,67 @@
 import { defineComponent } from 'vue'
 import Header from '@/components/Header.vue'
 import Button from '@/components/Button.vue'
+import { Payment, Type, CartItemWrapper, Order, OrderState, OrderItem } from "@/models"
+import { mapActions, mapState } from "pinia"
+import { useCartItemStore, useOrderStore, useSessionStore } from "@/stores"
+
 export default defineComponent({
   components: {
     Header,
     Button
   },
+  mounted() {
+    this.fetchCartItemsWrapper().then((items) => {
+      this.orders = items ?? [];
+
+      this.totalValue = this.orders.reduce((acc, item) => {
+        return acc + item.cartItem.quantity * item.pizza.price;
+      }, 0);
+    }).catch((error) => {
+      console.log(error);
+    });
+  },
   data() {
     return {
-      selectedDelivery: null,
-      selectedPayment: null,
-      deliveryOptions: [
-        {
-          id: 'delivery',
-          name: 'delivery',
-          value: 'delivery',
-          label: 'delivery'
-        },
-        { id: 'balcao', name: 'balcao', value: 'balcao', label: 'balcão' }
-      ],
-      paymentOptions: [
-        { id: 'pix', name: 'pix', value: 'pix', label: 'Pix' },
-        {
-          id: 'credito',
-          name: 'credito',
-          value: 'credito',
-          label: 'Cartão crédito'
-        },
-        {
-          id: 'debito',
-          name: 'debito',
-          value: 'debito',
-          label: 'Cartão débito'
-        },
-        {
-          id: 'dinheiro',
-          name: 'dinheiro',
-          value: 'dinheiro',
-          label: 'Dinheiro'
-        }
-      ],
-      orders: [
-        { quantity: 1, itemName: 'Margherita' },
-        { quantity: 2, itemName: 'Calabresa' }
-      ]
+      selectedDelivery: Type.PICKUP,
+      selectedPayment: Payment.CASH,
+      deliveryOptions: Object.values(Type) as Type[],
+      paymentOptions: Object.values(Payment) as Payment[],
+      orders: [] as CartItemWrapper[],
+      loading: false,
+      totalValue: 0.00,
+    }
+  },
+  methods: {
+    ...mapActions(useCartItemStore, ['fetchCartItemsWrapper', 'fetchCartItems']),
+    ...mapActions(useOrderStore, ['finishOrder']),
+    ...mapState(useSessionStore, ['getActualUser']),
+    async onFinish() {
+      this.loading = true;
+
+      let userId = this.getActualUser()?.id;
+
+      let items: OrderItem[] = this.orders.map((item) => ({ orderId: '', itemId: item.cartItem.id }));
+
+      const order: Order = {
+        id: '',
+        userId: userId ?? '',
+        createdAt: new Date(),
+        payment: this.selectedPayment,
+        state: OrderState.PENDING,
+        total: this.totalValue,
+        type: this.selectedDelivery,
+        items: items,
+      };
+      
+      this.finishOrder(order).then(() => {
+        this.loading = false;
+        this.fetchCartItems();
+        this.$router.push('/');
+      }).catch((error) => {
+        console.log(error);
+        this.loading = false;
+      });
     }
   }
 })
