@@ -14,12 +14,12 @@
     <div class="data-container">
       <div class="profile_data" v-show="selectedOption === 0">
         <div class="profile_data_column">
-          <CustomTextField name="Nome" v-model="name" :modelValue="name" :icon="getIcon('profile')"  />
-          <CustomTextField name="Telefone" v-model="phone" :modelValue="phone" :icon="getIcon('phone')" mask="(##) #####-####" />
+          <CustomTextField name="Nome" v-model="name" :icon="getIcon('profile')"  />
+          <CustomTextField name="Telefone" v-model="phone" :icon="getIcon('phone')" mask="(##) #####-####" />
         </div>
         <div class="profile_data_column">
-          <CustomTextField name="CPF" v-model="cpf" :modelValue="cpf" :icon="getIcon('cpf')" mask="###.###.###-##"  />
-          <CustomTextField name="Senha" v-model="password" :modelValue="password" :icon="getIcon('password')" />
+          <CustomTextField name="CPF" v-model="cpf" :icon="getIcon('cpf')" mask="###.###.###-##"  />
+          <CustomTextField name="Senha" v-model="pass" :icon="getIcon('password')" />
         </div>
       </div>
       <div class="address_data" v-show="selectedOption === 1">
@@ -31,7 +31,7 @@
     </div>
     <div class="button_save" v-if="selectedOption !== 2">
       <Button :text="selectedOption === 1 ? 'Adicionar endereço' : 'Salvar alterações'"
-        @click="selectedOption === 1 ? addAddress : updateUser" />
+        @click="selectedOption === 1 ? addAddress() : updateUser()" />
     </div>
   </div>
 </template>
@@ -61,12 +61,17 @@ export default defineComponent({
     return {
       profileOptions: ['Dados', 'Endereços', 'Pedidos'],
       selectedOption: 0,
+
       id: '',
       name: '',
       phone: '',
       cpf: '',
-      password: '',
+      pass: '',
+      role: 0,
+      state: 0,
+
       error: '',
+
       toggleConfirm: false,
       addresses: [
         {
@@ -104,51 +109,40 @@ export default defineComponent({
       this.name = user.name ?? ''
       this.phone = user.phone ?? ''
       this.cpf = user.cpf ?? ''
-      this.password = user.password ?? ''
+      this.pass = user.password ?? ''
+      this.role = user.role ?? 0
+      this.state = user.state ?? 0
     }
   },
   methods: {
     ...mapGetters(useSessionStore, ['getActualUser']),
     ...mapActions(useSessionStore, ['clearSession', 'fetch']),
-    ...mapActions(useUserStore, ['editUser', 'deleteUser']),
+    ...mapActions(useUserStore, ['editUser', 'fetchUser']),
     getUser() {
       const user: User = {
         id: this.id,
         cpf: this.cpf,
         name: this.name,
         phone: this.phone,
-        password: this.password,
+        password: this.pass,
+        role: this.role,
+        state: this.state
       }
 
       return user
     },
-    async updateUser(event: Event) {
-      event?.preventDefault()
-
-      this.editUser(this.getUser())
-        .then((body) => {
-          this.fetch(body)
-        })
-        .catch((err) => {
-          this.error = err.response.data.error
-        })
+    async updateUser() {
+      await this.editUser(this.getUser())
+            .then((body) => {
+              this.fetch(body)
+              this.fetchUser()
+            })
+            .catch((err) => {
+              this.error = err.response.data.error
+            })
     },
-    addAddress(event: Event) {
-      event?.preventDefault();
+    addAddress() {
       console.log('Adicionando endereço...');
-    },
-    confirmDelete() {
-      this.deleteUser(this.getUser())
-        .then(() => {
-          this.$router.push('/')
-          this.clearSession()
-        })
-        .catch((err) => {
-          this.error = err.response.data.error
-        })
-        .finally(() => {
-          this.toggleConfirmPopup()
-        })
     },
     toggleConfirmPopup() {
       this.toggleConfirm = !this.toggleConfirm

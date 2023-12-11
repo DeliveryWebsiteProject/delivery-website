@@ -6,7 +6,6 @@
       <div class="info_description">
         <span class="info_description_pizza">{{ pizza.description }}</span>
       </div>
-      <!-- TO-DO: Implementar botão popup para descrição -->
       <div class="buttons">
         <div class="info_price">
           <span class="info_price_high">R${{ pizza.price }},</span>
@@ -33,23 +32,23 @@ export default defineComponent({
     },
   },
   data: () => ({
-    name: 'Margherita',
-    price: 50
+    name: '',
+    price: 0
   }),
   methods: {
     openCart() {
       this.$emit('open-cart');
+    },
+    addToCart() {
+      this.$emit('add-to-cart', this.pizza);
+
+      this.openCart();
     },
     getImage(url: string | undefined) {
       return helper.getPizzaPhoto(url);
     },
     getIcon(url: string) {
       return helper.getIcon(url);
-    },
-    addToCart() {
-      this.$emit('add-to-cart', this.pizza);
-
-      this.openCart();
     },
   },
 });
