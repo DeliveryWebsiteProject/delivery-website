@@ -1,16 +1,17 @@
 <template>
   <div>
     <div class="connect" />
+    
     <div class="footer">
-      <img class="footer_logo" src="../assets/icons/footer_logo.svg" alt="logo" />
+      <img class="footer_logo" :src="getIcon('footer_logo')" alt="logo" />
       <div class="footer_topics">
         <FooterTopic
-          class="footer_topics_items"
           v-for="topic in topics"
+          class="footer_topics_items"
           :key="topic.id"
           :title="topic.title"
           :items="topic.items"
-        ></FooterTopic>
+        />
       </div>
     </div>
   </div>
@@ -21,6 +22,7 @@ import { defineComponent } from 'vue'
 import FooterTopic from './FooterTopic.vue'
 import { mapGetters } from 'pinia'
 import { useSettingsStore } from '@/stores'
+import helper from '@/helper'
 
 export default defineComponent({
   components: {
@@ -29,7 +31,7 @@ export default defineComponent({
   mounted() {
     const settings = this.getSettings()
 
-    if (settings && settings.instagram) {
+    if (settings) {
       const instagram = settings.instagram.split('@')[1]
       const facebook = settings.facebook.split('/')[1]
 
@@ -49,7 +51,6 @@ export default defineComponent({
     }
   },
   data: () => ({
-    instagram: '',
     topics: [
       {
         id: 0,
@@ -82,15 +83,18 @@ export default defineComponent({
         id: 3,
         title: 'Contato',
         items: [
-          { name: '',   url: '/about' },
-          { name: '',  url: '/about' },
+          { name: '',                     url: '/about' },
+          { name: '',                     url: '/about' },
           { name: 'contato@basileus.com', url: '/about' },
         ]
       }
     ]
   }),
   methods: {
-    ...mapGetters(useSettingsStore, ['getSettings'])
+    ...mapGetters(useSettingsStore, ['getSettings']),
+    getIcon(url: string) {
+      return helper.getIcon(url);
+    },
   },
 })
 </script>
