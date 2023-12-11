@@ -31,9 +31,29 @@
         name="Celular"
         placeholder="(##) #####-####"
         mask="(##) #####-####"
+        v-model="cellphone"
+        type="text"
+        :required="false"
+      />
+      <BaseTextField
+        class="fields_input"
+        name="Telefone"
+        placeholder="(##) ####-####"
+        mask="(##) ####-####"
         v-model="phone"
         type="text"
-        :required="true"
+        :required="false"
+      />
+    </div>
+
+    <div class="fields">
+      <BaseTextField
+        class="fields_input"
+        name="Facebook"
+        placeholder="/username"
+        v-model="facebook"
+        type="text"
+        :required="false"
       />
       <BaseTextField
         class="fields_input"
@@ -41,7 +61,7 @@
         placeholder="@username"
         v-model="instagram"
         type="text"
-        :required="true"
+        :required="false"
       />
     </div>
 
@@ -76,7 +96,9 @@ export default defineComponent({
       this.begin = settings.begin
       this.end = settings.end
       this.state = settings.state
+      this.cellphone = settings.cellphone
       this.phone = settings.phone
+      this.facebook = settings.facebook
       this.instagram = settings.instagram
     }
   },
@@ -94,7 +116,9 @@ export default defineComponent({
     begin: '00:00',
     end: '00:00',
     state: 0,
+    cellphone: '',
     phone: '',
+    facebook: '',
     instagram: '',
   }),
   methods: {
@@ -118,7 +142,9 @@ export default defineComponent({
         begin: this.begin,
         end: this.end,
         state: this.state,
+        cellphone: this.cellphone,
         phone: this.phone,
+        facebook: this.facebook,
         instagram: this.instagram,
       }
 

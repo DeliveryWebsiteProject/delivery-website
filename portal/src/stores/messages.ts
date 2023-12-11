@@ -23,6 +23,16 @@ export const useMessagesStore = defineStore('messages', {
 
       if (messages) {
         this.messages = messages
+      } else {
+        const newMessages: Messages = {
+          welcome: '',
+          start: '',
+          finish: ''
+        }
+
+        this.messages = newMessages
+
+        await this.create(newMessages)
       }
     }
   }

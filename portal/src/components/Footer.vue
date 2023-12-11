@@ -19,53 +19,79 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import FooterTopic from './FooterTopic.vue'
+import { mapGetters } from 'pinia'
+import { useSettingsStore } from '@/stores'
 
 export default defineComponent({
   components: {
     FooterTopic
   },
-  data() {
-    return {
-      topics: [
-      {
-          id: 0,
-          title: 'Redes sociais',
-          items: [
-          { name: 'Instagram', url: 'https://www.instagram.com/basileuspizzaartesanal/'},
-          { name: 'Facebook', url: 'https://www.facebook.com/'},
-        ]
-        },
-        {
-          id: 1,
-          title: 'Menu',
-          items: [
-            {name: 'Pizzas Salgadas', url: '/cardapio'},
-            {name: 'Pizzas Doces', url: '/cardapio'},
-            {name: 'Especial do mês', url: '/speciale-mes' },
-          ]
-        },
-        {
-          id: 2,
-          title: 'Sobre',
-          items: [
-            {name: 'A Basileus', url: '/about'},
-            {name: 'Nossa história', url: '/about'},
-            {name: 'Quem somos', url: '/about'},
-            {name: 'Faça parte', url: '/about'},
-          ]
-        },
-        {
-          id: 3,
-          title: 'Contato',
-          items: [
-            {name: '+55 51 3751-9999', url: '/about'},
-            {name: '+55 51 99365-3061', url: '/about'},
-            {name: 'email@basileus.com', url: '/about'},
-          ]
-        }
-      ]
+  mounted() {
+    const settings = this.getSettings()
+
+    if (settings && settings.instagram) {
+      const instagram = settings.instagram.split('@')[1]
+      const facebook = settings.facebook.split('/')[1]
+
+      this.topics[0].items[0].url = `https://www.instagram.com/${instagram}/`
+      this.topics[0].items[1].url = `https://www.facebook.com/${facebook}/`
+
+      let phoneArr = settings.phone.match(/(\d{2})(\d{4})(\d{4})/)
+      let cellphoneArr = settings.cellphone.match(/(\d{2})(\d{5})(\d{4})/)
+
+      if (phoneArr) {
+        this.topics[3].items[0].name = "(" + phoneArr[1] + ") " + phoneArr[2] + "-" + phoneArr[3] 
+      }
+
+      if (cellphoneArr) {
+        this.topics[3].items[1].name = "(" + cellphoneArr[1] + ") " + cellphoneArr[2] + "-" + cellphoneArr[3]
+      }
     }
-  }
+  },
+  data: () => ({
+    instagram: '',
+    topics: [
+      {
+        id: 0,
+        title: 'Redes sociais',
+        items: [
+          { name: 'Instagram', url: '' },
+          { name: 'Facebook',  url: '' },
+        ]
+      },
+      {
+        id: 1,
+        title: 'Menu',
+        items: [
+          { name: 'Pizzas Salgadas', url: '/cardapio'     },
+          { name: 'Pizzas Doces',    url: '/cardapio'     },
+          { name: 'Especial do mês', url: '/speciale-mes' },
+        ]
+      },
+      {
+        id: 2,
+        title: 'Sobre',
+        items: [
+          { name: 'A Basileus',     url: '/about' },
+          { name: 'Nossa história', url: '/about' },
+          { name: 'Quem somos',     url: '/about' },
+          { name: 'Faça parte',     url: '/about' },
+        ]
+      },
+      {
+        id: 3,
+        title: 'Contato',
+        items: [
+          { name: '',   url: '/about' },
+          { name: '',  url: '/about' },
+          { name: 'contato@basileus.com', url: '/about' },
+        ]
+      }
+    ]
+  }),
+  methods: {
+    ...mapGetters(useSettingsStore, ['getSettings'])
+  },
 })
 </script>
 

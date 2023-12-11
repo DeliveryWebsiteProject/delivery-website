@@ -32,6 +32,21 @@ export const useSettingsStore = defineStore('settings', {
         settings.state = (now >= begin && now <= end) ? State.OPEN : State.CLOSE
 
         this.settings = settings
+      } else {
+        const newSettings: Settings = {
+          days: '5, 6',
+          begin: '19:00',
+          end: '22:00',
+          state: 0,
+          cellphone: '',
+          phone: '',
+          facebook: '',
+          instagram: ''
+        }
+
+        this.settings = newSettings
+
+        await this.create(newSettings)
       }
     }
   }

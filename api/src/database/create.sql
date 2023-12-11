@@ -89,8 +89,10 @@ CREATE TABLE basileus.settings (
 	days varchar(50) NULL,
 	`begin` varchar(5) NULL,
 	`end` varchar(5) NULL,
-	state SMALLINT NULL,
-	phone varchar(11) NULL,
+	state SMALLINT NOT NULL,
+	cellphone varchar(11) NULL,
+	phone varchar(10) NULL,
+	facebook varchar(50) NULL,
 	instagram varchar(50) NULL
 );
 
