@@ -3,6 +3,7 @@ import Database from "../../database";
 import { Cart } from "../../models";
 import CartRepository from './CartRepository';
 import CartItemWrapper from "../../models/CartItemWrapper";
+import { State } from "../../models/Item";
 
 export class CartRepositoryTransaction implements CartRepository {
   async findAll(): Promise<Cart[]> {
@@ -52,7 +53,7 @@ export class CartRepositoryTransaction implements CartRepository {
   async countItems(userId: string): Promise<number> {
     const conn = await Database.getInstance().connect();
 
-    const [result] = await conn.execute<RowDataPacket[]>(`SELECT COUNT(*) as itemsCount FROM carts WHERE ref_user = ?`, [userId]);
+    const [result] = await conn.execute<RowDataPacket[]>(`SELECT COUNT(*) as itemsCount FROM carts INNER JOIN items on items.id = carts.ref_item WHERE ref_user = ? AND items.state NOT IN (?, ?)`, [userId, State.DELIVERED, State.PENDING]);
 
     conn.end();
 
@@ -62,7 +63,7 @@ export class CartRepositoryTransaction implements CartRepository {
   async getCartItemsWrapper(userId: string): Promise<CartItemWrapper[]> {
     const conn = await Database.getInstance().connect();
 
-    const [result] = await conn.execute<ResultSetHeader[]>(`SELECT i.id as itemId, i.ref_pizza, i.quantity, i.state, p.* FROM pizzas p INNER JOIN items i ON i.ref_pizza = p.id INNER JOIN carts c ON c.ref_item = i.id WHERE c.ref_user = ?`, [userId]);
+    const [result] = await conn.execute<ResultSetHeader[]>(`SELECT i.id as itemId, i.ref_pizza, i.quantity, i.state, p.* FROM pizzas p INNER JOIN items i ON i.ref_pizza = p.id INNER JOIN carts c ON c.ref_item = i.id WHERE c.ref_user = ? AND i.state NOT IN (?, ?)`, [userId, State.DELIVERED, State.CANCELED]);
 
     conn.end();
 

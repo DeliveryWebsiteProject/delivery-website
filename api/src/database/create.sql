@@ -65,8 +65,21 @@ CREATE TABLE basileus.carts (
 CREATE TABLE basileus.orders (
 	id varchar(100) NOT NULL,
 	ref_user varchar(100) NOT NULL,
-	ref_item varchar(100) NOT NULL,
+	total DOUBLE NOT NULL,
+	created datetime NOT NULL,
+	state smallint NOT NULL,
+	payment smallint NOT NULL,
+	type smallint NOT NULL,
 	CONSTRAINT order_pk PRIMARY KEY (id)
+);
+
+-- --------------------------------------------------------
+-- Table structure for table 'ORDERS_ITEMS'
+-- --------------------------------------------------------
+CREATE TABLE basileus.orders_items (
+	ref_order varchar(100) NOT NULL,
+	ref_item varchar(100) NOT NULL,
+	CONSTRAINT orders_items_pk PRIMARY KEY (ref_order, ref_item)
 );
 
 -- --------------------------------------------------------

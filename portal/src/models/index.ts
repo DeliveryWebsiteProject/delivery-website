@@ -5,6 +5,8 @@ import Cart from '@/models/cart'
 import CartItemWrapper from "@/models/cartItemWrapper"
 import Settings from '@/models/settings'
 import Messages from '@/models/messages'
+import Order, { OrderState, Type, Payment } from '@/models/order'
+import OrderItem from '@/models/orderItem'
 
 export {
   User,
@@ -16,5 +18,10 @@ export {
   Cart,
   CartItemWrapper,
   Settings,
-  Messages
+  Messages,
+  Order,
+  OrderState,
+  Type,
+  Payment,
+  OrderItem,
 }

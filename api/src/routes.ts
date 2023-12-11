@@ -9,6 +9,7 @@ import cartRoutes from "./routes/CartRoutes";
 import itemRoutes from "./routes/ItemRoutes";
 import settingsRoutes from './routes/SettingsRoutes';
 import messagesRoutes from './routes/MessagesRoutes';
+import orderRoutes from "./routes/OrderRoutes";
 
 const routes = Router();
 
@@ -21,5 +22,6 @@ routes.use(authenticationRoute);
 routes.use(errorMiddleware);
 routes.use(settingsRoutes);
 routes.use(messagesRoutes);
+routes.use(orderRoutes);
 
 export default routes;

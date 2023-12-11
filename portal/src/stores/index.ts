@@ -5,6 +5,7 @@ import { useCartStore } from '@/stores/cart'
 import { useCartItemStore } from '@/stores/item'
 import { useSettingsStore } from './settings'
 import { useMessagesStore } from './messages'
+import { useOrderStore } from './order'
 
 export const installStores = () => {
   useSessionStore().fetch(),
@@ -25,4 +26,5 @@ export {
   useCartItemStore,
   useSettingsStore,
   useMessagesStore,
+  useOrderStore,
 }
