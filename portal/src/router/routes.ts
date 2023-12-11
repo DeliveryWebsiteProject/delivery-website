@@ -70,14 +70,19 @@ const routes: Array<RouteRecordRaw> = [
     },
     children: [
       {
+        path: '/admin/settings',
+        name: 'Geral',
+        component: () => import('@/components/admin/SettingsAdmin.vue')
+      },
+      {
         path: '/admin/pizzas',
         name: 'Pizzas',
         component: () => import('@/components/admin/PizzaAdmin.vue')
       },
       {
-        path: '/admin/settings',
-        name: 'Geral',
-        component: () => import('@/components/admin/SettingsAdmin.vue')
+        path: '/admin/users',
+        name: 'Usuários',
+        component: () => import('@/components/admin/UserAdmin.vue')
       },
     ]
   },

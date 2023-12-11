@@ -11,6 +11,7 @@ export const installStores = () => {
     usePizzaStore().fetch(),
     useSettingsStore().fetch(),
     useMessagesStore().fetch(),
+    useUserStore().fetchUser(),
     useCartStore().fetchCart(),
     useCartItemStore().fetchCartItems(),
     useCartItemStore().fetchCartItemsWrapper()

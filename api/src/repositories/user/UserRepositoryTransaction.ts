@@ -82,8 +82,8 @@ export default class UserRepositoryTransaction implements UserRepository {
     const conn = await Database.getInstance().connect();
 
     await conn.execute<User[]>(
-      'UPDATE users SET name = ?, phone = ?, address = ? WHERE id = ?',
-      [data.name, data.phone, data.address, id]);
+      'UPDATE users SET name = ?, phone = ?, address = ?, role = ?, state = ? WHERE id = ?',
+      [data.name, data.phone, data.address, data.role, data.state, id]);
 
     conn.end();
 

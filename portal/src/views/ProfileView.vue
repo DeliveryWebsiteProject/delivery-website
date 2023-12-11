@@ -18,7 +18,7 @@
           <CustomTextField name="Telefone" v-model="phone" :modelValue="phone" :icon="getIcon('phone')" mask="(##) #####-####" />
         </div>
         <div class="profile_data_column">
-          <CustomTextField name="Cpf" v-model="cpf" :modelValue="cpf" :icon="getIcon('cpf')" mask="###.###.###-##"  />
+          <CustomTextField name="CPF" v-model="cpf" :modelValue="cpf" :icon="getIcon('cpf')" mask="###.###.###-##"  />
           <CustomTextField name="Senha" v-model="password" :modelValue="password" :icon="getIcon('password')" />
         </div>
       </div>

@@ -3,7 +3,7 @@
     <div class="popup_inner">
       <slot />
       <div class="popup_inner_buttons">
-        <Button :text="buttonLabel" @click="doAction()"/>
+        <Button v-if="doAction" :text="buttonLabel" @click="doAction()"/>
         <Button text="Fechar" @click="togglePopup()" />
       </div>
     </div>
@@ -25,7 +25,7 @@ export default defineComponent({
     },
     doAction: {
       type: Function,
-      required: true
+      required: false
     },
     togglePopup: {
       type: Function,

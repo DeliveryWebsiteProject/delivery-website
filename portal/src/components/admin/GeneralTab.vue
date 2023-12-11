@@ -82,13 +82,13 @@ export default defineComponent({
   },
   data: () => ({
     daysOfWeek: [
-      'Domingo',     
+      'Domingo',
       'Segunda',
       'Terça',
       'Quarta',
       'Quinta',
       'Sexta',
-      'Sábado',      
+      'Sábado',
     ],
     selected: [] as number[],
     begin: '00:00',

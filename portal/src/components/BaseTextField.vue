@@ -4,7 +4,7 @@
       >{{ name + (required ? ' *' : '') }}
       <input
         v-maska
-        class="field__input"
+        :class="!disabled ? 'field__input' : 'field__input__disable'"
         @focus="focus = true"
         @blur="focus = false"
         @input="updateValue"
@@ -14,6 +14,7 @@
         :type="type || 'text'"
         :pattern="pattern"
         :value="modelValue"
+        :disabled="disabled"
       />
     </label>
   </div>
@@ -50,6 +51,10 @@ export default defineComponent({
     },
     pattern: {
       type: String
+    },
+    disabled: {
+      type: Boolean,
+      default: false
     }
   },
   methods: {
@@ -82,13 +87,17 @@ export default defineComponent({
   &__input {
     width: 100%;
     height: 30px;
+    
     background-color: #00000000;
+
     color: #fff;
     font-size: 1em;
     font-family: 'Open Sans';
     letter-spacing: 0.025em;
+
     border: none;
     border-bottom: 1px solid #fff;
+
     transition: border-bottom 0.2s;
     transform-origin: center;
 
@@ -121,6 +130,23 @@ export default defineComponent({
     &[type=number] {
       appearance: textfield;
     }
+  }
+
+  &__input__disable {
+    width: 100%;
+    height: 30px;
+
+    background-color: #00000000;
+
+    color: $text-grey;
+    font-size: 1em;
+    font-family: 'Open Sans';
+    letter-spacing: 0.025em;
+
+    border: none;
+    border-bottom: 1px solid #fff;
+
+    cursor: not-allowed;
   }
 }
 </style>

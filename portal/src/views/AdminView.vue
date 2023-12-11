@@ -12,7 +12,7 @@
           <ul class="menu_list">
             <li
               v-for="menuItem in menuItems"
-              :class="{ 'menu_list_item': selectedOption !== menuItem.option, 'menu_list_selected': selectedOption === menuItem.option }"
+              :class="{ 'menu_list_item': selected !== menuItem.option, 'menu_list_selected': selected === menuItem.option }"
               @click="selectOption(menuItem.option)"
             >
               {{ menuItem.label }}
@@ -34,8 +34,19 @@ export default defineComponent({
   components: {
     Header,
   },
+  mounted() {
+    const option = this.$route.path.split('/admin/')[1];
+
+    if (!this.selected) {
+      this.selectOption('settings')
+    }
+
+    if (option !== this.selected) {
+      this.selectOption(option)
+    }
+  },
   data: () => ({
-    selectedOption: 'pizzas',
+    selected: '',
     menuItems: [
       { label: 'Configurações', option: 'settings' },
       { label: 'Pedidos',       option: 'requests' },
@@ -45,7 +56,7 @@ export default defineComponent({
   }),
   methods: {
     selectOption(option: string) {
-      this.selectedOption = option
+      this.selected = option
 
       this.$router.push('/admin/' + option)
     },

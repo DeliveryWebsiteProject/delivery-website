@@ -1,6 +1,6 @@
 <template>
   <Popup button-label="Confirmar" :do-action="confirm" :toggle-popup="togglePopup">
-    <h2>Você tem certeza que quer realizar essa ação?</h2>
+    <h2>{{ message }}</h2>
   </Popup>
 </template>
 
@@ -12,7 +12,17 @@ export default defineComponent({
   components: {
     Popup,
   },
+  mounted() {
+    this.message = this.text ? this.text : 'Você tem certeza que quer realizar essa ação?'
+  },
+  data: () => ({
+    message: ''  
+  }),
   props: {
+    text: {
+      type: String,
+      required: false
+    },
     confirm: {
       type: Function,
       required: true

@@ -41,9 +41,14 @@ export default defineComponent({
   components: {
     Menu
   },
+  mounted() {
+    document.addEventListener('click', this.closeMenu)
+  },
+  beforeDestroy () {
+    document.removeEventListener('click',this.closeMenu)
+  },
   data: () => ({
-    username: '',
-    showMenu: false
+    showMenu: false,
   }),
   methods: {
     ...mapGetters( useSessionStore, ['getActualUser', 'isLogged']),
@@ -66,12 +71,6 @@ export default defineComponent({
       return helper.getIcon(url)
     }
   },
-  mounted () {
-    document.addEventListener('click', this.closeMenu)
-  },
-  beforeDestroy () {
-    document.removeEventListener('click',this.closeMenu)
-  }
 })
 
 </script>

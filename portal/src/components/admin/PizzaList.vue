@@ -64,11 +64,11 @@ export default defineComponent({
       'deletePizza'
     ]),
 
-    async openEdit(pizza: Pizza) {
+    openEdit(pizza: Pizza) {
       this.setSelectedPizza(pizza)
       this.toggleMenuPopup()
     },
-    async openDelete(pizza: Pizza) {
+    openDelete(pizza: Pizza) {
       this.toggleConfirmPopup()
       this.setSelectedPizza(pizza)
     },
