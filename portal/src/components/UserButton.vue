@@ -9,7 +9,7 @@
           Perfil
         </router-link>
 
-        <router-link to="/admin/pizzas">
+        <router-link v-if="getActualUser()?.role" to="/admin/pizzas">
           Administrador
         </router-link>
 

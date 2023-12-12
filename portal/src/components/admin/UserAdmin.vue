@@ -2,10 +2,6 @@
   <div class="content">
     <div class="content_top">
       <h1>Usuários Cadastrados</h1>
-      <button @click="togglePopup" class="add_button">
-        <img :src="getIcon('plus_light')">
-      </button>
-      <UserEditor v-if="toggleMenu" :edit="false" :toggle-popup="togglePopup" />
     </div>
     <div class="list">
       <UserList />

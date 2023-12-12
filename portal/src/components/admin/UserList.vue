@@ -49,7 +49,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { useUserStore, useSessionStore } from '@/stores'
+import { useUserStore } from '@/stores'
 import { mapState, mapActions } from 'pinia'
 import { User } from '@/models'
 import UserEditor from '@/components/editors/UserEditor.vue'

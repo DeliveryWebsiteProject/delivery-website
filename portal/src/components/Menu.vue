@@ -36,6 +36,9 @@ export default defineComponent({})
     border-radius: 5px;
     text-decoration: none;
 
+    display: flex;
+    flex-direction: column;
+
     color: $text-dark;
 
     &:hover {

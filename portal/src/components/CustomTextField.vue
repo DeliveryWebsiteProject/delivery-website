@@ -4,8 +4,8 @@
       <div class="custom-text-field">
         <img v-if="icon" :src="icon" alt="Icon" class="icon" />
         <input
-          type="text"
-          v-maska="mask"
+          v-maska
+          :type="type"
           @focus="onFocus"
           @blur="onBlur"
           @input="updateValue"
@@ -30,6 +30,10 @@ export default defineComponent({
     name: {
       type: String,
       required: true,
+    },
+    type: {
+      type: String,
+      default: 'text'
     },
     placeholder: {
       type: String,
