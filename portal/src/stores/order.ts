@@ -39,6 +39,13 @@ export const useOrderStore = defineStore('order', {
         await MessagesService.sendMessage(order);
       }
     },
+    async cancelOrder(order: Order) {
+      if (order.state !== OrderState.COMPLETED) {
+        order.state = OrderState.CANCELLED
+
+        await OrderService.updateOrder(order)
+      }
+    },
     async getUsername(order: Order) {
       const user = await UserService.getUserById(order.ref_user)
 

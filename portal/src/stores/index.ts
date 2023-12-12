@@ -10,11 +10,11 @@ import { useOrderStore } from './order'
 export const installStores = () => {
   useSessionStore().fetch(),
     usePizzaStore().fetch(),
-    useSettingsStore().fetch(),
     useMessagesStore().fetch(),
     useUserStore().fetchUser(),
     useCartStore().fetchCart(),
     useOrderStore().fetchOrders(),
+    useSettingsStore().fetchSettings(),
     useCartItemStore().fetchCartItems(),
     useCartItemStore().fetchCartItemsWrapper()
 }

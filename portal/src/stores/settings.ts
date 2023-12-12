@@ -20,7 +20,7 @@ export const useSettingsStore = defineStore('settings', {
     async update(settings: Settings) {
       return SettingsService.updateSettings(settings)
     },
-    async fetch() {
+    async fetchSettings() {
       const settings = await SettingsService.getSettings()
 
       if (settings) {

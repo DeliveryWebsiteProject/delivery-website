@@ -3,10 +3,10 @@
     <Header />
     <div class="cards">
       <div class="cards_west">
-        <div class="filter card">
+        <!-- <div class="filter card">
           <h2>Filtros</h2>
-          <!-- To be Implemented -->
-        </div>
+          To be Implemented
+        </div> -->
         <div class="menu card">
           <h2>Administração</h2>
           <ul class="menu_list">
@@ -29,12 +29,14 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import Header from '@/components/Header.vue';
+import { mapActions } from 'pinia';
+import { useSettingsStore, useOrderStore, usePizzaStore, useUserStore } from '@/stores';
 
 export default defineComponent({
   components: {
     Header,
   },
-  mounted() {
+  async mounted() {
     const option = this.$route.path.split('/admin/')[1];
 
     if (!this.selected) {
@@ -44,6 +46,11 @@ export default defineComponent({
     if (option !== this.selected) {
       this.selectOption(option)
     }
+
+    await this.fetchSettings(),
+    await this.fetchOrders(),
+    await this.fetch(),
+    await this.fetchUser()
   },
   data: () => ({
     selected: '',
@@ -55,6 +62,10 @@ export default defineComponent({
     ]
   }),
   methods: {
+    ...mapActions(useSettingsStore, ['fetchSettings']),
+    ...mapActions(useOrderStore, ['fetchOrders']),
+    ...mapActions(usePizzaStore, ['fetch']),
+    ...mapActions(useUserStore, ['fetchUser']),
     selectOption(option: string) {
       this.selected = option
 
@@ -70,7 +81,7 @@ export default defineComponent({
   padding-top: 8vh;
 
   display: flex;
-  align-items: center;
+  // align-items: center; // Descomentar ao aplicar filtros
   justify-content: center;
   flex-direction: row;
 
@@ -89,7 +100,7 @@ export default defineComponent({
 }
 
 .menu {
-  height: 275px;
+  height: 100%;
 
   &_list {
     display: flex;

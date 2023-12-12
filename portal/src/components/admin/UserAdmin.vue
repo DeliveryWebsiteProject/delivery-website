@@ -53,15 +53,6 @@ export default defineComponent({
     flex-wrap: wrap;
     justify-content: space-between;
     overflow-y: auto;
-
-    .pizza-item {
-      width: 100%;
-      box-sizing: border-box;
-
-      @media(min-width: 768px) {
-        width: 50%;
-      }
-    }
   }
 }
 

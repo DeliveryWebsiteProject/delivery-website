@@ -133,7 +133,7 @@ export default defineComponent({
   },
   methods: {
     ...mapActions(useCartItemStore, ['fetchCartItemsWrapper', 'fetchCartItems']),
-    ...mapActions(useOrderStore, ['createOrder']),
+    ...mapActions(useOrderStore, ['createOrder', 'fetchOrders']),
     ...mapState(useSessionStore, ['getActualUser']),
     async onFinish() {
       this.loading = true;
@@ -153,9 +153,12 @@ export default defineComponent({
         items: items,
       };
       
-      this.createOrder(order).then(() => {
+      this.createOrder(order).then(async () => {
         this.loading = false;
-        this.fetchCartItems();
+        
+        await this.fetchCartItems();
+        await this.fetchOrders();
+
         this.$router.push('/');
       }).catch((error) => {
         console.log(error);

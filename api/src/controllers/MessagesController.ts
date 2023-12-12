@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { Messages, User } from "../models";
-import { State } from '../models/Order';
+import { OrderState } from '../models/Order';
 import MessagesRepositoryTransaction from '../repositories/messages/MessagesRepositoryTransaction';
 import UserRepositoryTransaction from "../repositories/user/UserRepositoryTransaction";
 import TwilioSender from "../utils/TwilioSender";
@@ -37,15 +37,15 @@ export default class MessagesController {
     let message = ''
 
     switch (state) {
-      case State.PENDING:
+      case OrderState.PENDING:
         message = messages.welcome
         break
 
-      case State.IN_PROGRESS:
+      case OrderState.IN_PROGRESS:
         message = messages.start
         break
 
-      case State.COMPLETED:
+      case OrderState.COMPLETED:
         message = messages.finish
         break
 

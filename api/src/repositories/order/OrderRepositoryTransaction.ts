@@ -3,14 +3,14 @@ import { ResultSetHeader } from 'mysql2';
 import Database from "../../database";
 import CartItemWrapper from '../../models/CartItemWrapper';
 import { State } from "../../models/Item";
-import Order, { Payment, Type } from "../../models/Order";
+import Order, { OrderState, Payment, Type } from "../../models/Order";
 import { OrderRepository } from "./OrderRepository";
 
 export default class OrderRepositoryTransaction implements OrderRepository {
   async findAll(): Promise<Order[]> {
     const conn = await Database.getInstance().connect();
 
-    const [rows] = await conn.execute<Order[]>('SELECT * FROM orders');
+    const [rows] = await conn.execute<Order[]>('SELECT * FROM orders WHERE state != ?', [OrderState.CANCELLED]);
 
     conn.end()
 

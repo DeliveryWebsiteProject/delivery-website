@@ -50,18 +50,9 @@ export default defineComponent({
 
   .list {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    // flex-wrap: wrap;
+    // justify-content: space-between;
     overflow-y: auto;
-
-    .pizza-item {
-      width: 100%;
-      box-sizing: border-box;
-
-      @media(min-width: 768px) {
-        width: 50%;
-      }
-    }
   }
 }
 

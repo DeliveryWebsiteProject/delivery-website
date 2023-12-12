@@ -1,7 +1,7 @@
 import { RowDataPacket } from "mysql2"
 import OrderItem from "./OrderItem";
 
-export enum State {
+export enum OrderState {
   PENDING,
   IN_PROGRESS,
   COMPLETED,
@@ -25,7 +25,7 @@ interface Order extends RowDataPacket {
   ref_user: string;
   total: number;
   created: Date;
-  state: State;
+  state: OrderState;
   type: Type;
   payment: Payment;
   items?: OrderItem[];
