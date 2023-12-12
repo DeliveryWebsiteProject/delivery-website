@@ -53,7 +53,7 @@ export default defineComponent({
     isCartOpen: false,
 
     navItems: [
-      { name: 'HOME', route: '/' },
+      { name: 'INÍCIO', route: '/' },
       { name: 'CARDÁPIO', route: '/cardapio' },
       { name: 'SOBRE', route: '/about' }
     ]
