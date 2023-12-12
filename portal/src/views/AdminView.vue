@@ -49,7 +49,7 @@ export default defineComponent({
     selected: '',
     menuItems: [
       { label: 'Configurações', option: 'settings' },
-      { label: 'Pedidos',       option: 'requests' },
+      { label: 'Pedidos',       option: 'orders'   },
       { label: 'Pizzas',        option: 'pizzas'   },
       { label: 'Usuários',      option: 'users'    },
     ]

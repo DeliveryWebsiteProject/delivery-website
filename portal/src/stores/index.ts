@@ -14,6 +14,7 @@ export const installStores = () => {
     useMessagesStore().fetch(),
     useUserStore().fetchUser(),
     useCartStore().fetchCart(),
+    useOrderStore().fetchOrders(),
     useCartItemStore().fetchCartItems(),
     useCartItemStore().fetchCartItemsWrapper()
 }

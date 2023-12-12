@@ -4,6 +4,9 @@ import OrderController from "../controllers/OrderController";
 
 const orderRoutes = Router();
 
-orderRoutes.post('/orders', authMiddleware, OrderController.finishOrder);
+orderRoutes.get('/orders', authMiddleware, OrderController.findAll);
+orderRoutes.get('/orders/:id', authMiddleware, OrderController.findOrderItems);
+orderRoutes.post('/orders', authMiddleware, OrderController.createOrder);
+orderRoutes.put('/orders/:id', authMiddleware, OrderController.updateOrder);
 
 export default orderRoutes;

@@ -133,19 +133,19 @@ export default defineComponent({
   },
   methods: {
     ...mapActions(useCartItemStore, ['fetchCartItemsWrapper', 'fetchCartItems']),
-    ...mapActions(useOrderStore, ['finishOrder']),
+    ...mapActions(useOrderStore, ['createOrder']),
     ...mapState(useSessionStore, ['getActualUser']),
     async onFinish() {
       this.loading = true;
 
       let userId = this.getActualUser()?.id;
 
-      let items: OrderItem[] = this.orders.map((item) => ({ orderId: '', itemId: item.cartItem.id }));
+      let items: OrderItem[] = this.orders.map((item) => ({ ref_order: '', ref_item: item.cartItem.id }));
 
       const order: Order = {
         id: '',
-        userId: userId ?? '',
-        createdAt: new Date(),
+        ref_user: userId ?? '',
+        created: new Date(),
         payment: this.selectedPayment,
         state: OrderState.PENDING,
         total: this.totalValue,
@@ -153,7 +153,7 @@ export default defineComponent({
         items: items,
       };
       
-      this.finishOrder(order).then(() => {
+      this.createOrder(order).then(() => {
         this.loading = false;
         this.fetchCartItems();
         this.$router.push('/');

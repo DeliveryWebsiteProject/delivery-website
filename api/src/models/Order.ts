@@ -1,3 +1,4 @@
+import { RowDataPacket } from "mysql2"
 import OrderItem from "./OrderItem";
 
 export enum State {
@@ -19,13 +20,15 @@ export enum Payment {
   PIX = 'Pix'
 }
 
-export default interface Order {
-  id: String;
-  userId: String;
+interface Order extends RowDataPacket {
+  id: string;
+  ref_user: string;
   total: number;
-  createdAt: Date;
+  created: Date;
   state: State;
   type: Type;
   payment: Payment;
   items?: OrderItem[];
 }
+
+export default Order

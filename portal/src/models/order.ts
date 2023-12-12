@@ -20,12 +20,14 @@ export enum Payment {
 }
 
 export default interface Order {
-  id: String;
-  userId: String;
+  id: string;
+  ref_user: string;
+  username?: string,
   total: number;
-  createdAt: Date;
+  created: Date;
   state: OrderState;
   type: Type;
   payment: Payment;
   items?: OrderItem[];
+  itemsDetails?: string
 }

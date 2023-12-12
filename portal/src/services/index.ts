@@ -5,6 +5,7 @@ import ItemService from '@/services/ItemService';
 import CartService from '@/services/CartService';
 import SettingsService from '@/services/SettingsService';
 import MessagesService from '@/services/MessagesService';
+import OrderService from '@/services/OrderService';
 
 export {
   SessionService,
@@ -14,4 +15,5 @@ export {
   CartService,
   SettingsService,
   MessagesService,
+  OrderService,
 }

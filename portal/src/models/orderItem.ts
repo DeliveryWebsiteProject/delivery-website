@@ -1,4 +1,4 @@
 export default interface OrderItem {
-  orderId: String;
-  itemId: String;
+  ref_order: string;
+  ref_item: string;
 }

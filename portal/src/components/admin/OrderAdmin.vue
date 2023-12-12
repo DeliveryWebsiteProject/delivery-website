@@ -1,0 +1,82 @@
+<template>
+  <div class="content">
+    <div class="content_top">
+      <h1>Pedidos Cadastrados</h1>
+    </div>
+    <div class="list">
+      <OrderList />
+    </div>
+  </div>
+</template>
+
+<script lang="ts">
+import UserEditor from '@/components/editors/UserEditor.vue';
+import OrderList from '@/components/admin/OrderList.vue';
+import helper from '@/helper';
+
+import { defineComponent } from 'vue';
+
+export default defineComponent({
+  components: {
+    UserEditor,
+    OrderList
+  },
+  data: () => ({
+    toggleMenu: false,
+  }),
+  methods: {
+    togglePopup() {
+      this.toggleMenu = !this.toggleMenu
+    },
+    getIcon(url: string) {
+      return helper.getIcon(url)
+    }
+  }
+})
+</script>
+
+<style lang="scss" scoped>
+.content {
+  width: 900px;
+  height: 750px;
+
+  &_top {
+    padding: 36px 40px;
+    color: $text-light;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    overflow-y: auto;
+
+    .pizza-item {
+      width: 100%;
+      box-sizing: border-box;
+
+      @media(min-width: 768px) {
+        width: 50%;
+      }
+    }
+  }
+}
+
+.add_button {
+  background-color: $primary-color;
+  transition: background-color 0.2s ease-in-out;
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    background-color: $primary-darker;
+  }
+}
+</style>
