@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { Order, OrderState } from "@/models";
-import { OrderService, UserService } from '@/services';
+import { MessagesService, OrderService, UserService } from '@/services';
 
 export const useOrderStore = defineStore('order', {
   state: () => ({
@@ -25,6 +25,7 @@ export const useOrderStore = defineStore('order', {
       switch (order.state) {
         case OrderState.PENDING:
           newState = OrderState.IN_PROGRESS
+          await MessagesService.sendWelcomeMessage(order.ref_user);
           break
 
         case OrderState.IN_PROGRESS:

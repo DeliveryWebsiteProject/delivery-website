@@ -13,4 +13,8 @@ export default {
   async updateMessages(data: Messages): Promise<Messages | undefined> {
     return service.put<Messages>(`/messages`, data)
   },
+
+  async sendWelcomeMessage(userId: string): Promise<void> {
+    return service.post<void>(`/messages/${userId}`, {})
+  }
 }
