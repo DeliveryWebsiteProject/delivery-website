@@ -18,24 +18,26 @@ export const useOrderStore = defineStore('order', {
   actions: {
     async createOrder(order: Order) {
       await OrderService.createOrder(order);
+      await MessagesService.sendMessage(order);
     },
     async forwardState(order: Order) {
-      let newState = 0
+      if (order.state !== OrderState.COMPLETED) {
+        switch (order.state) {
+          case OrderState.PENDING:
+            order.state = OrderState.IN_PROGRESS
+            break
 
-      switch (order.state) {
-        case OrderState.PENDING:
-          newState = OrderState.IN_PROGRESS
-          await MessagesService.sendWelcomeMessage(order.ref_user);
-          break
+          case OrderState.IN_PROGRESS:
+            order.state = OrderState.COMPLETED
+            break
 
-        case OrderState.IN_PROGRESS:
-          newState = OrderState.COMPLETED
-          break
+          default:
+            break
+        }
+
+        await OrderService.updateOrder(order)
+        await MessagesService.sendMessage(order);
       }
-
-      order.state = newState
-
-      await OrderService.updateOrder(order)
     },
     async getUsername(order: Order) {
       const user = await UserService.getUserById(order.ref_user)

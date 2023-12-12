@@ -7,6 +7,6 @@ const messagesRoutes = Router();
 messagesRoutes.get('/messages', MessagesController.getMessages)
 messagesRoutes.post('/messages', authMiddleware, MessagesController.create);
 messagesRoutes.put('/messages', authMiddleware, MessagesController.update);
-messagesRoutes.post('/messages/:id', authMiddleware, MessagesController.sendWelcomeMessage);
+messagesRoutes.post('/messages/:id', authMiddleware, MessagesController.sendMessage);
 
 export default messagesRoutes;

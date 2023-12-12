@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { Messages, User } from "../models";
+import { State } from '../models/Order';
 import MessagesRepositoryTransaction from '../repositories/messages/MessagesRepositoryTransaction';
 import UserRepositoryTransaction from "../repositories/user/UserRepositoryTransaction";
 import TwilioSender from "../utils/TwilioSender";
@@ -23,16 +24,38 @@ export default class MessagesController {
     return res.json(settings)
   }
 
-  public static async sendWelcomeMessage(req: Request, res: Response): Promise<Response> {
+  public static async sendMessage(req: Request, res: Response): Promise<Response> {
+    const { state } = req.body
+
     let client: User = await new UserRepositoryTransaction().getById(req.params.id);
 
     if (!client) {
       return res.status(404).end();
     }
 
-    let welcomeMessage = (await new MessagesRepositoryTransaction().getMessages())[0].welcome;
+    const messages = (await new MessagesRepositoryTransaction().getMessages())[0];
+    let message = ''
 
-    new TwilioSender().sendMessage(welcomeMessage, client.phone);
+    switch (state) {
+      case State.PENDING:
+        message = messages.welcome
+        break
+
+      case State.IN_PROGRESS:
+        message = messages.start
+        break
+
+      case State.COMPLETED:
+        message = messages.finish
+        break
+
+      default:
+        break;
+    }
+
+    if (message) {
+      new TwilioSender().sendMessage(message, client.phone);
+    }
 
     return res.status(201).end();
   }

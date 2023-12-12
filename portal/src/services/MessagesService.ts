@@ -1,4 +1,4 @@
-import { Messages } from '@/models'
+import { Messages, Order } from '@/models'
 import service from "@/services/service";
 
 export default {
@@ -14,7 +14,7 @@ export default {
     return service.put<Messages>(`/messages`, data)
   },
 
-  async sendWelcomeMessage(userId: string): Promise<void> {
-    return service.post<void>(`/messages/${userId}`, {})
+  async sendMessage(order: Order): Promise<void> {
+    return service.post<void>(`/messages/${order.ref_user}`, order)
   }
 }
